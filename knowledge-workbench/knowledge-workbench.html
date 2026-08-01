@@ -853,6 +853,11 @@ body {
         <span>阿里标注评测面经</span>
         <svg class="nav-module-check" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
+      <div class="nav-module" onclick="showModule('eleme')" data-nav="eleme">
+        <div class="nav-module-dot" style="background:var(--cat-experience)"></div>
+        <span>饿了么AI PM面经</span>
+        <svg class="nav-module-check" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
 
       <div class="nav-category">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
@@ -907,7 +912,7 @@ body {
             <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           </div>
           <div class="stat-info">
-            <div class="stat-num" style="color:var(--primary)">9</div>
+            <div class="stat-num" style="color:var(--primary)">10</div>
             <div class="stat-label">知识报告数量</div>
           </div>
         </div>
@@ -1114,6 +1119,13 @@ var MODULES = {
     desc: '分层Prompt设计框架（角色设定+任务界定+格式规范+负面清单）、RISEN/CRISPE/RTGO框架对比、AI交互四原则、15道高频面试题',
     url: '../ai-pm-prompt-interview-guide/ai-pm-prompt-interview-guide.html',
     extUrl: 'https://v.douyin.com/RTvOG-m1ba4/'
+  },
+  'eleme': {
+    id: '0011', title: '饿了么AI产品经理面试全流程复盘', category: '面试经验', catClass: 'cat-experience',
+    platform: '小红书', platformIcon: 'xhs',
+    desc: '饿了么AI PM三轮面试1h35min全流程：一面项目深挖+技术通识、二面业务场景+压力面、三面宏观战略，40+面试题逐一拆解',
+    url: '../eleme-ai-pm-interview/eleme-ai-pm-interview.html',
+    extUrl: 'https://www.xiaohongshu.com/explore/6a4df9b1000000001702a642'
   }
 };
 
@@ -1126,7 +1138,8 @@ var TIMELINE_DATA = [
   { id: '0006', module: 'pm-eval', title: 'AI PM评测面试竞争力', desc: '评测主题深化：从方法论到面试竞争力，三层级认知升级', cat: '专业知识', catClass: 'cat-knowledge' },
   { id: '0007', module: 'value', title: 'AI越强，人越要想清楚自己是谁', desc: '从技术知识转向认知思辨，五大核心壁垒+人机协作模型', cat: '认知思辨', catClass: 'cat-think' },
   { id: '0008', module: 'github', title: 'GitHub零基础终极教程', desc: '从AI技术知识扩展到开发工具技能，Git/GitHub全链路入门', cat: '开发工具', catClass: 'cat-tool' },
-  { id: '0010', module: 'prompt', title: 'AI交互设计Prompt面试题', desc: '分层Prompt框架+四套主流框架对比+AI交互四原则+15道高频面试题', cat: '专业知识', catClass: 'cat-knowledge' }
+  { id: '0010', module: 'prompt', title: 'AI交互设计Prompt面试题', desc: '分层Prompt框架+四套主流框架对比+AI交互四原则+15道高频面试题', cat: '专业知识', catClass: 'cat-knowledge' },
+  { id: '0011', module: 'eleme', title: '饿了么AI产品经理面试全流程复盘', desc: '三轮面试1h35min全流程：项目深挖+技术通识+业务场景+压力面+宏观战略，40+面试题', cat: '面试经验', catClass: 'cat-experience' }
 ];
 
 var currentModule = null;
@@ -1351,7 +1364,7 @@ function renderTimeline() {
 // ===== Render Module Grid =====
 function renderModuleGrid() {
   var container = document.getElementById('module-grid');
-  var keys = ['rag', 'agent', 'eval', 'pm-eval', 'prompt', 'alibaba', 'value', 'skill', 'github'];
+  var keys = ['rag', 'agent', 'eval', 'pm-eval', 'prompt', 'alibaba', 'eleme', 'value', 'skill', 'github'];
   var catColors = {
     'cat-knowledge': 'var(--cat-knowledge)',
     'cat-experience': 'var(--cat-experience)',
@@ -1392,7 +1405,7 @@ function renderModuleGrid() {
 
 // ===== Check-in UI =====
 function updateCheckinUI() {
-  var keys = ['rag', 'agent', 'eval', 'pm-eval', 'prompt', 'alibaba', 'value', 'skill', 'github'];
+  var keys = ['rag', 'agent', 'eval', 'pm-eval', 'prompt', 'alibaba', 'eleme', 'value', 'skill', 'github'];
   var todayCount = 0;
   var html = '';
   keys.forEach(function(key) {
@@ -1495,7 +1508,7 @@ function renderHistory(containerId, limitRecent) {
 
 // ===== Sidebar Checkin Indicators =====
 function updateSidebarCheckin() {
-  var keys = ['rag', 'agent', 'eval', 'pm-eval', 'prompt', 'alibaba', 'value', 'skill', 'github'];
+  var keys = ['rag', 'agent', 'eval', 'pm-eval', 'prompt', 'alibaba', 'eleme', 'value', 'skill', 'github'];
   keys.forEach(function(key) {
     var navEl = document.querySelector('[data-nav="' + key + '"]');
     if (navEl) {

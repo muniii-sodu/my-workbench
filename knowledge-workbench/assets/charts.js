@@ -38,6 +38,9 @@
       { name: '阿里面经', category: 1, symbolSize: 55, moduleId: 'alibaba',
         label: { show: true, fontSize: 11, fontWeight: 600, color: '#fff' },
         itemStyle: { color: catExperience } },
+      { name: '饿了么面经', category: 1, symbolSize: 58, moduleId: 'eleme',
+        label: { show: true, fontSize: 11, fontWeight: 600, color: '#fff' },
+        itemStyle: { color: catExperience } },
       { name: 'AI时代人的价值', category: 2, symbolSize: 60, moduleId: 'value',
         label: { show: true, fontSize: 12, fontWeight: 600, color: '#fff' },
         itemStyle: { color: catThink } },
@@ -61,6 +64,11 @@
       { source: '阿里面经', target: 'AI评测方法论', value: '面试考察评测能力' },
       { source: '阿里面经', target: 'AI PM评测', value: '标注评测岗位关联' },
       { source: '阿里面经', target: 'RAG面试题', value: '面试知识互补' },
+      { source: '饿了么面经', target: 'RAG面试题', value: '面试考察RAG\n项目深挖' },
+      { source: '饿了么面经', target: 'AI Agent面试', value: '面试考察Agent\n项目落地' },
+      { source: '饿了么面经', target: 'Prompt设计', value: '面试考察Prompt\n工程能力' },
+      { source: '饿了么面经', target: 'AI评测方法论', value: '面试考察效果\n评估能力' },
+      { source: '饿了么面经', target: '阿里面经', value: '同为面试经验\n互相参考' },
       { source: 'AI时代人的价值', target: 'Skill孵化', value: '认知层面的方法论' },
       { source: 'AI时代人的价值', target: 'RAG面试题', value: '认知影响技术选择' },
       { source: 'AI时代人的价值', target: 'AI Agent面试', value: '人机协作视角' },
@@ -188,7 +196,7 @@
         },
         data: [
           { value: 5, name: '专业知识', itemStyle: { color: catKnowledge } },
-          { value: 1, name: '面试经验', itemStyle: { color: catExperience } },
+          { value: 2, name: '面试经验', itemStyle: { color: catExperience } },
           { value: 2, name: '认知思辨', itemStyle: { color: catThink } },
           { value: 1, name: '开发工具', itemStyle: { color: catTool } }
         ]
