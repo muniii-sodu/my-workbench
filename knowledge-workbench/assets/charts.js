@@ -148,7 +148,8 @@
     var topicsChart = echarts.init(topicsEl, null, { renderer: 'svg' });
     window.topicsChart = topicsChart;
 
-    topicsChart.setOption({
+    // Ensure container has dimensions before setting options
+    var topicsOptions = {
       animation: false,
       tooltip: {
         trigger: 'item',
@@ -193,6 +194,12 @@
         ]
       }]
     });
+
+    // Delay setOption to ensure container has proper dimensions
+    setTimeout(function() {
+      topicsChart.setOption(topicsOptions);
+      topicsChart.resize();
+    }, 300);
 
     window.addEventListener('resize', function() { topicsChart.resize(); });
   }
