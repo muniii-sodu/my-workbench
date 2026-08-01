@@ -1525,6 +1525,12 @@ updateCheckinUI();
 
 // Show dashboard by default
 showView('dashboard');
+
+// Ensure charts resize after full render
+setTimeout(function() {
+  if (window.knowledgeMapChart) window.knowledgeMapChart.resize();
+  if (window.topicsChart) window.topicsChart.resize();
+}, 500);
 </script>
 
 </body>
