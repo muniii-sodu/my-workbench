@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一道Prompt题测出真实水平：AI PM面试的照妖镜</title>
+<style>
+@font-face {
+  font-family: 'WorkSans';
+  src: url('./_shared/fonts/WorkSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'WorkSans';
+  src: url('./_shared/fonts/WorkSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrainsMono';
+  src: url('./_shared/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --bg: #F8F9FB;
+  --bg2: #FFFFFF;
+  --ink: #1E293B;
+  --muted: #64748B;
+  --muted2: #94A3B8;
+  --rule: #E2E8F0;
+  --rule-light: #F1F5F9;
+  --accent: #4F46E5;
+  --accent2: #EC4899;
+  --accent3: #10B981;
+  --highlight: #EEF2FF;
+  --warm: #FDF4FF;
+  --card-shadow: 0 2px 8px rgba(79, 70, 229, 0.06);
+  --card-shadow-hover: 0 8px 24px rgba(79, 70, 229, 0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'WorkSans', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.8;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(145deg, #1E1B4B 0%, #4F46E5 45%, #8B5CF6 100%);
+  color: #fff;
+  padding: 72px 0 56px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -25%;
+  right: -8%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(236,72,153,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -35%;
+  left: -8%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-tag {
+  display: inline-block;
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #C7D2FE;
+  margin-bottom: 16px;
+  padding: 4px 14px;
+  border: 1px solid rgba(199,210,254,0.4);
+  border-radius: 20px;
+}
+.hero h1 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+.hero-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.7;
+  max-width: 660px;
+}
+.hero-meta {
+  margin-top: 28px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+}
+.hero-meta span { display: flex; align-items: center; gap: 6px; }
+.hero-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: #C7D2FE; }
+
+/* Section */
+.section { padding: 52px 0; }
+.section + .section { border-top: 1px solid var(--rule); }
+
+.section-label {
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+/* Principle Card */
+.principle-card {
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--card-shadow);
+  border-left: 4px solid var(--accent);
+  transition: box-shadow 0.3s;
+}
+.principle-card:hover { box-shadow: var(--card-shadow-hover); }
+
+.principle-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.principle-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
+  font-family: 'JetBrainsMono', monospace;
+}
+.principle-title {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+.principle-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+}
+.principle-body { line-height: 1.8; }
+.principle-body p { margin-bottom: 12px; }
+.principle-body p:last-child { margin-bottom: 0; }
+
+.principle-quote {
+  border-left: 3px solid var(--accent2);
+  padding: 10px 18px;
+  margin: 12px 0;
+  background: var(--warm);
+  border-radius: 0 8px 8px 0;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.practice-box {
+  background: var(--highlight);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.practice-box strong {
+  color: var(--accent);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Stage Card */
+.stage-card {
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--card-shadow);
+  border-top: 4px solid var(--accent);
+}
+.stage-card.stage-2 { border-top-color: var(--accent2); }
+.stage-card.stage-3 { border-top-color: var(--accent3); }
+
+.stage-badge {
+  display: inline-block;
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.stage-badge.s1 { background: var(--highlight); color: var(--accent); }
+.stage-badge.s2 { background: var(--warm); color: var(--accent2); }
+.stage-badge.s3 { background: rgba(16,185,129,0.1); color: var(--accent3); }
+
+.stage-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* Table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
+}
+.data-table th {
+  text-align: left;
+  padding: 12px 14px;
+  font-weight: 700;
+  font-size: 13px;
+  background: var(--rule-light);
+  color: var(--ink);
+}
+.data-table th.accent-th { color: var(--accent); }
+.data-table td {
+  padding: 12px 14px;
+  border-top: 1px solid var(--rule);
+  line-height: 1.6;
+  vertical-align: top;
+}
+.data-table td strong { color: var(--accent); }
+.data-table tr:hover td { background: var(--rule-light); }
+
+/* Q&A Card */
+.qa-card {
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 20px;
+  box-shadow: var(--card-shadow);
+  border-left: 4px solid var(--accent3);
+}
+.qa-question {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.qa-question .q-tag {
+  background: var(--accent3);
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  font-family: 'JetBrainsMono', monospace;
+}
+.qa-answer {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ink);
+  padding-left: 0;
+}
+.qa-answer strong { color: var(--accent); }
+
+/* Callout */
+.callout {
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  color: #fff;
+  border-radius: 14px;
+  padding: 32px;
+  margin: 32px 0;
+  position: relative;
+  overflow: hidden;
+}
+.callout::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(236,72,153,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.callout-content { position: relative; z-index: 1; }
+.callout h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+.callout p { font-size: 15px; line-height: 1.8; opacity: 0.9; }
+
+/* Chart */
+.chart-figure {
+  margin: 28px 0;
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: var(--card-shadow);
+}
+.chart-figure figcaption {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+/* Comparison */
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 20px 0;
+}
+.compare-item {
+  background: var(--bg2);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+}
+.compare-item h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid;
+}
+.compare-item.bad h4 { color: var(--accent2); border-color: var(--accent2); }
+.compare-item.good h4 { color: var(--accent3); border-color: var(--accent3); }
+.compare-item p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* List */
+.feature-list {
+  list-style: none;
+  margin: 16px 0;
+}
+.feature-list li {
+  padding: 8px 0 8px 24px;
+  position: relative;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.feature-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 14px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+.feature-list li strong { color: var(--accent); }
+
+/* Summary Box */
+.summary-box {
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 32px;
+  margin: 32px 0;
+  box-shadow: var(--card-shadow);
+  border-top: 4px solid var(--accent);
+}
+.summary-box h3 {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--accent);
+}
+
+/* Flow Steps */
+.flow-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0;
+  align-items: center;
+}
+.flow-step {
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  box-shadow: var(--card-shadow);
+}
+.flow-step.active {
+  border-color: var(--accent);
+  background: var(--highlight);
+  color: var(--accent);
+}
+.flow-arrow {
+  color: var(--muted2);
+  font-size: 18px;
+}
+
+/* Code Block */
+.code-block {
+  background: #1E293B;
+  color: #E2E8F0;
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin: 16px 0;
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+.code-block .comment { color: #64748B; }
+.code-block .key { color: #818CF8; }
+.code-block .str { color: #34D399; }
+.code-block .num { color: #FBBF24; }
+
+/* Footer */
+footer {
+  background: #1E293B;
+  color: rgba(255,255,255,0.6);
+  padding: 40px 0;
+  font-size: 13px;
+}
+footer .container { display: flex; flex-direction: column; gap: 8px; }
+footer a { color: #A5B4FC; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+footer .sources { margin-top: 16px; }
+footer .sources h2 { font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 8px; }
+footer .sources ol { padding-left: 1.2rem; }
+footer .sources li { margin-bottom: 0.5rem; line-height: 1.6; }
+footer .sources .src-title { color: rgba(255,255,255,0.8); }
+footer .sources .src-url { display: block; margin-top: 0.15rem; color: #A5B4FC; word-break: break-all; }
+
+sup a { color: var(--accent); text-decoration: none; font-size: 0.75em; font-weight: 600; }
+sup a:hover { text-decoration: underline; }
+mark.key { background: none; color: var(--accent); font-weight: 600; }
+
+@media (max-width: 640px) {
+  .hero { padding: 48px 0 40px; }
+  .hero h1 { font-size: 24px; }
+  .hero-sub { font-size: 15px; }
+  .section { padding: 36px 0; }
+  .section-title { font-size: 21px; }
+  .principle-card, .stage-card, .qa-card { padding: 20px; }
+  .callout, .summary-box { padding: 24px; }
+  .compare-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <span class="hero-tag">AI PM面试 · Prompt实操题深度解析</span>
+      <h1>一道Prompt题测出真实水平</h1>
+      <p class="hero-sub">面试AI产品经理时，一道实操题就能分辨出谁懂AI交互、谁只懂界面布局。本文从可颂AI产品经理的视频出发，系统拆解这道"照妖镜"题的考察逻辑、五层Prompt设计框架、产品变量拆解方法论、AI交互核心认知，以及从LUI到Intent-Centric的交互演化趋势，附面试回答模板。</p>
+      <div class="hero-meta">
+        <span><span class="dot"></span>来源：抖音 · 可颂AI产品经理</span>
+        <span><span class="dot"></span>跨源补充：3篇深度文章</span>
+        <span><span class="dot"></span>2026-08-04</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 视频核心内容 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">VIDEO CORE</div>
+    <h2 class="section-title">视频核心：一道实操题的"照妖镜"效应</h2>
+    <p style="margin-bottom: 24px;">
+      抖音博主"可颂AI产品经理"在视频中分享了一个面试场景：面试AI产品经理候选人时，给一道实操Prompt题，就能迅速测出候选人对AI交互的真实理解水平<sup><a href="#cite-1">[1]</a></sup>。这道题的核心不是考你Prompt写得多漂亮，而是考你<mark class="key">是否理解AI产品交互的本质是语言和意图</mark>，而非界面布局和按钮位置。
+    </p>
+
+    <div class="principle-card">
+      <div class="principle-header">
+        <div class="principle-num">01</div>
+        <div>
+          <div class="principle-title">实操题：设计一个"AI面试问答生成器"</div>
+          <div class="principle-subtitle">看似简单，实则考察AI PM全套思维</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>面试官给候选人的题目是：<strong>设计一个AI面试问答生成器的Prompt</strong>。这个生成器需要根据用户输入的面试信息，自动生成高质量的面试问题和参考回答。</p>
+        <p>大部分候选人的回答停留在表面——直接写一段"你是一个面试官，请生成面试题"的Prompt就交差了。但真正优秀的候选人会做完全不同的事情。</p>
+        <div class="practice-box">
+          <strong>关键区分点</strong>
+          优秀候选人不会急于写Prompt，而是先<mark class="key">拆解产品核心变量</mark>——这个生成器到底需要哪些输入？输出要满足什么约束？用户在什么场景下使用？然后再设计分层Prompt策略。
+        </div>
+      </div>
+    </div>
+
+    <div class="principle-card" style="border-left-color: var(--accent2);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, var(--accent2), #F472B6);">02</div>
+        <div>
+          <div class="principle-title">AI产品交互的核心：语言和意图</div>
+          <div class="principle-subtitle">不是界面布局，不是按钮放在哪里</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>视频中一个核心判断标准是：候选人对"AI产品交互核心"的理解。传统产品经理的思维惯性是<mark class="key">画原型、排界面、定按钮位置</mark>。但AI产品的交互核心完全不同——它是<mark class="key">语言和意图</mark><sup><a href="#cite-1">[1]</a></sup>。</p>
+        <p>这不是说界面不重要，而是说界面的设计逻辑变了。传统产品的界面是"功能入口"，AI产品的界面是"意图表达通道"。你设计的不是用户点哪里，而是用户<mark class="key">怎么说、说什么、系统怎么理解</mark>。</p>
+        <div class="principle-quote">
+          如果你还在纠结"生成按钮放左边还是右边"，说明你还没理解AI交互。你应该纠结的是"用户该怎么描述他的需求，系统该怎么解析这个描述"。
+        </div>
+      </div>
+    </div>
+
+    <div class="principle-card" style="border-left-color: var(--accent3);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, var(--accent3), #34D399);">03</div>
+        <div>
+          <div class="principle-title">产品核心变量拆解</div>
+          <div class="principle-subtitle">优秀候选人的第一步不是写Prompt，而是拆变量</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>视频中提到，优秀候选人拿到"AI面试问答生成器"这个题目后，第一步是拆解产品核心变量<sup><a href="#cite-1">[1]</a></sup>：</p>
+        <ul class="feature-list">
+          <li><strong>面试岗位</strong>：不同岗位的面试问题完全不同，产品经理问产品Sense，工程师问技术深度</li>
+          <li><strong>问题类型</strong>：行为面试、技术面试、案例面试、压力面试，每种类型的生成逻辑不同</li>
+          <li><strong>真实性判断</strong>：生成的问题是否贴近真实面试场景？是否过于模板化？如何保证质量？</li>
+        </ul>
+        <div class="practice-box">
+          <strong>面试加分点</strong>
+          当你能说出"这个生成器需要至少三个输入变量——岗位、题型、难度，并且每个变量影响Prompt的不同部分"时，面试官就知道你具备AI PM的系统思维，而不是只会写一句"请帮我生成面试题"。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 五层Prompt设计框架 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">FRAMEWORK</div>
+    <h2 class="section-title">五层Prompt设计框架</h2>
+    <p style="margin-bottom: 24px;">
+      视频中提到，设计方案分为五层<sup><a href="#cite-1">[1]</a></sup>。这五层构成了一个从"为什么做"到"怎么做"再到"做成什么样"的完整设计链路。每一层都对应了Prompt工程的一个关键维度，也是评估AI PM候选人思维深度的标尺。
+    </p>
+
+    <div class="stage-card">
+      <span class="stage-badge s1">第一层</span>
+      <div class="stage-title">决策设定（Decision Setting）</div>
+      <p style="margin-bottom: 12px;">回答"这个AI产品为什么存在"。不是写Prompt的技术层，而是产品决策层：这个生成器的核心价值主张是什么？它解决什么用户的什么痛点？在什么场景下使用？</p>
+      <div class="practice-box">
+        <strong>示例</strong>
+        "AI面试问答生成器的核心价值是帮助求职者在10分钟内获得针对性的面试准备材料，而非在网上漫无目的地搜索面经。目标用户是正在准备面试的求职者，使用场景是面试前1-3天的集中准备期。"
+      </div>
+    </div>
+
+    <div class="stage-card stage-2">
+      <span class="stage-badge s2">第二层</span>
+      <div class="stage-title">考察方向（Examination Direction）</div>
+      <p style="margin-bottom: 12px;">回答"AI应该生成什么"。这一层定义AI的输出方向——不是具体内容，而是输出的<mark class="key">考察维度</mark>。对于面试问答生成器，这意味着确定：面试官在考察什么能力？每个问题背后对应的考核点是什么？</p>
+      <div class="practice-box">
+        <strong>示例</strong>
+        "针对产品经理岗位，考察方向包括：产品Sense（需求洞察、优先级判断）、数据分析能力（指标拆解、AB测试设计）、沟通协作能力（跨部门协作、冲突处理）、行业认知（竞品分析、趋势判断）。每个生成的问题必须标注它考察的是哪个方向。"
+      </div>
+    </div>
+
+    <div class="stage-card stage-3">
+      <span class="stage-badge s3">第三层</span>
+      <div class="stage-title">回答结构（Answer Structure）</div>
+      <p style="margin-bottom: 12px;">回答"AI的输出应该长什么样"。这一层定义输出的格式和结构——是纯文本还是结构化JSON？包含哪些字段？参考答案以什么形式呈现？是否有追问建议？</p>
+      <div class="code-block">
+<span class="comment">// 结构化输出示例</span>
+{
+  <span class="key">"question"</span>: <span class="str">"你如何判断一个需求是否应该用AI技术解决？"</span>,
+  <span class="key">"type"</span>: <span class="str">"情景面试"</span>,
+  <span class="key">"difficulty"</span>: <span class="num">4</span>,
+  <span class="key">"examines"</span>: [<span class="str">"商业判断力"</span>, <span class="str">"技术选型能力"</span>],
+  <span class="key">"reference_answer"</span>: {
+    <span class="key">"framework"</span>: <span class="str">"需求价值评估 + AI可行性判断 + 成本收益分析"</span>,
+    <span class="key">"key_points"</span>: [<span class="str">"用户价值是否足够大"</span>, <span class="str">"AI是否是最优解"</span>, <span class="str">"模型能力边界"</span>],
+    <span class="key">"common_mistakes"</span>: <span class="str">"为了AI而AI，忽略传统方案的性价比"</span>
+  },
+  <span class="key">"follow_ups"</span>: [<span class="str">"如果模型准确率只有80%，你怎么设计用户体验？"</span>]
+}
+      </div>
+    </div>
+
+    <div class="stage-card">
+      <span class="stage-badge s1">第四层</span>
+      <div class="stage-title">真实约束（Real Constraints）</div>
+      <p style="margin-bottom: 12px;">回答"AI不能做什么"。这一层是<mark class="key">防幻觉和安全边界</mark>的设计。AI面试问答生成器不能凭空编造面试题，不能生成歧视性内容，不能给出误导性答案。约束条件的设定直接反映了候选人对AI风险的认知深度<sup><a href="#cite-2">[2]</a></sup>。</p>
+      <ul class="feature-list">
+        <li><strong>事实约束</strong>：生成的面试题必须基于真实面试场景，不能编造不存在的岗位或技术</li>
+        <li><strong>伦理约束</strong>：不能生成涉及歧视、隐私侵犯、不当内容的问题</li>
+        <li><strong>质量约束</strong>：参考答案必须标注"仅供参考"，避免用户照搬</li>
+        <li><strong>范围约束</strong>：明确告知AI"如果你不确定，请说'这个问题超出我的知识范围'"<sup><a href="#cite-3">[3]</a></sup></li>
+      </ul>
+    </div>
+
+    <div class="stage-card stage-2">
+      <span class="stage-badge s2">第五层</span>
+      <div class="stage-title">用户偏好（User Preferences）</div>
+      <p style="margin-bottom: 12px;">回答"如何让输出更适合这个用户"。这一层是个性化层——不同用户的面试准备需求不同，有人需要高频题刷题，有人需要深度模拟，有人需要查漏补缺。Prompt设计需要考虑如何接收和利用用户偏好信息。</p>
+      <div class="practice-box">
+        <strong>示例</strong>
+        "如果用户标注自己是'应届生'，生成的题目偏基础概念和行为面试；如果标注'5年经验社招'，生成的题目偏架构设计和战略思维。如果用户选择'模拟面试模式'，系统以交互式问答形式运行，而非一次性输出所有题目。"
+      </div>
+    </div>
+
+    <!-- 五层框架对比表 -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th class="accent-th">层级</th>
+          <th>核心问题</th>
+          <th>对应Prompt技术</th>
+          <th>候选人水平信号</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>决策设定</strong></td>
+          <td>为什么做这个产品</td>
+          <td>System Prompt的角色定义</td>
+          <td>能讲清产品价值主张</td>
+        </tr>
+        <tr>
+          <td><strong>考察方向</strong></td>
+          <td>AI应该生成什么</td>
+          <td>任务拆解 + Few-shot示例</td>
+          <td>理解面试考核逻辑</td>
+        </tr>
+        <tr>
+          <td><strong>回答结构</strong></td>
+          <td>输出长什么样</td>
+          <td>输出格式规范 (JSON/Markdown)</td>
+          <td>具备结构化思维</td>
+        </tr>
+        <tr>
+          <td><strong>真实约束</strong></td>
+          <td>AI不能做什么</td>
+          <td>负面提示 + 安全边界</td>
+          <td>理解AI风险与幻觉</td>
+        </tr>
+        <tr>
+          <td><strong>用户偏好</strong></td>
+          <td>如何个性化</td>
+          <td>动态变量注入 + 条件分支</td>
+          <td>以用户为中心的设计思维</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 候选人水平分层 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">CANDIDATE LEVELS</div>
+    <h2 class="section-title">候选人水平三层模型</h2>
+    <p style="margin-bottom: 24px;">
+      根据视频内容和补充调研，面对同一道Prompt实操题，候选人的回答可以清晰地分为三个水平层级<sup><a href="#cite-1">[1]</a></sup><sup><a href="#cite-2">[2]</a></sup>。这个分层模型也是面试官心中的评分标准。
+    </p>
+
+    <div class="compare-grid">
+      <div class="compare-item bad">
+        <h4>初级：表面型回答</h4>
+        <p>直接写一段"你是一个面试官，请根据以下信息生成面试题"的Prompt。没有变量拆解，没有输出结构定义，没有约束条件，没有用户偏好考虑。本质上只是把需求翻译成了自然语言，没有产品思维。</p>
+      </div>
+      <div class="compare-item" style="border-color: var(--accent); box-shadow: var(--card-shadow);">
+        <h4 style="color: var(--accent); border-color: var(--accent);">中级：结构型回答</h4>
+        <p>能拆解产品变量（岗位、题型、难度），定义输出格式（结构化JSON），加入基本的约束条件（不生成不当内容）。具备结构化思维，但缺少对AI交互本质的理解和个性化设计。</p>
+      </div>
+    </div>
+
+    <div class="stage-card stage-3" style="margin-top: 16px;">
+      <span class="stage-badge s3">高级</span>
+      <div class="stage-title">深度型回答：五层完整设计 + 交互本质理解</div>
+      <p style="margin-bottom: 12px;">高级候选人不仅完成五层设计，还能讲清楚<mark class="key">为什么这样设计</mark>。他们能回答以下追问：</p>
+      <ul class="feature-list">
+        <li><strong>"为什么选择结构化JSON输出而不是自然语言？"</strong> → 因为前端需要解析渲染，JSON便于程序化处理和版本管理</li>
+        <li><strong>"如果模型生成的面试题质量不稳定怎么办？"</strong> → 引入评估机制，设置质量阈值，低于阈值的自动重新生成，同时收集用户反馈做数据闭环<sup><a href="#cite-4">[4]</a></sup></li>
+        <li><strong>"用户输入信息不完整时怎么处理？"</strong> → 设计意图澄清机制，主动追问缺失的关键变量，而非猜测后直接生成</li>
+        <li><strong>"这个Prompt在什么情况下会失效？"</strong> → 当用户输入的岗位非常冷门或跨领域时，模型可能缺乏足够的训练数据，需要设计fallback策略</li>
+      </ul>
+      <div class="practice-box">
+        <strong>面试官心中的判断</strong>
+        当候选人能主动讨论"Prompt失效场景"和"质量评估机制"时，面试官就知道这个人不只是会写Prompt，而是真正理解AI产品的不确定性管理。
+      </div>
+    </div>
+
+    <!-- 图表 -->
+    <figure class="chart-figure">
+      <figcaption>候选人水平三层模型：能力维度对比</figcaption>
+      <div id="chart-radar" style="width:100%;height:380px;"></div>
+    </figure>
+  </div>
+</section>
+
+<!-- AI交互核心认知 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">INTERACTION INSIGHT</div>
+    <h2 class="section-title">AI交互核心：从界面到意图的范式迁移</h2>
+    <p style="margin-bottom: 24px;">
+      这道面试题的深层考察点不是Prompt写法，而是候选人对<mark class="key">AI交互范式</mark>的理解。传统产品经理的交互认知是GUI（图形界面）逻辑，AI产品经理需要升级到LUI（语言界面）甚至Intent-Centric（以意图为中心）逻辑<sup><a href="#cite-3">[3]</a></sup>。
+    </p>
+
+    <div class="principle-card">
+      <div class="principle-header">
+        <div class="principle-num">01</div>
+        <div>
+          <div class="principle-title">传统GUI逻辑：用户寻找功能</div>
+          <div class="principle-subtitle">界面是功能入口，用户通过导航找到目标</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>在传统产品中，交互的核心是<mark class="key">信息架构和导航设计</mark>。用户想听歌，要先找音乐App，再找搜索框，再打字。PM的工作是设计清晰的导航路径，让用户最快地找到功能入口。</p>
+        <p>这种思维下，PM关注的是：页面跳转逻辑、按钮摆放位置、信息层级、操作流程。界面的本质是"功能目录"。</p>
+      </div>
+    </div>
+
+    <div class="principle-card" style="border-left-color: var(--accent2);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, var(--accent2), #F472B6);">02</div>
+        <div>
+          <div class="principle-title">AI LUI逻辑：系统理解意图</div>
+          <div class="principle-subtitle">界面是意图表达通道，用户用语言描述需求</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>AI产品的交互核心变成了<mark class="key">语言和意图</mark>。用户不再寻找功能入口，而是直接用自然语言描述需求。系统的工作是理解这个意图，并给出正确的响应<sup><a href="#cite-3">[3]</a></sup>。</p>
+        <p>这种思维下，PM关注的是：用户会怎么描述需求？系统怎么解析这些描述？当描述模糊时怎么追问？当意图矛盾时怎么处理？</p>
+        <div class="principle-quote">
+          对话框只是AI交互的婴儿期。如果一个操作点击两次就能完成，强迫用户输入一句话就是设计的倒退<sup><a href="#cite-3">[3]</a></sup>。
+        </div>
+      </div>
+    </div>
+
+    <div class="principle-card" style="border-left-color: var(--accent3);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, var(--accent3), #34D399);">03</div>
+        <div>
+          <div class="principle-title">Intent-Centric逻辑：界面消失，意图透明</div>
+          <div class="principle-subtitle">AI主动感知情境，预判用户需求，主动交付结果</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>交互的终局是<mark class="key">"不交互"</mark>——最好的交互是AI已经预判了你的需求并主动交付<sup><a href="#cite-3">[3]</a></sup>。这不是科幻，而是正在发生的趋势：</p>
+        <ul class="feature-list">
+          <li><strong>生成式UI（Generative UI）</strong>：界面不再预设，而是根据AI预测的意图实时生成。聊出差行程时，界面自动弹出航班、酒店、天气对比表格</li>
+          <li><strong>主动交付（Anticipatory UX）</strong>：从"拉取"到"推送"。设定了8点会议，AI发现路况拥堵，7点就提示提前出门并启动车辆预热</li>
+          <li><strong>情境感知（Context Awareness）</strong>：在智能座舱中，你看向窗外地标并问"那是什么"，系统结合眼动追踪和高精地图直接回答</li>
+        </ul>
+        <div class="practice-box">
+          <strong>面试核心洞察</strong>
+          微软亚洲研究院 + 港科大提出的IAI模型指出：AI时代的交互不该只有"写prompt"，而是"prompt + 各种交互形态"的混合体。专家技能正在从"Prompt Engineering"转向"Instruction Design"<sup><a href="#cite-3">[3]</a></sup>。
+        </div>
+      </div>
+    </div>
+
+    <!-- 图表 -->
+    <figure class="chart-figure">
+      <figcaption>AI交互范式演化：从GUI到Intent-Centric</figcaption>
+      <div id="chart-evolution" style="width:100%;height:320px;"></div>
+    </figure>
+  </div>
+</section>
+
+<!-- Prompt工程实践要点 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">PRACTICE</div>
+    <h2 class="section-title">Prompt工程实践要点</h2>
+    <p style="margin-bottom: 24px;">
+      结合视频内容和跨源调研，以下是在AI产品设计中设计高质量Prompt的实践要点<sup><a href="#cite-2">[2]</a></sup><sup><a href="#cite-5">[5]</a></sup>。
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th class="accent-th">设计要素</th>
+          <th>作用</th>
+          <th>实践要点</th>
+          <th>常见错误</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>角色设定</strong></td>
+          <td>提升专业性和输出质量</td>
+          <td>具体到岗位+经验+风格，如"你是有10年经验的AI产品面试官"</td>
+          <td>只写"你是面试官"，过于宽泛</td>
+        </tr>
+        <tr>
+          <td><strong>任务描述</strong></td>
+          <td>明确AI要做什么</td>
+          <td>动词开头，包含输入变量和输出目标</td>
+          <td>任务描述模糊，AI不知道输出什么</td>
+        </tr>
+        <tr>
+          <td><strong>约束条件</strong></td>
+          <td>控制输出边界，防幻觉</td>
+          <td>明确"不要做什么"，设定事实边界</td>
+          <td>只写正向要求，忽略负面约束</td>
+        </tr>
+        <tr>
+          <td><strong>输出格式</strong></td>
+          <td>保证可解析和一致性</td>
+          <td>指定JSON/Markdown/表格，给出字段定义</td>
+          <td>让AI自由发挥格式，前端无法解析</td>
+        </tr>
+        <tr>
+          <td><strong>示例参考</strong></td>
+          <td>对齐输出质量标准</td>
+          <td>提供2-3个高质量输入输出样例</td>
+          <td>不给示例，导致输出风格不稳定</td>
+        </tr>
+        <tr>
+          <td><strong>动态变量</strong></td>
+          <td>实现个性化</td>
+          <td>用占位符标注可变部分，如{{岗位}}{{题型}}</td>
+          <td>把所有信息硬编码进Prompt</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <div class="callout-content">
+        <h3>AI PM的Prompt工程素养</h3>
+        <p>AI产品经理的Prompt能力不是"会写漂亮的提示词"，而是能系统性地设计Prompt策略：理解System Prompt和Few-shot的作用边界，知道什么时候该拆分成多步Chain-of-Thought，能判断一个效果问题是Prompt不够好还是模型能力本身不够<sup><a href="#cite-5">[5]</a></sup>。你还要理解Temperature、Top-P这些采样参数对产品体验的影响——创意写作场景需要高随机性，而客服问答需要高度确定性。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 三条交互避坑指南 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">PITFALLS</div>
+    <h2 class="section-title">AI交互设计三条避坑指南</h2>
+    <p style="margin-bottom: 24px;">
+      来自人人都是产品经理深度文章的三条实战避坑指南<sup><a href="#cite-3">[3]</a></sup>，每一条都是面试中可以主动提及的加分点。
+    </p>
+
+    <div class="principle-card">
+      <div class="principle-header">
+        <div class="principle-num">01</div>
+        <div>
+          <div class="principle-title">保留"逃生舱"</div>
+          <div class="principle-subtitle">AI意图识别永远存在概率性错误</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>无论AI多么智能，其意图识别永远存在概率性的错误。界面上必须永远有一个显眼的、确定性的<mark class="key">"手动干预"按钮</mark>，防止AI陷入逻辑闭环<sup><a href="#cite-3">[3]</a></sup>。</p>
+        <p>在面试问答生成器的场景中：用户如果觉得AI生成的问题方向不对，必须能手动指定"我只要行为面试题"或"只要关于数据分析的题"，而非被迫接受AI的判断。</p>
+      </div>
+    </div>
+
+    <div class="principle-card" style="border-left-color: var(--accent2);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, var(--accent2), #F472B6);">02</div>
+        <div>
+          <div class="principle-title">拒绝"黑盒式"等待</div>
+          <div class="principle-subtitle">展现AI的思考过程，缓解用户焦虑</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>AI处理复杂任务需要时间。不要只给一个Loading转圈，要通过交互展现AI的<mark class="key">"思考过程"</mark>——如逐步显示推理步骤<sup><a href="#cite-3">[3]</a></sup>。</p>
+        <p>在面试问答生成器的场景中：生成过程中可以显示"正在分析岗位要求 → 正在匹配面试题库 → 正在生成参考答案 → 正在质量校验"，让用户知道系统在做什么，而非盯着空白页面等待。</p>
+      </div>
+    </div>
+
+    <div class="principle-card" style="border-left-color: var(--accent3);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, var(--accent3), #34D399);">03</div>
+        <div>
+          <div class="principle-title">不要为了AI而AI</div>
+          <div class="principle-subtitle">知道何时该用对话框，何时该用按钮</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>传统的进度条、开关、单选框，在特定场景下依然比对话更高效。<mark class="key">顶级PM的功力，在于知道何时该给用户一个对话框，何时该给用户一个简单的物理按钮</mark><sup><a href="#cite-3">[3]</a></sup>。</p>
+        <p>在面试问答生成器的场景中：岗位选择用下拉菜单（确定性高、选项有限），难度调节用滑块（直观、连续），只有"特殊要求"用自由文本输入。不要让用户在对话框里打字"我要产品经理岗位中等难度的行为面试题"——这比点几下按钮累多了。</p>
+      </div>
+    </div>
+
+    <!-- 图表 -->
+    <figure class="chart-figure">
+      <figcaption>AI交互设计避坑指南：影响维度对比</figcaption>
+      <div id="chart-pitfalls" style="width:100%;height:320px;"></div>
+    </figure>
+  </div>
+</section>
+
+<!-- 面试回答模板 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">INTERVIEW TEMPLATE</div>
+    <h2 class="section-title">面试回答模板</h2>
+    <p style="margin-bottom: 24px;">
+      当面试官给你一道Prompt实操题时，以下是一个结构化的回答框架，帮助你系统性地展示AI PM思维。
+    </p>
+
+    <div class="qa-card">
+      <div class="qa-question">
+        <span class="q-tag">STEP 1</span>
+        先理解题目，不急于写Prompt
+      </div>
+      <div class="qa-answer">
+        <strong>话术</strong>："在写Prompt之前，我想先拆解一下这个产品的核心变量。我认为这个面试问答生成器需要至少三个输入维度——<strong>岗位类型</strong>（决定考察方向）、<strong>问题类型</strong>（决定生成逻辑）、<strong>用户背景</strong>（决定个性化程度）。请问面试官，您希望我针对哪个具体场景深入设计？"
+        <br><br>
+        <strong>为什么这样做</strong>：展示你不会盲目执行，而是先做产品分析。同时通过追问，把开放式题目收敛到你擅长的方向。
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question">
+        <span class="q-tag">STEP 2</span>
+        展示五层设计框架
+      </div>
+      <div class="qa-answer">
+        <strong>话术</strong>："我会从五个层面设计这个Prompt——第一层<strong>决策设定</strong>，定义这个生成器的核心价值和场景；第二层<strong>考察方向</strong>，确定AI应该生成什么类型的问题；第三层<strong>回答结构</strong>，用结构化JSON定义输出格式；第四层<strong>真实约束</strong>，设定安全边界和防幻觉策略；第五层<strong>用户偏好</strong>，实现基于用户背景的个性化。"
+        <br><br>
+        <strong>为什么这样做</strong>：展示你具备系统性的设计思维，而非碎片化的Prompt写法。五层框架让面试官看到你的思考深度。
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question">
+        <span class="q-tag">STEP 3</span>
+        写出核心Prompt并解释设计考量
+      </div>
+      <div class="qa-answer">
+        <strong>话术</strong>："这是核心Prompt的设计——角色设定为'有10年经验的AI产品面试官'，因为具体角色比泛化角色输出质量更高。任务描述使用动词开头并包含三个动态变量。约束条件明确标注'不生成涉及歧视的内容'和'如果不确定请说明'。输出格式定义为JSON，因为前端需要解析渲染。"
+        <br><br>
+        <strong>为什么这样做</strong>：不只是展示Prompt本身，更展示你<mark class="key">每个设计决策背后的理由</mark>。面试官要的是判断力，不是模板。
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question">
+        <span class="q-tag">STEP 4</span>
+        主动讨论失效场景和评估机制
+      </div>
+      <div class="qa-answer">
+        <strong>话术</strong>："这个Prompt在两种情况下可能失效：一是用户输入的岗位非常冷门，模型缺乏训练数据；二是用户的需求描述过于模糊。对于第一种，我会设计fallback策略，当置信度低于阈值时提示'该岗位面试题库较少，建议参考相近岗位'。对于第二种，我会引入意图澄清机制，主动追问。此外，我会设计质量评估指标——生成问题的真实性（与真实面经的相似度）、参考答案的准确性（人工抽检）、用户满意度评分（ thumbs up/down），形成数据闭环。"
+        <br><br>
+        <strong>为什么这样做</strong>：这是区分中级和高级候选人的关键。能主动讨论失效场景和评估机制的候选人，展示了对AI不确定性的深刻理解和产品闭环思维。
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question">
+        <span class="q-tag">STEP 5</span>
+        升维到交互本质
+      </div>
+      <div class="qa-answer">
+        <strong>话术</strong>："最后我想说，这个Prompt设计的本质不只是写好一段提示词，而是理解AI产品交互的核心——<strong>语言和意图</strong>。传统产品的交互是用户找功能，AI产品的交互是系统理解意图。所以我在设计时，不只考虑Prompt本身，还考虑了用户怎么输入信息（下拉菜单+滑块+自由文本的组合而非纯对话框）、系统怎么展示思考过程、以及用户怎么干预AI的判断。这才是AI产品经理在Prompt设计中应该展现的完整思维。"
+        <br><br>
+        <strong>为什么这样做</strong>：把回答从"Prompt写法"升维到"AI交互认知"，展示你不只是执行者，而是具备产品哲学的思考者。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 总结 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">SUMMARY</div>
+    <h2 class="section-title">总结：Prompt题考的不是Prompt，是产品思维</h2>
+
+    <div class="summary-box">
+      <h3>核心要点</h3>
+      <ul class="feature-list">
+        <li><strong>一道Prompt题测的不是写法，是思维</strong>：表面型回答只写Prompt，深度型回答先拆变量、定框架、设约束、讲理由</li>
+        <li><strong>五层框架是AI PM的标配</strong>：决策设定、考察方向、回答结构、真实约束、用户偏好——缺一层都不完整</li>
+        <li><strong>AI交互核心是语言和意图</strong>：不是界面布局，不是按钮位置。PM的关注点从"功能入口"变成"意图表达通道"</li>
+        <li><strong>交互演化趋势不可逆</strong>：从GUI（用户找功能）→ LUI（系统理解意图）→ Intent-Centric（界面消失，主动交付）</li>
+        <li><strong>三条避坑指南是面试加分项</strong>：保留逃生舱、拒绝黑盒等待、不为AI而AI——每条都展示你对用户体验的深度思考</li>
+        <li><strong>失效场景讨论是区分关键</strong>：能主动讨论Prompt何时失效、如何评估质量、如何设计数据闭环，才是真正的高级AI PM</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <div class="callout-content">
+        <h3>面试官的终极判断标准</h3>
+        <p>面试官给这道题，不是为了看你Prompt写得多漂亮。他要看的是：你拿到一个AI产品需求时，第一步做什么？你是否理解AI交互的本质？你能否系统性设计而非碎片化输出？你能否预判风险并设计闭环？<br><br>一句话总结：<strong>Prompt题是AI PM的照妖镜——照出的是产品思维，不是文字功底</strong>。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>AI求职知识工作台 · 0019 Prompt面试实操题深度解析</p>
+    <p>来源：抖音 @可颂AI产品经理 | 跨源补充：CSDN、人人都是产品经理、博客园</p>
+    <div class="sources">
+      <h2>参考资料</h2>
+      <ol>
+        <li>
+          <span class="src-title">抖音视频：面试候选人，一道prompt题测出真实水平 - 可颂AI产品经理</span>
+          <a class="src-url" href="https://v.douyin.com/0Irvo_GAU_Y/">https://v.douyin.com/0Irvo_GAU_Y/</a>
+        </li>
+        <li>
+          <span class="src-title">全网最全：AI产品经理（AI PM）面试题及答案 - CSDN博客</span>
+          <a class="src-url" href="https://blog.csdn.net/Y525698136/article/details/152927312">https://blog.csdn.net/Y525698136/article/details/152927312</a>
+        </li>
+        <li>
+          <span class="src-title">对话框不是万能的，AI产品的交互尽头在哪里？ - 人人都是产品经理</span>
+          <a class="src-url" href="https://www.woshipm.com/ai/6405744.html">https://www.woshipm.com/ai/6405744.html</a>
+        </li>
+        <li>
+          <span class="src-title">AI时代产品经理的能力重塑：从需求洞察到大模型产品设计方法论 - 博客园</span>
+          <a class="src-url" href="https://www.cnblogs.com/jakezhang/p/20772194">https://www.cnblogs.com/jakezhang/p/20772194</a>
+        </li>
+        <li>
+          <span class="src-title">提示工程架构师必知的用户交互优化10大技巧 - CSDN博客</span>
+          <a class="src-url" href="https://blog.csdn.net/2502_91865303/article/details/150979681">https://blog.csdn.net/2502_91865303/article/details/150979681</a>
+        </li>
+      </ol>
+    </div>
+  </div>
+</footer>
+
+<script src="./_shared/js/echarts.min.js"></script>
+<script src="./assets/charts.js"></script>
+</body>
+</html>

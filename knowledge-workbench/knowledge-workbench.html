@@ -852,6 +852,11 @@ body {
         <span>Vibe Coding</span>
         <svg class="nav-module-check" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
+      <div class="nav-module" onclick="showModule('prompt-test')" data-nav="prompt-test">
+        <div class="nav-module-dot" style="background:var(--cat-knowledge)"></div>
+        <span>Prompt面试实操</span>
+        <svg class="nav-module-check" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
 
       <div class="nav-category">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
@@ -912,7 +917,7 @@ body {
             <svg viewBox="0 0 24 24" fill="none" stroke="var(--cat-knowledge)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
           </div>
           <div class="stat-info">
-            <div class="stat-num" style="color:var(--cat-knowledge)">16</div>
+            <div class="stat-num" style="color:var(--cat-knowledge)">17</div>
             <div class="stat-label">随想记录总数</div>
           </div>
         </div>
@@ -921,7 +926,7 @@ body {
             <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           </div>
           <div class="stat-info">
-            <div class="stat-num" style="color:var(--primary)">15</div>
+            <div class="stat-num" style="color:var(--primary)">16</div>
             <div class="stat-label">知识报告数量</div>
           </div>
         </div>
@@ -1177,6 +1182,13 @@ var MODULES = {
     desc: 'Vibe Coding定义、AI PM三大需求特性、六大优势（PRD验证/工程沟通/用户访谈/内部工具/第三方评估/团队管理）、Context Engineering、工具对比、Wish Coding演化、四大坑、PM三大不可替代判断力、30天方法论',
     url: '../vibe-coding-pm/vibe-coding-pm/vibe-coding-pm.html',
     extUrl: 'https://v.douyin.com/ukQJMfDqpKQ/'
+  },
+  'prompt-test': {
+    id: '0019', title: '一道Prompt题测出真实水平', category: '专业知识', catClass: 'cat-knowledge',
+    platform: '抖音', platformIcon: 'dy',
+    desc: 'AI PM面试实操题深度解析：五层Prompt设计框架（决策设定/考察方向/回答结构/真实约束/用户偏好）、候选人三层水平模型、AI交互范式迁移（GUI→LUI→Intent-Centric）、三条避坑指南、五步面试回答模板',
+    url: '../prompt-interview-test/prompt-interview-test/prompt-interview-test.html',
+    extUrl: 'https://v.douyin.com/0Irvo_GAU_Y/'
   }
 };
 
@@ -1196,7 +1208,8 @@ var TIMELINE_DATA = [
   { id: '0015', module: 'agent-answers', title: 'Agent八股面试题带答案', desc: '50道Agent面试题带标准答案：八大技术方向（基础认知/架构原理/RAG/工具调用/多智能体/工程落地/性能优化/安全合规）深度解析', cat: '专业知识', catClass: 'cat-knowledge' },
   { id: '0016', module: 'talent-qualities', title: 'AI时代人才的六大核心特质', desc: '判断力、提问能力、翻译能力、跨界连接、叙事能力、建立信任——六项不可量化的层层递进特质，AI替代不了的真正护城河', cat: '认知思辨', catClass: 'cat-think' },
   { id: '0017', module: 'skill-design', title: '如何设计高质量的Skill', desc: '五大原则、三个段位（写对→写强→写活）、九大组成要素、IPO框架、评估指标与常见误区，附面试回答模板', cat: '专业知识', catClass: 'cat-knowledge' },
-  { id: '0018', module: 'vibe-coding', title: 'Vibe Coding：AI产品经理的新分水岭', desc: 'Vibe Coding定义、AI PM三大需求特性、六大优势、Context Engineering、工具对比、Wish Coding演化、四大坑、PM三大判断力、30天方法论', cat: '专业知识', catClass: 'cat-knowledge' }
+  { id: '0018', module: 'vibe-coding', title: 'Vibe Coding：AI产品经理的新分水岭', desc: 'Vibe Coding定义、AI PM三大需求特性、六大优势、Context Engineering、工具对比、Wish Coding演化、四大坑、PM三大判断力、30天方法论', cat: '专业知识', catClass: 'cat-knowledge' },
+  { id: '0019', module: 'prompt-test', title: '一道Prompt题测出真实水平', desc: '五层Prompt设计框架、候选人三层水平模型、AI交互范式迁移（GUI→LUI→Intent-Centric）、三条避坑指南、五步面试回答模板', cat: '专业知识', catClass: 'cat-knowledge' }
 ];
 
 var currentModule = null;
