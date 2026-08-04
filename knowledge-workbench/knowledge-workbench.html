@@ -907,7 +907,7 @@ body {
             <svg viewBox="0 0 24 24" fill="none" stroke="var(--cat-knowledge)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
           </div>
           <div class="stat-info">
-            <div class="stat-num" style="color:var(--cat-knowledge)">10</div>
+            <div class="stat-num" style="color:var(--cat-knowledge)">13</div>
             <div class="stat-label">随想记录总数</div>
           </div>
         </div>
@@ -916,7 +916,7 @@ body {
             <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           </div>
           <div class="stat-info">
-            <div class="stat-num" style="color:var(--primary)">10</div>
+            <div class="stat-num" style="color:var(--primary)">12</div>
             <div class="stat-label">知识报告数量</div>
           </div>
         </div>
@@ -1144,6 +1144,13 @@ var MODULES = {
     desc: '拆解腾讯AI Coding文章：Agent=Model+Harness公式、六大支柱（上下文管理/工具系统/执行编排/状态记忆/评估观测/约束恢复）、SDD规范驱动开发、腾讯ADP实践、从Prompt到World Model六层演化、10道面试Q&A',
     url: '../ai-coding-harness-engineering/ai-coding-harness-engineering.html',
     extUrl: 'https://v.douyin.com/HQwWy_g6mmo/'
+  },
+  'agent-answers': {
+    id: '0015', title: 'Agent八股面试题带答案', category: '专业知识', catClass: 'cat-knowledge',
+    platform: '小红书', platformIcon: 'xhs',
+    desc: '汇总50道Agent面试题带标准答案：基础认知、架构原理、RAG知识库、工具调用、多智能体、工程落地、性能优化、安全合规八大技术方向深度解析',
+    url: '../agent-interview-answers/agent-interview-answers.html',
+    extUrl: 'https://www.xiaohongshu.com/explore/6a720951000000002202da29'
   }
 };
 
@@ -1159,7 +1166,8 @@ var TIMELINE_DATA = [
   { id: '0010', module: 'prompt', title: 'AI交互设计Prompt面试题', desc: '分层Prompt框架+四套主流框架对比+AI交互四原则+15道高频面试题', cat: '专业知识', catClass: 'cat-knowledge' },
   { id: '0011', module: 'eleme', title: '饿了么AI产品经理面试全流程复盘', desc: '55道真题含详细答案：参考答案+背景知识+实践经验，覆盖Agent/RAG/Prompt/产品Sense/压力面/行业战略', cat: '面试经验', catClass: 'cat-experience' },
   { id: '0013', module: 'yahui', title: '亚慧AI产品经理视频汇总', desc: 'Skill设计7步法、Query改写4大目的、FDE岗位8层能力模型、AI辅助简历优化', cat: '专业知识', catClass: 'cat-knowledge' },
-  { id: '0014', module: 'harness', title: 'Harness Engineering六大支柱', desc: 'Agent=Model+Harness、六大支柱详解、腾讯ADP实践、SDD规范驱动开发、从Prompt到World Model六层演化、10道面试Q&A', cat: '专业知识', catClass: 'cat-knowledge' }
+  { id: '0014', module: 'harness', title: 'Harness Engineering六大支柱', desc: 'Agent=Model+Harness、六大支柱详解、腾讯ADP实践、SDD规范驱动开发、从Prompt到World Model六层演化、10道面试Q&A', cat: '专业知识', catClass: 'cat-knowledge' },
+  { id: '0015', module: 'agent-answers', title: 'Agent八股面试题带答案', desc: '50道Agent面试题带标准答案：八大技术方向（基础认知/架构原理/RAG/工具调用/多智能体/工程落地/性能优化/安全合规）深度解析', cat: '专业知识', catClass: 'cat-knowledge' }
 ];
 
 var currentModule = null;
