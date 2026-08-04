@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe Coding：AI产品经理的新分水岭</title>
+<style>
+@font-face {
+  font-family: 'WorkSans';
+  src: url('./_shared/fonts/WorkSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'WorkSans';
+  src: url('./_shared/fonts/WorkSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrainsMono';
+  src: url('./_shared/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --bg: #FAFAF8;
+  --bg2: #FFFFFF;
+  --ink: #1A1A2E;
+  --muted: #6B7280;
+  --muted2: #9CA3AF;
+  --rule: #E5E7EB;
+  --rule-light: #F3F4F6;
+  --accent: #EA580C;
+  --accent2: #7C3AED;
+  --accent3: #0891B2;
+  --accent4: #DC2626;
+  --highlight: #FFF7ED;
+  --highlight2: #F5F3FF;
+  --warm: #FEF3C7;
+  --code-bg: #1A1A2E;
+  --card-shadow: 0 2px 8px rgba(234, 88, 12, 0.06);
+  --card-shadow-hover: 0 8px 24px rgba(234, 88, 12, 0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'WorkSans', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.8;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(145deg, #1A1A2E 0%, #EA580C 60%, #F59E0B 100%);
+  color: #fff;
+  padding: 72px 0 56px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -25%;
+  right: -8%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -35%;
+  left: -8%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-content { position: relative; z-index: 1; }
+.hero .kicker {
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+.hero .subtitle {
+  font-size: 17px;
+  opacity: 0.82;
+  margin-bottom: 28px;
+  line-height: 1.65;
+  max-width: 640px;
+}
+.hero .meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 13px;
+  opacity: 0.7;
+}
+.hero .meta-row span { display: flex; align-items: center; gap: 4px; }
+.hero .source-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.12);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+}
+
+/* TOC */
+.toc {
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin: 32px 0;
+}
+.toc h3 {
+  font-size: 13px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 14px;
+}
+.toc ol {
+  list-style: none;
+  counter-reset: toc;
+}
+.toc ol li {
+  counter-increment: toc;
+  padding: 5px 0;
+  font-size: 15px;
+}
+.toc ol li::before {
+  content: counter(toc, decimal-leading-zero);
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  margin-right: 12px;
+  font-weight: 700;
+}
+.toc ol li a {
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.toc ol li a:hover { color: var(--accent); }
+
+/* Section */
+.section {
+  padding: 44px 0;
+  border-top: 1px solid var(--rule);
+}
+.section:first-of-type { border-top: none; }
+.section-label {
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.section h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+.section .lead {
+  font-size: 16px;
+  color: var(--muted);
+  margin-bottom: 24px;
+  line-height: 1.7;
+}
+.section h3 {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 32px 0 14px;
+  padding-left: 14px;
+  border-left: 4px solid var(--accent);
+}
+.section h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 22px 0 10px;
+}
+.section p {
+  margin-bottom: 16px;
+  line-height: 1.9;
+}
+.section ul, .section ol {
+  margin: 0 0 16px 20px;
+  line-height: 1.9;
+}
+.section ul li, .section ol li { margin-bottom: 8px; }
+mark.key { background: none; color: var(--accent); font-weight: 600; }
+mark.purple { background: none; color: var(--accent2); font-weight: 600; }
+mark.cyan { background: none; color: var(--accent3); font-weight: 600; }
+strong { font-weight: 700; }
+
+/* Quote block */
+.quote-block {
+  background: var(--highlight);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 20px 24px;
+  margin: 24px 0;
+  font-size: 16px;
+  line-height: 1.8;
+}
+.quote-block .quote-author {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+/* Callout */
+.callout {
+  background: var(--highlight2);
+  border-left: 4px solid var(--accent2);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 15px;
+}
+.callout.warm {
+  background: var(--warm);
+  border-left-color: var(--accent);
+}
+
+/* Principle cards */
+.principle-card {
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin: 20px 0;
+  box-shadow: var(--card-shadow);
+  transition: box-shadow 0.2s;
+}
+.principle-card:hover { box-shadow: var(--card-shadow-hover); }
+.principle-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.principle-num {
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.principle-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.principle-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+}
+.principle-body p { margin-bottom: 12px; }
+.practice-box {
+  background: var(--highlight);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-top: 12px;
+  font-size: 14px;
+}
+.practice-box strong { color: var(--accent); }
+
+/* Stage cards */
+.stage-card {
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin: 20px 0;
+  box-shadow: var(--card-shadow);
+}
+.stage-badge {
+  display: inline-block;
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px 12px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+.stage-badge.s1 { background: var(--accent) + '15'; color: var(--accent); background: rgba(234,88,12,0.1); }
+.stage-badge.s2 { background: rgba(124,58,237,0.1); color: var(--accent2); }
+.stage-badge.s3 { background: rgba(8,145,178,0.1); color: var(--accent3); }
+.stage-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.feature-list {
+  list-style: none;
+  margin: 12px 0 0 0 !important;
+  padding: 0;
+}
+.feature-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 15px;
+}
+.feature-list li:last-child { border-bottom: none; }
+.feature-list li strong { color: var(--accent); }
+
+/* Compare grid */
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+.compare-item {
+  border-radius: 10px;
+  padding: 20px 22px;
+  border: 1px solid var(--rule);
+}
+.compare-item.good {
+  background: var(--highlight2);
+  border-color: rgba(124,58,237,0.2);
+}
+.compare-item.bad {
+  background: #FEF2F2;
+  border-color: rgba(220,38,38,0.15);
+}
+.compare-item h4 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+.compare-item.good h4 { color: var(--accent2); }
+.compare-item.bad h4 { color: var(--accent4); }
+.compare-item p {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* Table */
+.table-wrap {
+  overflow-x: auto;
+  margin: 20px 0;
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  min-width: 600px;
+}
+thead { background: var(--bg); }
+th {
+  color: var(--ink);
+  font-weight: 700;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--rule);
+  white-space: nowrap;
+}
+td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--rule-light);
+  color: var(--ink);
+  vertical-align: top;
+}
+tbody tr:hover { background: var(--bg); }
+
+/* Tool cards */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+.tool-card {
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 20px 22px;
+  transition: transform 0.2s;
+}
+.tool-card:hover { transform: translateY(-2px); }
+.tool-card .tool-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.tool-card .tool-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+/* Code */
+code {
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 13px;
+  background: var(--highlight);
+  color: var(--accent);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+pre {
+  background: var(--code-bg);
+  color: #DFE6E9;
+  padding: 18px 22px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 16px 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+pre code { background: none; color: inherit; padding: 0; }
+
+/* Chart figure */
+.chart-figure { margin: 24px 0; }
+.chart-figure figcaption {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+  text-align: center;
+}
+.chart-figure .chart-container {
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+/* Timeline */
+.timeline-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0;
+}
+.timeline-step {
+  flex: 1;
+  min-width: 140px;
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 14px 16px;
+  text-align: center;
+}
+.timeline-step .step-day {
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.timeline-step .step-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.timeline-step .step-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Stat display */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+.stat-card {
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+.stat-card .stat-num {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--accent);
+  font-family: 'JetBrainsMono', monospace;
+  line-height: 1.2;
+}
+.stat-card .stat-label {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* Interview template */
+.template-box {
+  background: var(--bg2);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin: 24px 0;
+}
+.template-step {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule-light);
+}
+.template-step:last-child { border-bottom: none; }
+.template-step .step-label {
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.template-step .step-content {
+  font-size: 15px;
+  color: var(--ink);
+  line-height: 1.8;
+}
+
+/* Footer */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--rule);
+  padding: 36px 0;
+  margin-top: 40px;
+}
+footer .sources h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--ink);
+}
+footer .sources ol {
+  padding-left: 1.2rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+footer .sources li {
+  margin-bottom: 0.5rem;
+  overflow-wrap: break-word;
+}
+footer .sources .src-title { color: var(--ink); }
+footer .sources .src-url {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.82rem;
+  color: var(--accent);
+  word-break: break-all;
+}
+
+sup a {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.75em;
+  font-weight: 600;
+}
+sup a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 26px; }
+  .hero .subtitle { font-size: 15px; }
+  .section h2 { font-size: 22px; }
+  .compare-grid, .tool-grid { grid-template-columns: 1fr; }
+  .stat-grid { grid-template-columns: 1fr; }
+  .timeline-steps { flex-direction: column; }
+  .container { padding: 0 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container hero-content">
+    <div class="source-badge">来源：抖音 @老高的产品脑</div>
+    <div class="kicker">Vibe Coding · AI产品经理 · 竞争力重塑</div>
+    <h1>Vibe Coding：AI产品经理的新分水岭</h1>
+    <p class="subtitle">当AI能帮你写代码，产品经理的核心竞争力到底是什么？从Karpathy提出Vibe Coding到蚂蚁灵光提出Wish Coding，一场重塑PM角色的革命正在发生。本文系统拆解Vibe Coding对AI PM的六大优势、四个必须知道的坑、PM三大不可替代判断力，以及30天上手方法论。</p>
+    <div class="meta-row">
+      <span>发布于 2026-06-06</span>
+      <span>·</span>
+      <span>3861 赞</span>
+      <span>·</span>
+      <span>3042 收藏</span>
+      <span>·</span>
+      <span>357 评论</span>
+    </div>
+  </div>
+</section>
+
+<!-- TOC -->
+<div class="container">
+  <nav class="toc">
+    <h3>目录</h3>
+    <ol>
+      <li><a href="#s1">Vibe Coding是什么？从Karpathy的推文说起</a></li>
+      <li><a href="#s2">为什么偏偏是AI PM最需要这个能力</a></li>
+      <li><a href="#s3">会Vibe Coding的AI PM，到底多了什么？六大优势</a></li>
+      <li><a href="#s4">需求描述精度：决定AI产出质量的关键</a></li>
+      <li><a href="#s5">上下文工程：给AI写Brief，跟给老板写Brief一样</a></li>
+      <li><a href="#s6">Vibe Coding工具全景：两类八大工具</a></li>
+      <li><a href="#s7">从Vibe Coding到Wish Coding：下一站</a></li>
+      <li><a href="#s8">泼一盆冷水：四个必须知道的坑</a></li>
+      <li><a href="#s9">PM三大不可替代判断力</a></li>
+      <li><a href="#s10">30天上手方法论</a></li>
+      <li><a href="#s11">面试回答框架</a></li>
+    </ol>
+  </nav>
+</div>
+
+<!-- Content -->
+<div class="container">
+
+<!-- Section 1 -->
+<section class="section" id="s1">
+  <div class="section-label">DEFINITION</div>
+  <h2>Vibe Coding是什么？从Karpathy的推文说起</h2>
+  <p class="lead">2025年2月，前特斯拉AI总监、OpenAI创始团队成员Andrej Karpathy发了一条推文，一夜之间在硅谷传爆<sup><a href="#cite-1">[1]</a></sup><sup><a href="#cite-2">[2]</a></sup>。</p>
+
+  <div class="quote-block">
+    "There's a new kind of coding I call 'vibe coding', where you fully give in to the vibes, embrace exponentials, and forget that the code even exists."
+    <div class="quote-author">—— Andrej Karpathy，2025年2月<sup><a href="#cite-3">[3]</a></sup></div>
+  </div>
+
+  <p>翻译过来就是：<mark class="key">你完全跟着感觉走，拥抱指数级效率提升，并且忘掉代码本身的存在</mark>。</p>
+
+  <p>这条推文为什么能火？因为它真的描述了一种新的工作方式。你不再写代码，你描述你想要什么。AI写代码。你看效果，再描述要改的地方。AI改代码。直到它跑起来<sup><a href="#cite-1">[1]</a></sup>。</p>
+
+  <h3>核心定义</h3>
+  <p>Vibe Coding（氛围编程/沉浸式编程）的核心是：<mark class="key">开发者专注表达创意与业务意图，通过自然语言与大模型LLM协作，由AI完成代码编写、调试、优化全细节，人类仅负责需求定义、逻辑把控与最终验收</mark>的沉浸式开发模式<sup><a href="#cite-3">[3]</a></sup>。</p>
+
+  <p>用一句话概括：<strong>传统编程是"我告诉电脑每一步怎么做"，Vibe Coding是"我告诉电脑我想要什么结果"</strong><sup><a href="#cite-3">[3]</a></sup>。</p>
+
+  <div class="callout">
+    <strong>关键数据</strong>：Collins词典将Vibe Coding选为2025年度词汇。GitHub上超过一半的提交代码已经是AI生成的。Y Combinator 2025年冬季批次中，四分之一的创业公司代码库有95%是AI写的<sup><a href="#cite-2">[2]</a></sup>。
+  </div>
+
+  <h3>它不是什么</h3>
+  <ul>
+    <li><strong>不是"产品经理学点Python写脚本"</strong>——那是2015年的事</li>
+    <li><strong>不是"用ChatGPT帮你写几行SQL"</strong>——那是2023年的事</li>
+    <li><strong>不是"低代码平台拖拽搭一个表单"</strong>——那是企业IT的事</li>
+    <li><strong>不是AI代码补全（Copilot类）</strong>——那是辅助工具，开发者仍是编码主体<sup><a href="#cite-3">[3]</a></sup></li>
+  </ul>
+
+  <p>它是：你坐下来，用一个像Cursor、Claude Code这样的AI编辑器，对它说"我要一个能让用户上传简历、然后用大模型抽取教育背景和工作经历，最后生成一个雷达图的页面"，然后它真的给你写出来一个能跑的东西<sup><a href="#cite-1">[1]</a></sup>。</p>
+
+  <div class="callout warm">
+    <strong>本质洞察</strong>：Vibe Coding在本质上更像<strong>产品行为</strong>，而不是工程行为。它要求你能清楚地描述需求、能识别"对不对"、能在一堆候选方案里做选择——这些都是产品经理的看家本领<sup><a href="#cite-1">[1]</a></sup>。
+  </div>
+</section>
+
+<!-- Section 2 -->
+<section class="section" id="s2">
+  <div class="section-label">WHY AI PM</div>
+  <h2>为什么偏偏是AI PM最需要这个能力</h2>
+  <p class="lead">会写代码的产品经理一直都有，为什么单独把AI PM拎出来说？因为AI产品有三个跟传统产品根本性不同的特性<sup><a href="#cite-1">[1]</a></sup>。</p>
+
+  <div class="principle-card">
+    <div class="principle-header">
+      <div class="principle-num">01</div>
+      <div>
+        <div class="principle-title">模型行为不可预测，PRD写不清楚</div>
+        <div class="principle-subtitle">坐在工位上写文档的产品经理永远写不清楚</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <p>你做一个表单页，需求是确定的。但你做一个"AI帮用户改简历"的功能呢？你写"模型应该让简历更专业"，怎么算专业？你写"输出不超过500字"，模型有30%概率输出600字怎么办？你写"语气友好但不肉麻"，"肉麻"的边界在哪儿？</p>
+      <p>这些问题，<mark class="key">它们的答案藏在"模型实际跑一遍之后看到的东西里"</mark>。你不动手跑一遍，你的PRD就是猜出来的<sup><a href="#cite-1">[1]</a></sup>。</p>
+    </div>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-header">
+      <div class="principle-num">02</div>
+      <div>
+        <div class="principle-title">试错成本高，但试错次数得多</div>
+        <div class="principle-subtitle">AI功能的效果取决于非常细的东西</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <p>AI功能的效果好坏，常常取决于一些非常细的东西：prompt怎么写、context给多少、用哪个模型、温度调到多少、加不加思维链。这些东西你不在真实数据上跑，光靠想是想不明白的。</p>
+      <p>如果你每次试错都要排一个工程师的sprint，一周才能拿到一个版本的结果，你这个产品三个月也迭代不出来。如果你自己能跑，今天下午想一个新prompt，晚上就能在50条真实用户数据上看到结果——<mark class="key">迭代速度直接快一个数量级</mark><sup><a href="#cite-1">[1]</a></sup>。</p>
+    </div>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-header">
+      <div class="principle-num">03</div>
+      <div>
+        <div class="principle-title">竞争窗口期短，慢半步就晚一年</div>
+        <div class="principle-subtitle">你的竞争对手可能是三个人的小团队</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <p>AI这个赛道现在的节奏，2024年初你看到一个机会，半年内必须有产品上线，否则就被别人占了位置。你的竞争对手可能是一个三个人的小团队，里面那个PM自己会用Cursor写前端，老板兼工程师晚上回家用Claude Code写后端，他们一周能上线一个新功能。</p>
+      <p>你们公司PRD还在评审环节，他们都把第二轮用户反馈消化完了<sup><a href="#cite-1">[1]</a></sup>。</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>结论</strong>：AI PM这个岗位，从底层逻辑上就不再是"动嘴的人"了。它要求你<strong>既能想清楚，又能跑出来</strong>。光想，跟不上节奏；光跑，跑出来的是错的东西。两个能力都得有<sup><a href="#cite-1">[1]</a></sup>。
+  </div>
+
+  <figure class="chart-figure">
+    <figcaption>AI PM为什么最需要Vibe Coding：三大特性影响程度</figcaption>
+    <div id="chart-radar" style="width: 100%; min-height: 400px;"></div>
+  </figure>
+</section>
+
+<!-- Section 3 -->
+<section class="section" id="s3">
+  <div class="section-label">SIX ADVANTAGES</div>
+  <h2>会Vibe Coding的AI PM，到底多了什么？</h2>
+  <p class="lead">以下六个优势，来自真实使用Cursor和Claude Code一年的切身体验<sup><a href="#cite-1">[1]</a></sup>。</p>
+
+  <div class="stage-card">
+    <span class="stage-badge s1">优势一</span>
+    <div class="stage-title">写PRD之前能先"跑"一遍，文档质量直接换一个段位</div>
+    <p style="margin-bottom: 12px;">过去写AI功能的PRD，模型准确率多少不知道，交互顺不顺不知道，边界情况怎么处理不知道。会Vibe Coding之后，写PRD之前先花两小时跑一个粗糙原型：</p>
+    <ul class="feature-list">
+      <li><strong>亲眼看到准确率</strong>：PRD里直接写"目标准确率90%，当前基线73%"</li>
+      <li><strong>亲手走交互</strong>：发现追问场景需要把前一轮输入也带上，PRD里直接画清楚context怎么拼</li>
+      <li><strong>跑出边界报错</strong>：PRD里直接写"文件大小限制20MB，超出时提示文案是XXX"</li>
+    </ul>
+    <div class="practice-box">
+      <strong>效果</strong>：PRD从一份"提问清单"变成了一份"答案清单"。评审从两小时变成四十分钟<sup><a href="#cite-1">[1]</a></sup>。
+    </div>
+  </div>
+
+  <div class="stage-card">
+    <span class="stage-badge s2">优势二</span>
+    <div class="stage-title">跟工程师讨论的时候，你有底气，他们也省心</div>
+    <p style="margin-bottom: 12px;">以前最怕跟资深工程师讨论方案，怕他们随口一句"这个做不了"或者"这个要做半个月"，没办法判断对错。</p>
+    <p>会Vibe Coding之后，你有了第三种选择：<mark class="purple">自己回去跑一遍，看到底是不是真的做不了</mark>。把跑通的参考实现甩给工程师，他对工作量的估计会立刻变得准确——因为他看到的不是一个抽象需求，而是一个具体实现<sup><a href="#cite-1">[1]</a></sup>。</p>
+    <div class="practice-box">
+      <strong>真实案例</strong>：提了"流式输出+中途打断"需求，工程师说两周。回去用Claude Code跑通了简化版，第二天工程师改口说"五天能做"<sup><a href="#cite-1">[1]</a></sup>。
+    </div>
+  </div>
+
+  <div class="stage-card">
+    <span class="stage-badge s3">优势三</span>
+    <div class="stage-title">做完用户访谈，当场给一个原型，用户惊掉下巴</div>
+    <p style="margin-bottom: 12px;">传统用户调研流程：访谈→写报告→开内部会→改PRD→排开发→等demo→再约用户验证。一个循环下来三周起步。</p>
+    <p>会Vibe Coding的PM可以这么干：上午跟5个目标用户访谈，下午用Bolt或Lovable把核心交互搭一个前端原型——不需要后端，前端用mock数据先跑通。第二天下午再约用户试。</p>
+    <div class="practice-box">
+      <strong>关键洞察</strong>：用户面对一个能点击的东西的时候，给出的反馈跟看一张图的时候完全不一样。"假设→验证"周期从三周缩到两天<sup><a href="#cite-1">[1]</a></sup>。
+    </div>
+  </div>
+
+  <div class="stage-card">
+    <span class="stage-badge s1">优势四</span>
+    <div class="stage-title">自己搭内部工具，不再求人也不再等</div>
+    <p style="margin-bottom: 12px;">AI产品经理日常工作里，有一大半时间在跟"数据"打交道：标注数据、看case、做评测、查bad case、统计分布。每一项如果都得求工程师帮你搭工具，你就永远是个二等公民。</p>
+    <p>会Vibe Coding的PM自己搭：</p>
+    <ul class="feature-list">
+      <li><strong>case标注页面</strong>：把线上bad case拉出来，团队打标签、写评论、按维度筛选</li>
+      <li><strong>prompt对比测试器</strong>：左边prompt A，右边prompt B，跑同一批数据看输出差异</li>
+      <li><strong>用户反馈聚合面板</strong>：App Store、客服工单、问卷反馈自动按主题归类</li>
+      <li><strong>竞品监控小机器人</strong>：每天爬竞品更新日志，模型生成摘要发到飞书群</li>
+    </ul>
+    <div class="practice-box">
+      <strong>复利效应</strong>：一年下来你比同事多了十几个工具，你有一支自己的"小型工具军团"<sup><a href="#cite-1">[1]</a></sup>。
+    </div>
+  </div>
+
+  <div class="stage-card">
+    <span class="stage-badge s2">优势五</span>
+    <div class="stage-title">评估第三方技术方案，不再被"听起来很厉害"忽悠</div>
+    <p style="margin-bottom: 12px;">AI领域每月都有新模型、新框架、新API。供应商排着队来BD，每家都说自己"准确率95%"、"业内领先"。</p>
+    <p>会Vibe Coding的PM直接打开API文档，半小时写测试脚本，把100条真实样本喂进去，跑出真实准确率。再花半小时把第二家也接上，对比。</p>
+    <div class="practice-box">
+      <strong>真实案例</strong>：某供应商演示效果极好，签合同前自己跑了一遍，发现在中文金融场景里准确率只有60%。这个差距足够换掉一家供应商，省下几十万年费<sup><a href="#cite-1">[1]</a></sup>。
+    </div>
+  </div>
+
+  <div class="stage-card">
+    <span class="stage-badge s3">优势六</span>
+    <div class="stage-title">招聘和管人的判断力升级，知道工程师在干什么</div>
+    <p style="margin-bottom: 12px;">AI PM做到一定阶段，要带团队。你要面试工程师、给绩效、决定谁负责什么项目、判断技术方案优劣。</p>
+    <p>不会动手的PM在这个层面会越来越虚——你听工程师说"模型量化加速"，不知道这是30分钟还是3周的工作量。你听候选人说熟悉"RAG"，不知道他是真的搭过还是只读过文章。</p>
+    <div class="practice-box">
+      <strong>关键</strong>：你不需要懂得跟工程师一样深，但你能做到<strong>不被忽悠</strong>。你自己跑过简单的RAG，就知道哪些点是真的难、哪些是公开教程能照抄的<sup><a href="#cite-1">[1]</a></sup>。
+    </div>
+  </div>
+
+  <figure class="chart-figure">
+    <figcaption>六大优势对AI PM工作场景的影响程度</figcaption>
+    <div id="chart-bar" style="width: 100%; min-height: 380px;"></div>
+  </figure>
+</section>
+
+<!-- Section 4 -->
+<section class="section" id="s4">
+  <div class="section-label">PRECISION</div>
+  <h2>需求描述精度：决定AI产出质量的关键</h2>
+  <p class="lead">Vibe Coding让产品经理第一次能直接把需求变成可运行的产品，但大多数人的产出是"能用但粗糙"——差距不在工具，在于需求描述的精度<sup><a href="#cite-4">[4]</a></sup>。</p>
+
+  <div class="quote-block">
+    "AI是放大器。你给它精确的需求，它放大你的效率。你给它模糊的需求，它放大你的混乱——出来的东西到处是漏洞，改一个地方崩三个地方，最后推倒重来比从头做还慢。"
+    <div class="quote-author">—— 浩子AIPM，人人都是产品经理<sup><a href="#cite-4">[4]</a></sup></div>
+  </div>
+
+  <h3>低精度 vs 高精度对比</h3>
+
+  <div class="compare-grid">
+    <div class="compare-item bad">
+      <h4>低精度描述</h4>
+      <p>"帮我写一个用户注册功能。"</p>
+      <p style="margin-top: 8px;">AI产出：最基础的注册表单，邮箱+密码，点提交就存库。没有校验，没有验证邮件，没有错误提示，没有防重复注册。</p>
+    </div>
+    <div class="compare-item good">
+      <h4>高精度描述</h4>
+      <p>"用户通过手机号注册，输入手机号后发送验证码，验证码5分钟有效。注册成功后进入引导流程，引导用户完善资料、选择兴趣标签。手机号已注册时提示'该手机号已注册，请直接登录'。注册页面底部显示用户协议和隐私政策链接。"</p>
+      <p style="margin-top: 8px;">AI产出：完整的注册流程，带验证码校验、引导流程、错误处理，有合规的用户协议。</p>
+    </div>
+  </div>
+
+  <h3>四个维度决定精度</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>维度</th>
+        <th>低精度</th>
+        <th>高精度</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>用户是谁</strong></td><td>"用户"</td><td>"新注册的用户"</td></tr>
+      <tr><td><strong>场景是什么</strong></td><td>"点击注册"</td><td>"在注册页面输入手机号，点击获取验证码"</td></tr>
+      <tr><td><strong>成功是什么</strong></td><td>"能注册就行"</td><td>"注册成功后进入引导流程，5步完成资料填写"</td></tr>
+      <tr><td><strong>失败是什么</strong></td><td>（没写）</td><td>"手机号格式错误提示'请输入正确手机号'，验证码过期提示'验证码已过期，请重新获取'"</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>PM视角</strong>：这四个维度，产品经理闭着眼睛都能背出来——这不就是我们写PRD时反复强调的"用户故事"和"验收标准"吗？多年写PRD的经验，在Vibe Coding时代直接变成了生产力<sup><a href="#cite-4">[4]</a></sup>。
+  </div>
+
+  <h3>工程师做Vibe Coding vs PM做Vibe Coding</h3>
+  <p>工程师关注"这个功能怎么实现"，PM关注"用户怎么用这个功能"。AI不缺实现能力，它缺的是<mark class="key">"想清楚"</mark>。而"想清楚要做什么"，恰恰是产品经理每天在做的事<sup><a href="#cite-4">[4]</a></sup>。</p>
+
+  <div class="callout warm">
+    <strong>核心洞察</strong>：当AI的技术能力越来越强，"技术方案"这个环节会被AI自己搞定，而"产品方案"——也就是需求本身——会成为唯一的瓶颈。<mark class="key">"想清楚做什么"比"知道怎么做"更值钱</mark><sup><a href="#cite-4">[4]</a></sup>。
+  </div>
+</section>
+
+<!-- Section 5 -->
+<section class="section" id="s5">
+  <div class="section-label">CONTEXT ENGINEERING</div>
+  <h2>上下文工程：给AI写Brief，跟给老板写Brief一样</h2>
+  <p class="lead">让AI在每次工作之前，先完整了解你的项目背景——这就是"上下文工程"<sup><a href="#cite-4">[4]</a></sup>。</p>
+
+  <p>用产品经理能理解的话来说：你在带一个新来的实习生。你不会每次交代任务都从头讲一遍"我们公司是做什么的"。你会给他一份项目Brief，让他先看。上下文工程就是<mark class="purple">给AI写Brief</mark><sup><a href="#cite-4">[4]</a></sup>。</p>
+
+  <h3>PM需要维护三份文档</h3>
+
+  <div class="tool-grid">
+    <div class="tool-card">
+      <div class="tool-name">产品背景文档</div>
+      <div class="tool-desc">一句话说清这是什么产品，给谁用，解决什么问题。核心业务流程是什么，有哪些关键角色，哪些事情绝对不能做。就像你给新同事发的项目背景邮件。</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">产品需求文档</div>
+      <div class="tool-desc">每个功能的详细描述——用户怎么操作，成功什么表现，失败什么提示，边界条件是什么。这就是PRD，只不过以前写给开发看，现在写给AI看。</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">产品边界文档</div>
+      <div class="tool-desc">哪些功能做、哪些不做、优先级是什么。这就是产品经理最熟悉的功能范围定义，帮AI理解"什么该动、什么不该动"。</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">安全检查清单</div>
+      <div class="tool-desc">用户数据是否加密存储？接口是否有权限校验？敏感操作是否有二次确认？异常情况是否有兜底方案？不写，AI就不做<sup><a href="#cite-4">[4]</a></sup>。</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>PM视角</strong>：上下文工程本质上就是产品经理的"项目管理能力"。你对项目理解越深、文档越清晰，AI的产出质量就越高。这不是新技能，这是PM多年修炼的老技能——只是换了一个交付对象<sup><a href="#cite-4">[4]</a></sup>。
+  </div>
+
+  <h3>Vibe Coding五阶段流程</h3>
+  <div class="timeline-steps">
+    <div class="timeline-step">
+      <div class="step-day">STAGE 1</div>
+      <div class="step-title">定义</div>
+      <div class="step-desc">把模糊想法变成清晰需求文档，跟AI反复对话确认</div>
+    </div>
+    <div class="timeline-step">
+      <div class="step-day">STAGE 2</div>
+      <div class="step-title">架构</div>
+      <div class="step-desc">搭建功能骨架、定义数据流转——本质是信息架构设计</div>
+    </div>
+    <div class="timeline-step">
+      <div class="step-day">STAGE 3</div>
+      <div class="step-title">开发</div>
+      <div class="step-desc">一次只做一个功能，做完验证再做下一个——敏捷迭代</div>
+    </div>
+    <div class="timeline-step">
+      <div class="step-day">STAGE 4</div>
+      <div class="step-title">调试</div>
+      <div class="step-desc">给AI完整上下文：报错信息、操作步骤、期望结果</div>
+    </div>
+    <div class="timeline-step">
+      <div class="step-day">STAGE 5</div>
+      <div class="step-title">交付</div>
+      <div class="step-desc">安全检查、功能验收、发布流程——发布清单</div>
+    </div>
+  </div>
+
+  <div class="callout warm">
+    <strong>核心发现</strong>：这五个阶段，产品经理闭着眼睛都能走。Vibe Coding没有发明新流程，它只是把产品经理已经熟悉的开发流程，换了一个执行者<sup><a href="#cite-4">[4]</a></sup>。
+  </div>
+</section>
+
+<!-- Section 6 -->
+<section class="section" id="s6">
+  <div class="section-label">TOOLS</div>
+  <h2>Vibe Coding工具全景：两类八大工具</h2>
+  <p class="lead">目前主流的Vibe Coding工具大致分两类<sup><a href="#cite-1">[1]</a></sup><sup><a href="#cite-5">[5]</a></sup>。</p>
+
+  <h3>第一类：AI编辑器（本地开发，偏给懂一点技术的人）</h3>
+  <div class="tool-grid">
+    <div class="tool-card">
+      <div class="tool-name">Cursor</div>
+      <div class="tool-desc">最早爆火的AI编辑器，VS Code的fork。Composer多文件编辑、Tab行内补全、Agent模式跨代码库执行。Karpathy本人也在用<sup><a href="#cite-5">[5]</a></sup>。</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Claude Code</div>
+      <div class="tool-desc">Anthropic自家的CLI工具。擅长复杂推理和issue-to-PR工作流，适合大型代码库的自主任务执行<sup><a href="#cite-5">[5]</a></sup>。</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Windsurf</div>
+      <div class="tool-desc">被Cognition收购前是Codeium出品，AI原生IDE，强调流畅的 inline 编辑体验。</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Cline / Codex CLI</div>
+      <div class="tool-desc">开源AI编程助手，支持多种模型接入。Codex CLI擅长交互式调试，能访问桌面状态<sup><a href="#cite-5">[5]</a></sup>。</div>
+    </div>
+  </div>
+
+  <h3>第二类：网页版生成器（浏览器里直接用，零门槛）</h3>
+  <div class="tool-grid">
+    <div class="tool-card">
+      <div class="tool-name">v0</div>
+      <div class="tool-desc">Vercel出品，专门给前端组件生成。输入描述，直接生成React/Tailwind组件代码。</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Bolt.new</div>
+      <div class="tool-desc">StackBlitz出品，能跑全栈。一键部署，适合快速原型开发，无需配置基础设施<sup><a href="#cite-5">[5]</a></sup>。</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Lovable</div>
+      <div class="tool-desc">瑞典团队，主打从需求到demo极速生成。完全不懂代码的人也能上手。</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Replit Agent</div>
+      <div class="tool-desc">浏览器内全栈开发环境，从代码生成到部署一条龙。</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>2026趋势</strong>：开发者不再忠于单一平台，而是根据不同能力画像分配角色——Cursor负责编辑器内体验和UI生成，Claude Code负责自主执行和大上下文分析，Codex CLI负责交互式调试。混合栈比单一工具产出更好<sup><a href="#cite-5">[5]</a></sup>。
+  </div>
+
+  <figure class="chart-figure">
+    <figcaption>八大Vibe Coding工具能力维度对比</figcaption>
+    <div id="chart-pie" style="width: 100%; min-height: 420px;"></div>
+  </figure>
+</section>
+
+<!-- Section 7 -->
+<section class="section" id="s7">
+  <div class="section-label">EVOLUTION</div>
+  <h2>从Vibe Coding到Wish Coding：下一站</h2>
+  <p class="lead">蚂蚁集团灵光App提出了一个新概念——Wish Coding<sup><a href="#cite-2">[2]</a></sup>。</p>
+
+  <div class="quote-block">
+    "Vibe Coding加速的是'编码'，你还是得跟代码打交道——装IDE、配环境、管依赖、部署上线。Wish Coding想跳过的是'代码'这件事本身——你只需要说出你想要什么，系统从生成到部署一条龙给你交付一个能用的应用。"
+    <div class="quote-author">—— 视界观，人人都是产品经理<sup><a href="#cite-2">[2]</a></sup></div>
+  </div>
+
+  <h3>关键区别</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>维度</th>
+        <th>Vibe Coding</th>
+        <th>Wish Coding</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>加速对象</strong></td><td>编码效率</td><td>跳过代码本身</td></tr>
+      <tr><td><strong>使用门槛</strong></td><td>降低一点（需懂基本技术）</td><td>直接拆掉（零门槛）</td></tr>
+      <tr><td><strong>用户需要做的</strong></td><td>装IDE、配环境、管依赖</td><td>只需说出需求</td></tr>
+      <tr><td><strong>交付物</strong></td><td>代码+可运行应用</td><td>部署好的应用</td></tr>
+      <tr><td><strong>底层技术</strong></td><td>大模型代码生成</td><td>大模型+全流程封装</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Wish Coding的三个硬伤</h3>
+  <div class="compare-grid">
+    <div class="compare-item bad">
+      <h4>复杂度天花板</h4>
+      <p>AI生成待办清单没问题，做有登录+支付+实时协同的SaaS？现阶段不太行。更适合验证阶段而不是交付阶段<sup><a href="#cite-2">[2]</a></sup>。</p>
+    </div>
+    <div class="compare-item bad">
+      <h4>安全性定时炸弹</h4>
+      <p>大模型生成功能性代码能力突飞猛进，但代码安全性几乎没有进步。2026年初就有vibe coded应用泄露150万API密钥和3.5万用户邮箱<sup><a href="#cite-2">[2]</a></sup>。</p>
+    </div>
+    <div class="compare-item bad">
+      <h4>调试是噩梦</h4>
+      <p>Reddit上有人说："20分钟生成2万行代码，2年时间来调试。"AI生成的代码看起来很polished，反而让错误更难被发现<sup><a href="#cite-2">[2]</a></sup>。</p>
+    </div>
+    <div class="compare-item good">
+      <h4>PM的正确用法</h4>
+      <p>用Wish Coding做内部工具、原型演示、概念验证都可以。但涉及用户数据和金钱交易的功能，老老实实交给专业工程师。用许愿的方式开头，用工程的方式收尾<sup><a href="#cite-2">[2]</a></sup>。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 8 -->
+<section class="section" id="s8">
+  <div class="section-label">PITFALLS</div>
+  <h2>泼一盆冷水：四个必须知道的坑</h2>
+  <p class="lead">Vibe Coding不是万能药，这几个坑你必须知道<sup><a href="#cite-1">[1]</a></sup>。</p>
+
+  <div class="principle-card">
+    <div class="principle-header">
+      <div class="principle-num">01</div>
+      <div>
+        <div class="principle-title">能跑通的demo不等于能上线的产品</div>
+        <div class="principle-subtitle">安全漏洞、性能瓶颈、边界情况处理——没有工程师把关会出大事</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <p>Vibe Coding出来的代码，质量普遍不达标。你的产出物有它的位置：原型、demo、内部工具、PoC、评测脚本——这些是主战场。<mark class="key">面向真实用户的产品级代码，依然要交给工程团队</mark>，他们会推翻重写，这是合理的<sup><a href="#cite-1">[1]</a></sup>。</p>
+    </div>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-header">
+      <div class="principle-num">02</div>
+      <div>
+        <div class="principle-title">"我无所不能"的错觉</div>
+        <div class="principle-subtitle">"看起来能跑"和"真的能跑"中间隔着工程素养</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <p>有人搭了一个简化版支付流程，跑通了之后拿给支付团队的朋友看，对方扫了五分钟告诉里面有7个安全漏洞，其中两个能直接被SQL注入掏空数据库。<mark class="key">vibe coding让"看起来能跑"变得很容易，但安全意识、对业务边界的理解它给不了你</mark><sup><a href="#cite-1">[1]</a></sup>。</p>
+    </div>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-header">
+      <div class="principle-num">03</div>
+      <div>
+        <div class="principle-title">你会忘记跟工程师好好沟通</div>
+        <div class="principle-subtitle">你的角色不是替代工程师，而是更好地协作</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <p>会跑代码之后，容易开始绕过工程师——"反正我自己能搞，我先把东西做出来再说。"这是错的。正确的姿势是：你自己跑通了，把它当作沟通的素材，而不是"我已经做完了你们抄一下就行"的成品<sup><a href="#cite-1">[1]</a></sup>。</p>
+    </div>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-header">
+      <div class="principle-num">04</div>
+      <div>
+        <div class="principle-title">你以为你懂技术了</div>
+        <div class="principle-subtitle">你只是会用一个非常聪明的AI帮你写代码而已</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <p>真正的技术理解需要你能自己debug、能从stack trace看出问题在哪、能在不同架构方案之间做权衡、能预判系统在什么负载下会崩。这些vibe coding给不了你，需要你长期一行一行写代码才能积累出来。<mark class="key">请保持谦卑</mark><sup><a href="#cite-1">[1]</a></sup>。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 9 -->
+<section class="section" id="s9">
+  <div class="section-label">IRREPLACEABLE</div>
+  <h2>PM三大不可替代判断力</h2>
+  <p class="lead">在一个"做应用"的成本趋近于零的世界里，稀缺的不是产能，而是方向感<sup><a href="#cite-2">[2]</a></sup>。</p>
+
+  <div class="principle-card">
+    <div class="principle-header">
+      <div class="principle-num">01</div>
+      <div>
+        <div class="principle-title">做什么的判断力</div>
+        <div class="principle-subtitle">方向感比产能更稀缺</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <p>到底该给用户解决哪个问题？这个问题值不值得解决？市场上有没有人已经解决了？这些判断需要对用户的深度理解、对市场的持续观察、对商业逻辑的穿透力。<mark class="key">这些东西不是几句prompt能替代的</mark><sup><a href="#cite-2">[2]</a></sup>。</p>
+    </div>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-header">
+      <div class="principle-num">02</div>
+      <div>
+        <div class="principle-title">不做什么的判断力</div>
+        <div class="principle-subtitle">克制比执行更稀缺</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <p>当所有人都能瞬间做出一个app的时候，你知道在一堆看起来都不错的功能里砍掉哪些、留下哪些，知道什么时候该做减法，<mark class="purple">这本身就是专业能力</mark><sup><a href="#cite-2">[2]</a></sup>。</p>
+    </div>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-header">
+      <div class="principle-num">03</div>
+      <div>
+        <div class="principle-title">定义标准的判断力</div>
+        <div class="principle-subtitle">"能用"和"好用"之间差着十万八千里</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <p>AI生成的东西能用，但交互细节怎么打磨？异常流程怎么处理？边界情况考虑到了吗？这些都是PM的专业领地，也是<mark class="cyan">产品质量的真正分水岭</mark><sup><a href="#cite-2">[2]</a></sup>。</p>
+    </div>
+  </div>
+
+  <div class="callout warm">
+    <strong>总结</strong>：AI是乐器。需求描述能力是乐感。有乐感的人拿到好乐器，能奏出好曲子。没有乐感的人拿到再好的乐器，也只是在弹一排音符。产品经理这批人，乐感磨了这么多年。AI把乐器变好了。对你们来说，这是好事<sup><a href="#cite-4">[4]</a></sup>。
+  </div>
+</section>
+
+<!-- Section 10 -->
+<section class="section" id="s10">
+  <div class="section-label">METHODOLOGY</div>
+  <h2>30天上手方法论</h2>
+  <p class="lead">一套能直接照着做的方法<sup><a href="#cite-1">[1]</a></sup>。</p>
+
+  <h3>起步阶段：Day 1 ~ Day 7，把工具跑通</h3>
+  <div class="timeline-steps">
+    <div class="timeline-step">
+      <div class="step-day">DAY 1</div>
+      <div class="step-title">选工具跑通</div>
+      <div class="step-desc">完全不会代码→Lovable/Bolt.new；懂一点→Cursor/Claude Code。目标：跑出Hello World</div>
+    </div>
+    <div class="timeline-step">
+      <div class="step-day">DAY 2-3</div>
+      <div class="step-title">跑通小项目</div>
+      <div class="step-desc">天气查询页面（练API）、英文转中文工具（练LLM）、待办排序页面（练前端）</div>
+    </div>
+    <div class="timeline-step">
+      <div class="step-day">DAY 4-7</div>
+      <div class="step-title">练习描述需求</div>
+      <div class="step-desc">vibe coding玩得好不好，70%取决于描述需求的能力。先说整体，再说细节</div>
+    </div>
+  </div>
+
+  <h3>进阶阶段：Day 8 ~ Day 14，用进工作里</h3>
+  <div class="timeline-steps">
+    <div class="timeline-step">
+      <div class="step-day">DAY 8-10</div>
+      <div class="step-title">搭第一个工作工具</div>
+      <div class="step-desc">从最痛的工作场景出发：case标注页、prompt对比器、数据统计面板</div>
+    </div>
+    <div class="timeline-step">
+      <div class="step-day">DAY 11-14</div>
+      <div class="step-title">写PRD前先跑原型</div>
+      <div class="step-desc">选一个正在负责的AI功能，用Vibe Coding先跑粗糙原型，带着结论写PRD</div>
+    </div>
+  </div>
+
+  <h3>深化阶段：Day 15 ~ Day 30，形成工作流</h3>
+  <div class="timeline-steps">
+    <div class="timeline-step">
+      <div class="step-day">DAY 15-20</div>
+      <div class="step-title">用户调研+原型闭环</div>
+      <div class="step-desc">上午访谈，下午搭原型，第二天给用户试。假设→验证周期从三周缩到两天</div>
+    </div>
+    <div class="timeline-step">
+      <div class="step-day">DAY 21-25</div>
+      <div class="step-title">评估第三方方案</div>
+      <div class="step-desc">拿100条真实样本测供应商API，对比准确率。不再被"听起来很厉害"忽悠</div>
+    </div>
+    <div class="timeline-step">
+      <div class="step-day">DAY 26-30</div>
+      <div class="step-title">搭工具军团</div>
+      <div class="step-desc">竞品监控机器人、反馈聚合面板、自动化评测脚本——形成自己的工具生态</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>关键心法</strong>：需求描述遵循"完整场景原则"——场景+功能+技术栈+细节要求+边界条件。分层迭代，拒绝一步到位。必须保留人工验收环节<sup><a href="#cite-3">[3]</a></sup>。
+  </div>
+</section>
+
+<!-- Section 11 -->
+<section class="section" id="s11">
+  <div class="section-label">INTERVIEW TEMPLATE</div>
+  <h2>面试回答框架</h2>
+  <p class="lead">当面试官问"什么样的Vibe Coding对AI产品经理有竞争力"时，按以下逻辑链回答：</p>
+
+  <div class="template-box">
+    <div class="template-step">
+      <div class="step-label">STEP 1 · 定义</div>
+      <div class="step-content">Vibe Coding是Andrej Karpathy在2025年2月提出的编程范式，核心是"你描述你想要什么，AI写代码，你验收效果"。它不是AI代码补全，而是一套完整的人机协作开发模式。</div>
+    </div>
+    <div class="template-step">
+      <div class="step-label">STEP 2 · 为什么AI PM最需要</div>
+      <div class="step-content">AI产品有三个根本性不同：模型行为不可预测（PRD写不清楚）、试错成本高但需要快速迭代、竞争窗口期短。这三个特性让"自己能跑出来一个东西"从加分项变成了必备项。</div>
+    </div>
+    <div class="template-step">
+      <div class="step-label">STEP 3 · 六大竞争优势</div>
+      <div class="step-content">①写PRD前先跑一遍 ②跟工程师讨论有底气 ③用户访谈后当场给原型 ④自己搭内部工具 ⑤评估第三方技术方案 ⑥招聘管人的判断力升级。</div>
+    </div>
+    <div class="template-step">
+      <div class="step-label">STEP 4 · PM的核心竞争力</div>
+      <div class="step-content">Vibe Coding时代，PM最值钱的不是会写代码，而是已有的能力：把模糊的想法变成精确的需求。需求描述精度决定AI产出质量。上下文工程本质就是PM的项目管理能力。</div>
+    </div>
+    <div class="template-step">
+      <div class="step-label">STEP 5 · 边界与坑</div>
+      <div class="step-content">四个坑必须知道：demo≠上线产品、"我无所不能"的错觉、忘记跟工程师沟通、以为懂技术了。产出物的位置是原型、demo、内部工具——面向真实用户的产品级代码交给工程团队。</div>
+    </div>
+    <div class="template-step">
+      <div class="step-label">STEP 6 · 不可替代的判断力</div>
+      <div class="step-content">AI替代不了的是三种判断力：做什么（方向感）、不做什么（克制力）、定义标准（质量分水岭）。AI是乐器，需求描述能力是乐感。PM的乐感磨了这么多年，AI把乐器变好了——这是好事。</div>
+    </div>
+  </div>
+
+  <div class="callout warm">
+    <strong>加分回答</strong>："我自己用Cursor和Claude Code半年了，搭过case标注页面、prompt对比测试器、竞品监控机器人。写PRD之前我会先花两小时跑一个粗糙原型，带着实际数据写文档——评审从两小时变成四十分钟。我的体会是，Vibe Coding不是让PM变成工程师，而是让PM变成一个'能自己把脑子里的东西跑出来'的人。"
+  </div>
+</section>
+
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="sources">
+      <h2>参考来源</h2>
+      <ol>
+        <li id="cite-1">
+          <span class="src-title">Talen，"AI产品经理的新分水岭：会Vibe Coding的人，正在悄悄甩开同行一整个段位"，人人都是产品经理，2026-05</span>
+          <a class="src-url" href="https://www.woshipm.com/ai/6391961.html" target="_blank" rel="noopener">https://www.woshipm.com/ai/6391961.html</a>
+        </li>
+        <li id="cite-2">
+          <span class="src-title">视界观，"从 Vibe Coding 到 Wish Coding：产品经理的饭碗是更铁了，还是要碎了？"，人人都是产品经理，2026-05</span>
+          <a class="src-url" href="https://www.woshipm.com/ai/6380838.html" target="_blank" rel="noopener">https://www.woshipm.com/ai/6380838.html</a>
+        </li>
+        <li id="cite-3">
+          <span class="src-title">EAIReport，"吃透Vibe Coding：AI时代全新氛围编程范式，从原理到实战落地"，CSDN博客，2026-06-08</span>
+          <a class="src-url" href="https://blog.csdn.net/EAlReport/article/details/161793549" target="_blank" rel="noopener">https://blog.csdn.net/EAlReport/article/details/161793549</a>
+        </li>
+        <li id="cite-4">
+          <span class="src-title">浩子AIPM，"VibeCoding 浪潮下，产品经理最值钱的能力变了"，人人都是产品经理，2026-05</span>
+          <a class="src-url" href="https://www.woshipm.com/pmd/6387711.html" target="_blank" rel="noopener">https://www.woshipm.com/pmd/6387711.html</a>
+        </li>
+        <li id="cite-5">
+          <span class="src-title">Multiple sources, "Best Vibe Coding Tools in 2026" & "Cursor 3 vs Claude Code vs Codex"，2026</span>
+          <a class="src-url" href="https://dupple.com/learn/best-vibe-coding-tools" target="_blank" rel="noopener">https://dupple.com/learn/best-vibe-coding-tools</a>
+        </li>
+      </ol>
+    </div>
+  </div>
+</footer>
+
+<script src="./_shared/js/echarts.min.js"></script>
+<script src="assets/charts.js"></script>
+
+</body>
+</html>
