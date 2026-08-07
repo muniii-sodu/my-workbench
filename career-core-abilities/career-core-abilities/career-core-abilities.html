@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>信息提纯：职场八项核心能力</title>
+<script src="./_shared/js/echarts.min.js"></script>
+<style>
+@font-face {
+  font-family: 'WorkSans';
+  src: url('./_shared/fonts/WorkSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'WorkSans';
+  src: url('./_shared/fonts/WorkSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrainsMono';
+  src: url('./_shared/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --bg: #F8F9FB;
+  --bg2: #FFFFFF;
+  --ink: #1E293B;
+  --muted: #64748B;
+  --muted2: #94A3B8;
+  --rule: #E2E8F0;
+  --rule-light: #F1F5F9;
+  --accent: #4F46E5;
+  --accent2: #EC4899;
+  --accent3: #10B981;
+  --accent4: #F59E0B;
+  --highlight: #EEF2FF;
+  --warm: #FDF4FF;
+  --card-shadow: 0 2px 8px rgba(79, 70, 229, 0.06);
+  --card-shadow-hover: 0 8px 24px rgba(79, 70, 229, 0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'WorkSans', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.8;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(145deg, #0F172A 0%, #1E3A5F 40%, #2563EB 100%);
+  color: #fff;
+  padding: 72px 0 56px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -25%;
+  right: -8%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(236,72,153,0.10) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -35%;
+  left: -8%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(16,185,129,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-tag {
+  display: inline-block;
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #93C5FD;
+  margin-bottom: 16px;
+  padding: 4px 14px;
+  border: 1px solid rgba(147,197,253,0.4);
+  border-radius: 20px;
+}
+.hero h1 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+.hero-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.7;
+  max-width: 660px;
+}
+.hero-meta {
+  margin-top: 28px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+}
+.hero-meta span { display: flex; align-items: center; gap: 6px; }
+.hero-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: #93C5FD; }
+
+/* Section */
+.section { padding: 52px 0; }
+.section + .section { border-top: 1px solid var(--rule); }
+
+.section-label {
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+/* Ability Card */
+.ability-card {
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--card-shadow);
+  border-left: 4px solid var(--accent);
+  transition: box-shadow 0.3s;
+}
+.ability-card:hover { box-shadow: var(--card-shadow-hover); }
+.ability-card.a2 { border-left-color: var(--accent2); }
+.ability-card.a3 { border-left-color: var(--accent3); }
+.ability-card.a4 { border-left-color: var(--accent4); }
+
+.ability-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.ability-num {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  flex-shrink: 0;
+  font-family: 'JetBrainsMono', monospace;
+  color: #fff;
+}
+.ability-num.n1 { background: linear-gradient(135deg, var(--accent), #6366F1); }
+.ability-num.n2 { background: linear-gradient(135deg, var(--accent2), #F472B6); }
+.ability-num.n3 { background: linear-gradient(135deg, var(--accent3), #34D399); }
+.ability-num.n4 { background: linear-gradient(135deg, var(--accent4), #FBBF24); }
+
+.ability-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+.ability-one-liner {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.ability-body { line-height: 1.8; }
+.ability-body p { margin-bottom: 12px; }
+.ability-body p:last-child { margin-bottom: 0; }
+
+.ability-tag {
+  display: inline-block;
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 8px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+.ability-tag.layer1 { background: var(--highlight); color: var(--accent); }
+.ability-tag.layer2 { background: var(--warm); color: var(--accent2); }
+.ability-tag.layer3 { background: rgba(16,185,129,0.1); color: var(--accent3); }
+.ability-tag.layer4 { background: rgba(245,158,11,0.1); color: var(--accent4); }
+
+/* Table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
+}
+.data-table th {
+  text-align: left;
+  padding: 12px 14px;
+  font-weight: 700;
+  font-size: 13px;
+  background: var(--rule-light);
+  color: var(--ink);
+}
+.data-table th.accent-th { color: var(--accent); }
+.data-table td {
+  padding: 12px 14px;
+  border-top: 1px solid var(--rule);
+  line-height: 1.6;
+  vertical-align: top;
+}
+.data-table td strong { color: var(--accent); }
+.data-table tr:hover td { background: var(--rule-light); }
+
+/* Callout */
+.callout {
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  color: #fff;
+  border-radius: 14px;
+  padding: 32px;
+  margin: 32px 0;
+  position: relative;
+  overflow: hidden;
+}
+.callout::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(236,72,153,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.callout-content { position: relative; z-index: 1; }
+.callout h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+.callout p { font-size: 15px; line-height: 1.8; opacity: 0.9; }
+
+/* Chart */
+.chart-figure {
+  margin: 28px 0;
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: var(--card-shadow);
+}
+.chart-figure figcaption {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+/* Compare Grid */
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 20px 0;
+}
+.compare-item {
+  background: var(--bg2);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+}
+.compare-item h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid;
+}
+.compare-item.bad h4 { color: var(--accent2); border-color: var(--accent2); }
+.compare-item.good h4 { color: var(--accent3); border-color: var(--accent3); }
+.compare-item p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* Feature List */
+.feature-list {
+  list-style: none;
+  margin: 16px 0;
+}
+.feature-list li {
+  padding: 8px 0 8px 24px;
+  position: relative;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.feature-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 14px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+.feature-list li strong { color: var(--accent); }
+
+/* Quote Block */
+.quote-block {
+  background: var(--highlight);
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin: 16px 0;
+  font-size: 14px;
+  line-height: 1.8;
+  border-left: 4px solid var(--accent);
+}
+.quote-block.bad {
+  background: rgba(236,72,153,0.05);
+  border-left-color: var(--accent2);
+}
+.quote-block.good {
+  background: rgba(16,185,129,0.05);
+  border-left-color: var(--accent3);
+}
+.quote-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  display: block;
+  color: var(--accent);
+}
+.quote-label.bad { color: var(--accent2); }
+.quote-label.good { color: var(--accent3); }
+
+/* Practice Box */
+.practice-box {
+  background: var(--highlight);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.practice-box strong {
+  color: var(--accent);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Keyword Tags */
+.keyword-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+.keyword-tag {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--highlight);
+  color: var(--accent);
+  border: 1px solid rgba(79,70,229,0.15);
+}
+.keyword-tag.hot { background: var(--warm); color: var(--accent2); border-color: rgba(236,72,153,0.15); }
+.keyword-tag.cool { background: rgba(16,185,129,0.08); color: var(--accent3); border-color: rgba(16,185,129,0.15); }
+.keyword-tag.warn { background: rgba(245,158,11,0.08); color: var(--accent4); border-color: rgba(245,158,11,0.15); }
+
+/* Summary Box */
+.summary-box {
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 32px;
+  margin: 32px 0;
+  box-shadow: var(--card-shadow);
+  border-top: 4px solid var(--accent);
+}
+.summary-box h3 {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--accent);
+}
+
+/* Pipeline */
+.pipeline {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+.pipeline-step {
+  flex: 1;
+  min-width: 100px;
+  background: var(--bg2);
+  padding: 16px 12px;
+  text-align: center;
+  box-shadow: var(--card-shadow);
+  position: relative;
+  border-radius: 8px;
+  margin: 0 4px;
+}
+.pipeline-step .step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0 auto 8px;
+  font-family: 'JetBrainsMono', monospace;
+}
+.pipeline-step .step-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.pipeline-step .step-desc {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Footer */
+footer {
+  background: #1E293B;
+  color: rgba(255,255,255,0.6);
+  padding: 40px 0;
+  font-size: 13px;
+}
+footer .container { display: flex; flex-direction: column; gap: 8px; }
+footer a { color: #93C5FD; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+footer .sources { margin-top: 16px; }
+footer .sources h2 { font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 8px; }
+footer .sources ol { padding-left: 1.2rem; }
+footer .sources li { margin-bottom: 0.5rem; line-height: 1.6; }
+footer .sources .src-title { color: rgba(255,255,255,0.8); }
+footer .sources .src-url { display: block; margin-top: 0.15rem; color: #93C5FD; word-break: break-all; }
+
+sup a { color: var(--accent); text-decoration: none; font-size: 0.75em; font-weight: 600; }
+sup a:hover { text-decoration: underline; }
+mark.key { background: none; color: var(--accent); font-weight: 600; }
+
+@media (max-width: 640px) {
+  .hero { padding: 48px 0 40px; }
+  .hero h1 { font-size: 24px; }
+  .hero-sub { font-size: 15px; }
+  .section { padding: 36px 0; }
+  .section-title { font-size: 21px; }
+  .ability-card, .summary-box, .callout { padding: 20px; }
+  .compare-grid { grid-template-columns: 1fr; }
+  .pipeline { flex-direction: column; }
+  .pipeline-step { margin: 0 0 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <span class="hero-tag">职场进阶 · 八项核心能力</span>
+      <h1>信息提纯</h1>
+      <p class="hero-sub">Webber提炼的职场八项核心能力：专业能力是入场券，闭环能力让人安心，向上翻译创造价值可见度，主动呈现建立信任节奏，横向沟通润滑协作，情绪剥离保持理性输出，借事成事放大杠杆，复制能力让效率可扩展。本文系统拆解每项能力的底层逻辑与实操方法，补充职场四维竞争力模型、四层能力金字塔和7个SOP管理思维。</p>
+      <div class="hero-meta">
+        <span><span class="dot"></span>来源：@Webber 信息提纯</span>
+        <span><span class="dot"></span>跨源补充：3篇深度文章</span>
+        <span><span class="dot"></span>2026-08-07</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 八项能力总览图 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">01 / OVERVIEW</div>
+    <h2 class="section-title">八项核心能力全景图</h2>
+    <p style="margin-bottom: 24px; color: var(--muted);">将八项能力按"对事—对人—对组织—对自我"四个层次归类，构建从执行到操盘的完整能力体系。</p>
+
+    <figure class="chart-figure">
+      <figcaption>职场八项核心能力四层架构</figcaption>
+      <div id="chart-overview" style="width:100%;height:420px;"></div>
+    </figure>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th class="accent-th">能力层次</th>
+          <th>核心能力</th>
+          <th>一句话定义</th>
+          <th>解决什么问题</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>对事层</strong></td>
+          <td>专业能力</td>
+          <td>岗位JD上面写的事情你能干得来</td>
+          <td>能不能上牌桌</td>
+        </tr>
+        <tr>
+          <td><strong>对事层</strong></td>
+          <td>闭环能力</td>
+          <td>件件事情有着落，让人安心</td>
+          <td>能不能被信任</td>
+        </tr>
+        <tr>
+          <td><strong>对人层</strong></td>
+          <td>向上翻译</td>
+          <td>汇报重点你得到的结果，能给领导关心的部分给他创造多大的利益</td>
+          <td>价值能否被看见</td>
+        </tr>
+        <tr>
+          <td><strong>对人层</strong></td>
+          <td>主动呈现</td>
+          <td>和别人确认好汇报节点，在该汇报的节点有条不紊的汇报</td>
+          <td>信任能否持续</td>
+        </tr>
+        <tr>
+          <td><strong>对人层</strong></td>
+          <td>横向沟通</td>
+          <td>跨部门的沟通，为了让合作更加丝滑</td>
+          <td>协作能否顺畅</td>
+        </tr>
+        <tr>
+          <td><strong>对自我层</strong></td>
+          <td>情绪剥离</td>
+          <td>把个人情绪屏蔽，把自己想成一个机器人工作</td>
+          <td>输出能否稳定</td>
+        </tr>
+        <tr>
+          <td><strong>对组织层</strong></td>
+          <td>借事成事</td>
+          <td>尽量去公司战略看重的模块工作，这会放大你的价值</td>
+          <td>价值能否被放大</td>
+        </tr>
+        <tr>
+          <td><strong>对组织层</strong></td>
+          <td>复制能力</td>
+          <td>件件事情能生成SOP，流程跑起来丝滑有效率</td>
+          <td>效率能否可扩展</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 八项能力深度拆解 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">02 / DEEP DIVE</div>
+    <h2 class="section-title">八项能力逐层拆解</h2>
+
+    <!-- 1. 专业能力 -->
+    <div class="ability-card">
+      <div class="ability-header">
+        <div class="ability-num n1">01</div>
+        <div>
+          <div class="ability-title">专业能力<span class="ability-tag layer1">对事层 · 入场券</span></div>
+          <div class="ability-one-liner">岗位JD上面写的事情你能干得来</div>
+        </div>
+      </div>
+      <div class="ability-body">
+        <p>专业能力是你的<mark class="key">入场券</mark>——在职场中，如果你没有这个，那么你连上牌桌的机会都没有。编程、写作、数据分析、项目管理，这些都是专业能力的具体形态<sup><a href="#cite-1">[1]</a></sup>。</p>
+        <p>但问题在于：在AI时代，大多数技能会贬值。编程、做PPT、数据分析这些几年前还是"核心竞争力"的东西，现在AI已经能做得很好了。你再练，最多只能到中上游水平，但AI从0到你的水平可能只需要训练一年。</p>
+        <div class="practice-box">
+          <strong>进阶方向</strong>
+          把专业能力做到"AI做不到的深度"——场景化判断与场景适配。比如做数据分析，不要只学工具，要钻研到"我能从数据里看出别人看不出来的问题"这种程度。做项目管理，要学到"能预判项目会在哪个环节出问题"。
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 闭环能力 -->
+    <div class="ability-card a2">
+      <div class="ability-header">
+        <div class="ability-num n2">02</div>
+        <div>
+          <div class="ability-title">闭环能力<span class="ability-tag layer2">对事层 · 信任基石</span></div>
+          <div class="ability-one-liner">件件事情有着落，让人安心</div>
+        </div>
+      </div>
+      <div class="ability-body">
+        <p>闭环能力的本质是<mark class="key">凡事有交代、件件有着落、事事有回音</mark>。这不是说每件事都要做到完美，而是说每件事都要有明确的进度、结果和下一步。</p>
+        <p>闭环意识的核心动作：所有的口头约定都要跟进邮件确认，形成可追溯的文档<sup><a href="#cite-2">[2]</a></sup>。这不是形式主义，而是建立"可预测性"的信用——别人知道交给你一件事，一定会有结果回来。</p>
+        <div class="practice-box">
+          <strong>闭环四步法（PDCA模型）</strong>
+          P（计划）：设定目标，制定方案 → D（执行）：按计划行动，记录数据与问题 → C（检查）：对比结果与计划，分析根因 → A（处理）：标准化成功经验，改进失败点，遗留问题进入下一循环<sup><a href="#cite-3">[3]</a></sup>。
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 向上翻译 -->
+    <div class="ability-card a3">
+      <div class="ability-header">
+        <div class="ability-num n3">03</div>
+        <div>
+          <div class="ability-title">向上翻译<span class="ability-tag layer3">对人层 · 价值放大器</span></div>
+          <div class="ability-one-liner">汇报重点你得到的结果，能给领导关心的部分给他创造多大的利益</div>
+        </div>
+      </div>
+      <div class="ability-body">
+        <p>向上翻译的核心不是"汇报工作"，而是<mark class="key">把你的工作成果翻译成领导关心的语言</mark>——领导关心的是利益、效率、风险，不是你的过程和辛苦。</p>
+        <p>错误汇报："我这周做了市场调研，整理了竞品分析报告，开了三个会。"正确汇报："我完成季度市场调研，系统梳理竞品动态与用户核心需求，挖掘出2个低成本高效推广渠道，预计可帮助部门降低15%推广成本<sup><a href="#cite-2">[2]</a></sup>。"</p>
+        <div class="quote-block good">
+          <span class="quote-label good">SCQA汇报模型</span>
+          <strong>S（情境）</strong>：清晰描述工作背景 → <strong>C（冲突）</strong>：点明打破常规的障碍 → <strong>Q（问题）</strong>：引出核心议题，将决策权抛给上级 → <strong>A（答案）</strong>：提供具体解决方案<sup><a href="#cite-3">[3]</a></sup>
+        </div>
+        <div class="practice-box">
+          <strong>三大核心技巧</strong>
+          1. 价值优先：30秒聚焦核心，先阐述成果与团队收益，再补充执行细节；2. 自带方案：永远不给老板做简答题，只给他做选择题；3. 成就上司：你的目标是让老板在他的老板面前"发光"<sup><a href="#cite-2">[2]</a></sup>。
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. 主动呈现 -->
+    <div class="ability-card">
+      <div class="ability-header">
+        <div class="ability-num n1">04</div>
+        <div>
+          <div class="ability-title">主动呈现<span class="ability-tag layer1">对人层 · 信任节奏</span></div>
+          <div class="ability-one-liner">和别人确认好汇报节点，在该汇报的节点有条不紊的汇报，让人安心</div>
+        </div>
+      </div>
+      <div class="ability-body">
+        <p>主动呈现的核心是<mark class="key">管理预期</mark>——不是等别人来问你，而是主动确认汇报节点，在关键节点有条不紊地同步进度。</p>
+        <p>这不是"邀功"，而是"让人安心"。领导最怕的不是坏消息，而是不知道发生了什么。当你能按节奏主动同步，领导的焦虑感就会大幅降低，对你的信任度就会上升。</p>
+        <div class="practice-box">
+          <strong>每周15分钟非正式同步</strong>
+          汇报结构用"进展-卡点-需要你做什么-下一步计划"<sup><a href="#cite-1">[1]</a></sup>。这不是正式汇报，而是轻量级的预期管理——让领导随时知道你在哪里、卡在哪里、需要什么支持。
+        </div>
+        <div class="practice-box">
+          <strong>超预期交付</strong>
+          不是让你多做一点，而是让你"多做对的那一点"。别人要数据，你给数据+洞察；别人要方案，你给方案+风险预案。宁可承诺少一点，做到的多一点<sup><a href="#cite-1">[1]</a></sup>。
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. 横向沟通 -->
+    <div class="ability-card a2">
+      <div class="ability-header">
+        <div class="ability-num n2">05</div>
+        <div>
+          <div class="ability-title">横向沟通<span class="ability-tag layer2">对人层 · 协作润滑剂</span></div>
+          <div class="ability-one-liner">跨部门的沟通，为了让合作更加丝滑</div>
+        </div>
+      </div>
+      <div class="ability-body">
+        <p>跨部门推进项目的核心不是技术，而是<mark class="key">用利益驱动合作</mark>——能听懂对方的潜台词，在沟通时不只谈自己的需求，而是先讲"这事成了对你有什么好处"<sup><a href="#cite-1">[1]</a></sup>。</p>
+        <p>横向沟通的三个层次：第一层是"把信息传达到"——这是最低要求；第二层是"让对方理解你的需求"——这是及格线；第三层是"让对方愿意配合你"——这才是高手。</p>
+        <div class="compare-grid">
+          <div class="compare-item bad">
+            <h4>低效沟通</h4>
+            <p>"这个需求我需要你们配合，下周五之前给我。"——只谈自己的需求，不管对方的排期和利益。</p>
+          </div>
+          <div class="compare-item good">
+            <h4>高效沟通</h4>
+            <p>"这个项目如果按期上线，你们部门的XX指标也能提升20%。我看了你们的排期，周三之前给我数据就行，我已经和XX打好招呼了。"</p>
+          </div>
+        </div>
+        <div class="practice-box">
+          <strong>会前一对一</strong>
+          每次跨部门会议前，先私下与关键相关方一对一沟通，摸清诉求和顾虑，再开大会。大会上不是"讨论"，而是"确认已达成的共识"<sup><a href="#cite-1">[1]</a></sup>。
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. 情绪剥离 -->
+    <div class="ability-card a4">
+      <div class="ability-header">
+        <div class="ability-num n4">06</div>
+        <div>
+          <div class="ability-title">情绪剥离<span class="ability-tag layer4">对自我层 · 稳定输出</span></div>
+          <div class="ability-one-liner">把个人情绪屏蔽，把自己想成一个机器人工作</div>
+        </div>
+      </div>
+      <div class="ability-body">
+        <p>职场中最耗能的往往不是工作本身，而是<mark class="key">人际关系和情绪漩涡</mark>。很多人能力不差，毁在情绪内耗和心态崩溃<sup><a href="#cite-1">[1]</a></sup>。</p>
+        <p>情绪剥离不是"没有感情"，而是"不被情绪驱动决策"。把自己想成一个机器人工作——不是说冷血，而是说在面对批评、冲突、压力时，能先把情绪放一边，用理性处理问题。</p>
+        <div class="practice-box">
+          <strong>非暴力沟通四步</strong>
+          观察（发生了什么，不评判）→ 感受（我的情绪是什么）→ 需要（我的什么需求没被满足）→ 请求（我希望对方做什么）。在情绪触发前强制暂停10秒<sup><a href="#cite-1">[1]</a></sup>。
+        </div>
+        <p>能成为团队"定海神针"的人——在危机时刻保持稳定输出的人——是组织最依赖的存在。情绪稳定本身就是一种核心竞争力。</p>
+      </div>
+    </div>
+
+    <!-- 7. 借事成事 -->
+    <div class="ability-card a3">
+      <div class="ability-header">
+        <div class="ability-num n3">07</div>
+        <div>
+          <div class="ability-title">借事成事<span class="ability-tag layer3">对组织层 · 价值杠杆</span></div>
+          <div class="ability-one-liner">尽量去公司战略看重的模块工作，这会放大你的价值</div>
+        </div>
+      </div>
+      <div class="ability-body">
+        <p>同样的努力，放在公司战略看重的模块和放在边缘模块，<mark class="key">价值放大倍数完全不同</mark>。这不是"拍马屁"，而是"选赛道"。</p>
+        <p>战略能力意味着你要做三件事：一是选赛道，知道什么值得做、什么不值得做；二是配资源，知道把时间精力花费在哪里回报最高；三是看周期，知道什么时候该深耕、什么时候该转型<sup><a href="#cite-1">[1]</a></sup>。</p>
+        <div class="practice-box">
+          <strong>如何判断公司战略看重什么</strong>
+          1. 看CEO在全员会上讲什么——这是最直接的战略信号；2. 看预算分配——钱花在哪里，哪里就是战略重心；3. 看人事变动——被提拔的人通常在被看重的模块；4. 看OKR/KPI权重——权重高的就是优先级高的。
+        </div>
+        <p>借事成事的核心逻辑：不是"我做了一件很牛的事"，而是"我做了一件公司认为很重要的事"——同样的事情，放在战略模块里，价值会被组织放大十倍。</p>
+      </div>
+    </div>
+
+    <!-- 8. 复制能力 -->
+    <div class="ability-card">
+      <div class="ability-header">
+        <div class="ability-num n1">08</div>
+        <div>
+          <div class="ability-title">复制能力<span class="ability-tag layer1">对组织层 · 效率可扩展</span></div>
+          <div class="ability-one-liner">件件事情能生成SOP，流程跑起来丝滑有效率</div>
+        </div>
+      </div>
+      <div class="ability-body">
+        <p>复制能力的本质是<mark class="key">把个人能力转化为组织资产</mark>——你能把个人的最佳实践"产品化"，变成模板、SOP、培训材料，让别人也能复制你的高效<sup><a href="#cite-1">[1]</a></sup>。</p>
+        <p>组织永远缺少能把个人能力转化为团队能力的人。一个人做到100分是骨干，能让10个人都做到80分是管理者，能让流程自己跑起来是操盘手。</p>
+        <div class="practice-box">
+          <strong>SOP不是文档，而是操作系统</strong>
+          汇报用SCQA，目标用SMART，思路用5W2H，复盘用PDCA，决策用ACE，沟通用AIDA，讲故事用STAR<sup><a href="#cite-3">[3]</a></sup>。每个场景都有标准化的思维工具，新人能30分钟上手，这就是复制能力的最终形态。
+        </div>
+        <div class="quote-block good">
+          <span class="quote-label good">知识资产化</span>
+          下次优化完一个工作流，同步产出一份"5分钟上手指南"或"避坑检查表"，并观察同事使用中的卡点来迭代。不把价值完全依附于某一家公司，你就在持续构建可以随身携带的护城河<sup><a href="#cite-1">[1]</a></sup>。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 跨源补充：职场四维竞争力模型 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">03 / SUPPLEMENTARY MODEL</div>
+    <h2 class="section-title">职场核心竞争力四维模型</h2>
+    <p style="margin-bottom: 24px; color: var(--muted);">补充自头条号深度文章，提出职场核心能力 = 产品能力 + 媒体能力 + 运营能力 + 战略能力<sup><a href="#cite-1">[1]</a></sup>，与Webber的八项能力形成映射。</p>
+
+    <figure class="chart-figure">
+      <figcaption>四维竞争力模型 vs 八项能力映射</figcaption>
+      <div id="chart-radar" style="width:100%;height:400px;"></div>
+    </figure>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th class="accent-th">四维模型</th>
+          <th>定义</th>
+          <th>对应Webber能力</th>
+          <th>决定什么</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>产品能力</strong></td>
+          <td>把事情做好的专业能力</td>
+          <td>专业能力 + 闭环能力</td>
+          <td>下限（入场券）</td>
+        </tr>
+        <tr>
+          <td><strong>媒体能力</strong></td>
+          <td>传播能力、影响力和个人声望</td>
+          <td>向上翻译 + 主动呈现</td>
+          <td>上限（放大器）</td>
+        </tr>
+        <tr>
+          <td><strong>运营能力</strong></td>
+          <td>协调资源、组织管理、做人能力</td>
+          <td>横向沟通 + 情绪剥离</td>
+          <td>连接器</td>
+        </tr>
+        <tr>
+          <td><strong>战略能力</strong></td>
+          <td>选赛道、配资源、看周期</td>
+          <td>借事成事 + 复制能力</td>
+          <td>导航仪</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <div class="callout-content">
+        <h3>核心心法</h3>
+        <p>别去跟AI比技能，你要跟它比判断；别去跟别人比广度，你要跟它们比深度；别去追求被认可，你要追求被信任。产品能力是你的入场券，媒体能力是你的放大器，运营能力是你的连接器，战略能力是你的导航仪——四者缺一不可<sup><a href="#cite-1">[1]</a></sup>。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 跨源补充：四层能力金字塔 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">04 / ABILITY PYRAMID</div>
+    <h2 class="section-title">从执行者到操盘手：四层能力金字塔</h2>
+    <p style="margin-bottom: 24px; color: var(--muted);">补充自CSDN深度文章，提出职场进阶的四层能力金字塔模型<sup><a href="#cite-4">[4]</a></sup>——从"如何把事情做快"进阶到"决定做什么事"和"如何让事情发生"。</p>
+
+    <figure class="chart-figure">
+      <figcaption>四层能力金字塔</figcaption>
+      <div id="chart-pyramid" style="width:100%;height:380px;"></div>
+    </figure>
+
+    <div class="ability-card a4">
+      <div class="ability-header">
+        <div class="ability-num n4">L4</div>
+        <div>
+          <div class="ability-title">心性认知层 — 决定你能走多远</div>
+          <div class="ability-one-liner">情绪管理 · 反脆弱 · 知识资产化 · 培养他人</div>
+        </div>
+      </div>
+      <div class="ability-body">
+        <p>职场中最耗能的往往不是工作本身，而是人际关系和情绪漩涡。高情绪颗粒度意味着能精准识别自己和他人的情绪，用理性沟通化解冲突，在高压下保持稳定<sup><a href="#cite-4">[4]</a></sup>。</p>
+        <p>对应Webber的<strong>情绪剥离</strong>和<strong>复制能力</strong>——情绪管理保证长期续航，知识资产化让影响力从"点"扩散到"面"。</p>
+      </div>
+    </div>
+
+    <div class="ability-card a3">
+      <div class="ability-header">
+        <div class="ability-num n3">L3</div>
+        <div>
+          <div class="ability-title">业务商业层 — 把能力锚定到公司价值上</div>
+          <div class="ability-one-liner">业务翻译 · 项目管理 · 流程再造 · 交付判断</div>
+        </div>
+      </div>
+      <div class="ability-body">
+        <p>这是从"骨干"到"操盘手"最关键的一跃。工具再好也只是降本，懂业务才能增效。能把技术限制、数据结论翻译成老板和业务方听得懂的决策语言<sup><a href="#cite-4">[4]</a></sup>。</p>
+        <p>对应Webber的<strong>借事成事</strong>——让能力锚定到公司战略看重的模块，价值被组织放大。</p>
+      </div>
+    </div>
+
+    <div class="ability-card a2">
+      <div class="ability-header">
+        <div class="ability-num n2">L2</div>
+        <div>
+          <div class="ability-title">影响力沟通层 — 让价值被看见，让协作发生</div>
+          <div class="ability-one-liner">结构化表达 · 向上管理 · 跨部门协同</div>
+        </div>
+      </div>
+      <div class="ability-body">
+        <p>你有很好的想法、很扎实的产出，但如果不能被听见、被理解、被支持，价值就打了对折。会写会说的人，晋升速度远高于只会干活的人<sup><a href="#cite-4">[4]</a></sup>。</p>
+        <p>对应Webber的<strong>向上翻译</strong>、<strong>主动呈现</strong>和<strong>横向沟通</strong>——让价值被看见，让协作更丝滑。</p>
+      </div>
+    </div>
+
+    <div class="ability-card">
+      <div class="ability-header">
+        <div class="ability-num n1">L1</div>
+        <div>
+          <div class="ability-title">思维决策层 — 在AI时代，"好问题"比"好答案"更贵</div>
+          <div class="ability-one-liner">问题拆解 · 信息筛选 · 数据思维 · 批判性思考</div>
+        </div>
+      </div>
+      <div class="ability-body">
+        <p>多数人擅长"被给定任务后高效完成"，但能识别真正问题的人极少。AI可以给出任何答案，但它无法帮你判断"这个问题本身问对了吗"<sup><a href="#cite-4">[4]</a></sup>。</p>
+        <p>对应Webber的<strong>专业能力</strong>和<strong>闭环能力</strong>——专业能力是基础，闭环能力保证事情有着落。</p>
+      </div>
+    </div>
+
+    <div class="summary-box">
+      <h3>阶梯式成长路径</h3>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th class="accent-th">时间</th>
+            <th>重点</th>
+            <th>核心动作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>短期（1-3月）</strong></td>
+            <td>结构化表达 + 信息筛选</td>
+            <td>把文档和复盘写得更有商业说服力，每次汇报"结论先行"</td>
+          </tr>
+          <tr>
+            <td><strong>中期（3-6月）</strong></td>
+            <td>项目管理 + 跨部门协作</td>
+            <td>主动请缨主导跨部门小项目，锻炼利益相关者管理</td>
+          </tr>
+          <tr>
+            <td><strong>长期（6月+）</strong></td>
+            <td>商业逻辑 + 知识资产化</td>
+            <td>深入行业商业模式，将工作流"产品化"输出给团队</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 7个SOP管理思维 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">05 / SOP TOOLKIT</div>
+    <h2 class="section-title">7个SOP管理思维工具箱</h2>
+    <p style="margin-bottom: 24px; color: var(--muted);">补充自OKR管理学院，管理者必须内化的7个SOP思维<sup><a href="#cite-3">[3]</a></sup>——这是"复制能力"的具体落地工具。</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th class="accent-th">SOP模型</th>
+          <th>全称</th>
+          <th>适用场景</th>
+          <th>对应能力</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>SCQA</strong></td>
+          <td>情境-冲突-问题-答案</td>
+          <td>汇报工作</td>
+          <td>向上翻译</td>
+        </tr>
+        <tr>
+          <td><strong>SMART</strong></td>
+          <td>具体-可衡量-可实现-相关-有时限</td>
+          <td>设定目标</td>
+          <td>闭环能力</td>
+        </tr>
+        <tr>
+          <td><strong>5W2H</strong></td>
+          <td>What/Why/Who/When/Where/How/How much</td>
+          <td>理清思路</td>
+          <td>专业能力</td>
+        </tr>
+        <tr>
+          <td><strong>PDCA</strong></td>
+          <td>计划-执行-检查-处理</td>
+          <td>高效复盘</td>
+          <td>闭环能力</td>
+        </tr>
+        <tr>
+          <td><strong>ACE</strong></td>
+          <td>备选方案-标准-评估</td>
+          <td>高效决策</td>
+          <td>专业能力</td>
+        </tr>
+        <tr>
+          <td><strong>AIDA</strong></td>
+          <td>注意-兴趣-欲望-行动</td>
+          <td>人际沟通</td>
+          <td>横向沟通</td>
+        </tr>
+        <tr>
+          <td><strong>STAR</strong></td>
+          <td>情境-任务-行动-结果</td>
+          <td>讲述故事</td>
+          <td>向上翻译</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <div class="callout-content">
+        <h3>SOP思维 = 管理操作系统</h3>
+        <p>用SMART设定目标，用PDCA复盘优化，用ACE做出决策，用AIDA推动沟通，用SCQA向上汇报，用5W2H理清思路，用STAR传递价值。当你把这些SOP思维内化为工作习惯，就不再被琐事牵制，而是能从容掌控节奏<sup><a href="#cite-3">[3]</a></sup>。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 自检清单 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">06 / SELF-CHECK</div>
+    <h2 class="section-title">八项能力自检清单</h2>
+    <p style="margin-bottom: 24px; color: var(--muted);">用以下问题快速自测你的八项能力现状，找出最需要补强的短板。</p>
+
+    <figure class="chart-figure">
+      <figcaption>八项能力自评雷达图（示例）</figcaption>
+      <div id="chart-self" style="width:100%;height:400px;"></div>
+    </figure>
+
+    <div class="ability-card">
+      <div class="ability-header">
+        <div class="ability-num n1">?</div>
+        <div>
+          <div class="ability-title">三个灵魂拷问</div>
+        </div>
+      </div>
+      <div class="ability-body">
+        <ol class="feature-list">
+          <li><strong>你最近一次"超预期交付"是什么时候？</strong>如果超过3个月没有发生过，说明你的"被信任程度"正在下降<sup><a href="#cite-1">[1]</a></sup>。</li>
+          <li><strong>你现在投入时间最多的3件事，是否都围绕你的"不可复制点"？</strong>如果不是，你可能在做"加法"而不是"减法"。</li>
+          <li><strong>你能否在30秒内说清楚你最近一个月最大的工作成果？</strong>如果不能，你的"向上翻译"能力需要加强。</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="summary-box">
+      <h3>核心心法</h3>
+      <ul class="feature-list">
+        <li><strong>专业能力是入场券</strong>：没有它你连上牌桌的机会都没有，但仅凭它你只能在中游徘徊</li>
+        <li><strong>闭环能力是信任基石</strong>：凡事有交代、件件有着落、事事有回音</li>
+        <li><strong>向上翻译是价值放大器</strong>：把工作成果翻译成领导关心的语言——利益、效率、风险</li>
+        <li><strong>主动呈现是信任节奏</strong>：不是邀功，而是让人安心——管理预期比管理任务更重要</li>
+        <li><strong>横向沟通是协作润滑剂</strong>：用利益驱动合作，先讲"这事成了对你有什么好处"</li>
+        <li><strong>情绪剥离是稳定输出</strong>：不是没有感情，而是不被情绪驱动决策</li>
+        <li><strong>借事成事是价值杠杆</strong>：同样的努力，放在战略模块价值放大十倍</li>
+        <li><strong>复制能力是效率可扩展</strong>：把个人能力转化为组织资产，让流程自己跑起来</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>信息提纯：职场八项核心能力 | 知识工作台 #0022</p>
+    <p>来源：@Webber 信息提纯 · 跨源补充3篇深度文章</p>
+    <div class="sources">
+      <h2>参考资料</h2>
+      <ol>
+        <li>
+          <span class="src-title">怎样提高自己的职业核心竞争力？ — 头条号 / 悦读职场</span>
+          <a class="src-url" id="cite-1" href="http://m.toutiao.com/group/7668333731442164258/">http://m.toutiao.com/group/7668333731442164258/</a>
+        </li>
+        <li>
+          <span class="src-title">真正会升职的人，都在悄悄"管理"自己的老板 — 头条号 / 文哥</span>
+          <a class="src-url" id="cite-2" href="http://m.toutiao.com/group/7664292722588566052/">http://m.toutiao.com/group/7664292722588566052/</a>
+        </li>
+        <li>
+          <span class="src-title">走上管理岗，管理者一定要有的7个SOP思维 — OKR管理学院</span>
+          <a class="src-url" id="cite-3" href="https://www.pekhr.com/lib/15691.html">https://www.pekhr.com/lib/15691.html</a>
+        </li>
+        <li>
+          <span class="src-title">职场中那些值钱的能力 — CSDN博客 / 海棠花已开</span>
+          <a class="src-url" id="cite-4" href="https://blog.csdn.net/m0_56491492/article/details/160828112">https://blog.csdn.net/m0_56491492/article/details/160828112</a>
+        </li>
+      </ol>
+    </div>
+  </div>
+</footer>
+
+<script src="./assets/charts.js"></script>
+</body>
+</html>
