@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI应用评测产品：15道面试题深度解析</title>
+<script src="./_shared/js/echarts.min.js"></script>
+<style>
+@font-face {
+  font-family: 'WorkSans';
+  src: url('./_shared/fonts/WorkSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'WorkSans';
+  src: url('./_shared/fonts/WorkSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrainsMono';
+  src: url('./_shared/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --bg: #F8F9FB;
+  --bg2: #FFFFFF;
+  --ink: #1E293B;
+  --muted: #64748B;
+  --muted2: #94A3B8;
+  --rule: #E2E8F0;
+  --rule-light: #F1F5F9;
+  --accent: #4F46E5;
+  --accent2: #EC4899;
+  --accent3: #10B981;
+  --accent4: #F59E0B;
+  --highlight: #EEF2FF;
+  --warm: #FDF4FF;
+  --card-shadow: 0 2px 8px rgba(79, 70, 229, 0.06);
+  --card-shadow-hover: 0 8px 24px rgba(79, 70, 229, 0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'WorkSans', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.8;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(145deg, #0F172A 0%, #1E3A5F 40%, #2563EB 100%);
+  color: #fff;
+  padding: 72px 0 56px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -25%;
+  right: -8%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(236,72,153,0.10) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -35%;
+  left: -8%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(16,185,129,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-tag {
+  display: inline-block;
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #93C5FD;
+  margin-bottom: 16px;
+  padding: 4px 14px;
+  border: 1px solid rgba(147,197,253,0.4);
+  border-radius: 20px;
+}
+.hero h1 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+.hero-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.7;
+  max-width: 660px;
+}
+.hero-meta {
+  margin-top: 28px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+}
+.hero-meta span { display: flex; align-items: center; gap: 6px; }
+.hero-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: #93C5FD; }
+
+/* Section */
+.section { padding: 52px 0; }
+.section + .section { border-top: 1px solid var(--rule); }
+
+.section-label {
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+/* Question Card */
+.q-card {
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 20px;
+  box-shadow: var(--card-shadow);
+  border-left: 4px solid var(--accent);
+  transition: box-shadow 0.3s;
+}
+.q-card:hover { box-shadow: var(--card-shadow-hover); }
+.q-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'JetBrainsMono', monospace;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.q-header {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.q-title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.6;
+  padding-top: 4px;
+}
+.q-tag {
+  display: inline-block;
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 8px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+.q-tag.core { background: var(--highlight); color: var(--accent); }
+.q-tag.method { background: var(--warm); color: var(--accent2); }
+.q-tag.system { background: rgba(16,185,129,0.1); color: var(--accent3); }
+.q-tag.advanced { background: rgba(245,158,11,0.1); color: var(--accent4); }
+.q-body { line-height: 1.8; font-size: 15px; }
+.q-body p { margin-bottom: 10px; }
+
+/* Stage Card */
+.stage-card {
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--card-shadow);
+  border-top: 4px solid var(--accent);
+}
+.stage-card.s2 { border-top-color: var(--accent2); }
+.stage-card.s3 { border-top-color: var(--accent3); }
+.stage-card.s4 { border-top-color: var(--accent4); }
+
+.stage-badge {
+  display: inline-block;
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.stage-badge.b1 { background: var(--highlight); color: var(--accent); }
+.stage-badge.b2 { background: var(--warm); color: var(--accent2); }
+.stage-badge.b3 { background: rgba(16,185,129,0.1); color: var(--accent3); }
+.stage-badge.b4 { background: rgba(245,158,11,0.1); color: var(--accent4); }
+
+.stage-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* Table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
+}
+.data-table th {
+  text-align: left;
+  padding: 12px 14px;
+  font-weight: 700;
+  font-size: 13px;
+  background: var(--rule-light);
+  color: var(--ink);
+}
+.data-table th.accent-th { color: var(--accent); }
+.data-table td {
+  padding: 12px 14px;
+  border-top: 1px solid var(--rule);
+  line-height: 1.6;
+  vertical-align: top;
+}
+.data-table td strong { color: var(--accent); }
+.data-table tr:hover td { background: var(--rule-light); }
+
+/* Compare Grid */
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 20px 0;
+}
+.compare-item {
+  background: var(--bg2);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+}
+.compare-item h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid;
+}
+.compare-item.bad h4 { color: var(--accent2); border-color: var(--accent2); }
+.compare-item.good h4 { color: var(--accent3); border-color: var(--accent3); }
+.compare-item p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* Callout */
+.callout {
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  color: #fff;
+  border-radius: 14px;
+  padding: 32px;
+  margin: 32px 0;
+  position: relative;
+  overflow: hidden;
+}
+.callout::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(236,72,153,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.callout-content { position: relative; z-index: 1; }
+.callout h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+.callout p { font-size: 15px; line-height: 1.8; opacity: 0.9; }
+
+/* Chart */
+.chart-figure {
+  margin: 28px 0;
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: var(--card-shadow);
+}
+.chart-figure figcaption {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+/* Feature List */
+.feature-list {
+  list-style: none;
+  margin: 16px 0;
+}
+.feature-list li {
+  padding: 8px 0 8px 24px;
+  position: relative;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.feature-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 14px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+.feature-list li strong { color: var(--accent); }
+
+/* Summary Box */
+.summary-box {
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 32px;
+  margin: 32px 0;
+  box-shadow: var(--card-shadow);
+  border-top: 4px solid var(--accent);
+}
+.summary-box h3 {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--accent);
+}
+
+/* Keyword Tags */
+.keyword-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+.keyword-tag {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--highlight);
+  color: var(--accent);
+  border: 1px solid rgba(79,70,229,0.15);
+}
+.keyword-tag.hot { background: var(--warm); color: var(--accent2); border-color: rgba(236,72,153,0.15); }
+.keyword-tag.cool { background: rgba(16,185,129,0.08); color: var(--accent3); border-color: rgba(16,185,129,0.15); }
+.keyword-tag.warn { background: rgba(245,158,11,0.08); color: var(--accent4); border-color: rgba(245,158,11,0.15); }
+
+/* Quote Block */
+.quote-block {
+  background: var(--highlight);
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin: 16px 0;
+  font-size: 14px;
+  line-height: 1.8;
+  border-left: 4px solid var(--accent);
+}
+.quote-block.bad {
+  background: rgba(236,72,153,0.05);
+  border-left-color: var(--accent2);
+}
+.quote-block.good {
+  background: rgba(16,185,129,0.05);
+  border-left-color: var(--accent3);
+}
+.quote-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  display: block;
+}
+.quote-label.bad { color: var(--accent2); }
+.quote-label.good { color: var(--accent3); }
+
+/* Pipeline */
+.pipeline {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+.pipeline-step {
+  flex: 1;
+  min-width: 120px;
+  background: var(--bg2);
+  padding: 16px 12px;
+  text-align: center;
+  box-shadow: var(--card-shadow);
+  position: relative;
+}
+.pipeline-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid var(--bg2);
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  z-index: 1;
+}
+.pipeline-step:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid var(--rule);
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  z-index: 0;
+}
+.pipeline-step .step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0 auto 8px;
+  font-family: 'JetBrainsMono', monospace;
+}
+.pipeline-step .step-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.pipeline-step .step-desc {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Footer */
+footer {
+  background: #1E293B;
+  color: rgba(255,255,255,0.6);
+  padding: 40px 0;
+  font-size: 13px;
+}
+footer .container { display: flex; flex-direction: column; gap: 8px; }
+footer a { color: #93C5FD; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+footer .sources { margin-top: 16px; }
+footer .sources h2 { font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 8px; }
+footer .sources ol { padding-left: 1.2rem; }
+footer .sources li { margin-bottom: 0.5rem; line-height: 1.6; }
+footer .sources .src-title { color: rgba(255,255,255,0.8); }
+footer .sources .src-url { display: block; margin-top: 0.15rem; color: #93C5FD; word-break: break-all; }
+
+sup a { color: var(--accent); text-decoration: none; font-size: 0.75em; font-weight: 600; }
+sup a:hover { text-decoration: underline; }
+mark.key { background: none; color: var(--accent); font-weight: 600; }
+
+@media (max-width: 640px) {
+  .hero { padding: 48px 0 40px; }
+  .hero h1 { font-size: 24px; }
+  .hero-sub { font-size: 15px; }
+  .section { padding: 36px 0; }
+  .section-title { font-size: 21px; }
+  .q-card, .stage-card, .summary-box, .callout { padding: 20px; }
+  .compare-grid { grid-template-columns: 1fr; }
+  .pipeline { flex-direction: column; }
+  .pipeline-step:not(:last-child)::after,
+  .pipeline-step:not(:last-child)::before { display: none; }
+  .pipeline-step { border-left: 4px solid var(--accent); margin-bottom: 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <span class="hero-tag">AI应用评测 · 面试题深度解析</span>
+      <h1>AI应用评测产品</h1>
+      <p class="hero-sub">以小红书AI应用评测岗面试为背景，15道高频面试题系统覆盖离线线上一致性、分层指标体系、评测集构建、LLM-as-a-Judge校准、问题归因标签体系、指标权重冲突、分层评测、线上监控看板、新鲜感vs真实价值、内容生态影响、评测数据飞轮等核心维度。第1题提供完整满分/零分回答对照与面试官关键词清单，补充三篇深度文章的体系化方法论。</p>
+      <div class="hero-meta">
+        <span><span class="dot"></span>来源：小红书 · 泽华校招求职</span>
+        <span><span class="dot"></span>跨源补充：3篇深度文章</span>
+        <span><span class="dot"></span>全文3810字 · 15道面试题</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 15道面试题总览 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">01 / INTERVIEW QUESTIONS</div>
+    <h2 class="section-title">15道AI应用评测面试题</h2>
+    <p style="margin-bottom: 24px; color: var(--muted);">以下15道题覆盖AI应用评测的产品全链路，从离线线上一致性到评测数据飞轮闭环，是AI产品经理评测岗的高频考察方向。</p>
+
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">1</span>
+        <span class="q-title">如果某次模型升级后离线评测分数提升，但线上用户满意度下降，你会如何用数据定位问题来自评测集失真、指标设计错误、流量结构变化，还是模型真实退化？<span class="q-tag core">核心</span></span>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">2</span>
+        <span class="q-title">如果你负责小红书AI应用的模型效果评测，你会如何设计一套从"模型能力指标"到"用户体验指标"再到"业务结果指标"的分层指标体系？<span class="q-tag method">方法论</span></span>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">3</span>
+        <span class="q-title">面对小红书内容社区中的笔记创作、搜索问答、评论互动、商品种草等不同AI场景，你会如何判断哪些场景应该优先建立专项评测集？<span class="q-tag method">方法论</span></span>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">4</span>
+        <span class="q-title">如果线上用户反馈"AI回答看起来对，但不够小红书"，你会如何把这种主观体验拆解成可量化、可评测、可迭代的数据指标？<span class="q-tag core">核心</span></span>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">5</span>
+        <span class="q-title">在构建高质量评测语料时，你会如何从真实用户请求、人工构造样本、极端case、负反馈样本中做采样配比，避免评测集偏离真实业务分布？<span class="q-tag method">方法论</span></span>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">6</span>
+        <span class="q-title">你会如何设计小红书AI应用中的"优质回答"标准，使其同时覆盖准确性、相关性、完整性、个性化、平台语感、安全性和可执行性？<span class="q-tag method">方法论</span></span>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">7</span>
+        <span class="q-title">如果算法团队希望用LLM-as-a-Judge提升评测效率，你会如何验证自动评测结果的可信度，并校准它与人工评估、线上用户行为之间的关系？<span class="q-tag advanced">进阶</span></span>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">8</span>
+        <span class="q-title">在多轮对话或连续创作场景中，你会如何评估AI是否具备上下文一致性、记忆稳定性、意图跟随能力和长期体验质量，而不是只评估单轮回答？<span class="q-tag advanced">进阶</span></span>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">9</span>
+        <span class="q-title">如果你发现某类问题的模型通过率很低，你会如何建立"问题归因标签体系"，区分数据缺失、意图识别错误、推理错误、幻觉、拒答过度、风格不匹配等原因？<span class="q-tag system">体系</span></span>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">10</span>
+        <span class="q-title">当评测指标很多且互相冲突时，比如准确性提升但回答变长、风险降低但拒答增加、个性化增强但稳定性下降，你会如何设计指标权重和版本准入标准？<span class="q-tag system">体系</span></span>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">11</span>
+        <span class="q-title">如果小红书AI应用需要覆盖不同用户群体（新手用户、深度内容创作者、商家、买手、生活方式用户），你会如何做分层评测，避免平均分掩盖关键人群体验问题？<span class="q-tag method">方法论</span></span>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">12</span>
+        <span class="q-title">你会如何设计一套模型效果的线上监控看板，用于持续发现体验劣化、场景漂移、热点事件冲击、低频高危问题和版本回归问题？<span class="q-tag system">体系</span></span>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">13</span>
+        <span class="q-title">如果某个AI功能上线后使用率很高，但留存、二次使用和正向反馈都偏低，你会如何判断这是"新鲜感驱动"还是"真实价值不足"？<span class="q-tag core">核心</span></span>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">14</span>
+        <span class="q-title">在小红书这种内容社区里，AI输出可能影响用户创作质量、内容生态和社区信任，你会如何评估模型效果对平台内容生态的长期影响？<span class="q-tag advanced">进阶</span></span>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-header">
+        <span class="q-num">15</span>
+        <span class="q-title">如果你要推动一个"评测数据飞轮"，你会如何设计从线上日志、用户反馈、人工标注、问题归因、模型优化、回归评测到效果复盘的完整闭环机制？<span class="q-tag system">体系</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 第1题深度解析 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">02 / DEEP DIVE — QUESTION 1</div>
+    <h2 class="section-title">第1题完整解析：离线分数升 vs 线上满意度降</h2>
+    <p style="margin-bottom: 24px; color: var(--muted);">这道题是整套面试题的"照妖镜"，考察候选人是否理解AI应用评测不能只看离线分数，而要把离线评测、线上行为、用户反馈、流量分层、版本实验和问题归因串成完整闭环。</p>
+
+    <!-- 考察点 -->
+    <div class="stage-card">
+      <span class="stage-badge b1">一、考察点</span>
+      <div class="stage-title">五个核心能力</div>
+
+      <div style="margin-bottom: 20px;">
+        <p style="margin-bottom: 8px;"><strong style="color: var(--accent);">能力一：理解"离线效果好"不等于"线上体验好"</strong></p>
+        <p style="font-size: 14px; color: var(--muted);">离线评测通常在固定测试集、固定指标、固定场景下完成，而线上用户满意度会受到真实用户意图、场景分布、内容风格、交互体验、响应速度、入口差异等多重因素影响。尤其是小红书AI应用，用户不只看答案是否正确，还会看表达是否自然、是否有种草感、是否符合平台语感。</p>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <p style="margin-bottom: 8px;"><strong style="color: var(--accent);">能力二：数据归因能力</strong></p>
+        <p style="font-size: 14px; color: var(--muted);">优秀候选人不能只说"再看数据"或"让算法优化"，而是要能把问题拆成几类可能原因：评测集失真、指标设计错误、流量结构变化、模型真实退化，并针对每一类原因设计验证方法。</p>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <p style="margin-bottom: 8px;"><strong style="color: var(--accent);">能力三：理解小红书业务场景的特殊性</strong></p>
+        <p style="font-size: 14px; color: var(--muted);">小红书的AI应用场景可能包括笔记创作、标题生成、评论回复、搜索问答、种草推荐、商家内容辅助等。这类产品不仅要求模型准确，还要求内容有社区感、真实感、生活方式表达和用户共鸣。</p>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <p style="margin-bottom: 8px;"><strong style="color: var(--accent);">能力四：版本对比和用户分层</strong></p>
+        <p style="font-size: 14px; color: var(--muted);">不能简单看升级前后大盘数据，而要看新旧模型在同一批用户、同一类query、同一入口、同一场景下的表现差异。否则很容易把流量变化误判成模型退化。</p>
+      </div>
+
+      <div>
+        <p style="margin-bottom: 8px;"><strong style="color: var(--accent);">能力五：把问题沉淀为评测体系升级</strong></p>
+        <p style="font-size: 14px; color: var(--muted);">真正优秀的回答不会只停留在"定位问题"，还会把线上bad case沉淀进回归评测集，优化指标权重和问题标签体系，形成持续迭代的数据飞轮。</p>
+      </div>
+    </div>
+
+    <!-- 回答思路 -->
+    <div class="stage-card s2">
+      <span class="stage-badge b2">二、回答思路</span>
+      <div class="stage-title">四步定位法：确认 → 对照 → 拆原因 → 沉淀闭环</div>
+
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <div class="step-num">1</div>
+          <div class="step-title">先确认问题</div>
+          <div class="step-desc">线上满意度下降是否真实成立</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="step-num">2</div>
+          <div class="step-title">再做对照</div>
+          <div class="step-desc">新旧模型A/B对比或query回放</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="step-num">3</div>
+          <div class="step-title">再拆原因</div>
+          <div class="step-desc">四类原因逐一排查验证</div>
+        </div>
+        <div class="pipeline-step">
+          <div class="step-num">4</div>
+          <div class="step-title">沉淀闭环</div>
+          <div class="step-desc">转化为评测体系持续升级</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="stage-card s3">
+      <span class="stage-badge b3">Step 1</span>
+      <div class="stage-title">先确认线上满意度下降是否真实成立</div>
+      <p style="margin-bottom: 12px;">首先不能直接认定模型变差，而是要确认线上满意度下降是否显著。</p>
+      <p style="margin-bottom: 12px;">可以看以下指标：</p>
+      <div class="keyword-cloud">
+        <span class="keyword-tag">用户点踩率</span>
+        <span class="keyword-tag">满意度评分</span>
+        <span class="keyword-tag">采纳率</span>
+        <span class="keyword-tag">复制率</span>
+        <span class="keyword-tag">重新生成率</span>
+        <span class="keyword-tag">追问率</span>
+        <span class="keyword-tag">会话退出率</span>
+        <span class="keyword-tag">投诉率</span>
+        <span class="keyword-tag">负反馈文本</span>
+      </div>
+      <div class="quote-block">
+        如果只是单一指标波动，不一定说明体验真的下降；如果<strong>多个核心体验指标同时变差，并且在统计上显著</strong>，才说明问题成立。
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="stage-card s3">
+      <span class="stage-badge b3">Step 2</span>
+      <div class="stage-title">做新旧模型的可比对照</div>
+      <p style="margin-bottom: 12px;"><strong style="color: var(--accent3);">优先看A/B实验数据。</strong></p>
+      <p style="margin-bottom: 12px;">在同一时间、同一入口、同一用户分层、同一场景下，对比新旧模型的满意度、采纳率、负反馈率和留存表现。</p>
+      <p>如果没有严格A/B实验，也可以做<mark class="key">query回放</mark>：抽取一批真实线上用户请求，让新旧模型分别生成结果，再用人工评估或规则评估做对比，判断到底是新模型真的变差，还是线上环境发生了变化。</p>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="stage-card s4">
+      <span class="stage-badge b4">Step 3</span>
+      <div class="stage-title">按四类原因逐一排查</div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th class="accent-th">原因类型</th>
+            <th>排查方法</th>
+            <th>典型信号</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>评测集失真</strong></td>
+            <td>看离线评测集是否代表真实线上场景。离线评测集可能更多是标准问答、事实判断、单轮任务，但真实线上用户更多是模糊表达、多轮创作、情绪化表达</td>
+            <td>满意度下降主要集中在评测集覆盖不足的场景</td>
+          </tr>
+          <tr>
+            <td><strong>指标设计错误</strong></td>
+            <td>看离线分数到底是哪些指标提升了。准确性提升了但回答变生硬？安全性提升了但拒答变多？格式更规范但小红书语感变弱？</td>
+            <td>离线指标只奖励了"正确""完整""规范"，却没有衡量用户真正关心的"自然""有用""有种草感"</td>
+          </tr>
+          <tr>
+            <td><strong>流量结构变化</strong></td>
+            <td>排查模型升级期间是否叠加了入口变化、活动导流、热点事件、新用户占比提升、商家用户占比变化、某类场景流量突然放大</td>
+            <td>下降主要来自某个新入口、某类新人群或某类长尾场景，而核心老用户和核心场景表现稳定</td>
+          </tr>
+          <tr>
+            <td><strong>模型真实退化</strong></td>
+            <td>控制评测集、流量结构和指标口径后，在相同query、相同上下文、相同评估标准下，新模型稳定低于旧模型</td>
+            <td>用户负反馈集中指向幻觉、跑题、语气不自然、拒答过度、意图理解错误</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="stage-card">
+      <span class="stage-badge b1">Step 4</span>
+      <div class="stage-title">最后形成评测闭环</div>
+      <p style="margin-bottom: 16px;">定位问题后，要把结论转化成产品动作：</p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th class="accent-th">问题原因</th>
+            <th>产品动作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>评测集失真</strong></td>
+            <td>补充真实线上case</td>
+          </tr>
+          <tr>
+            <td><strong>指标设计错误</strong></td>
+            <td>调整指标权重</td>
+          </tr>
+          <tr>
+            <td><strong>流量结构变化</strong></td>
+            <td>建立分层看板</td>
+          </tr>
+          <tr>
+            <td><strong>模型真实退化</strong></td>
+            <td>推动算法专项优化，并加入回归测试</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="quote-block good">
+        <span class="quote-label good">最终目标</span>
+        不是只解决这一次波动，而是让下一次模型升级前的离线评测更接近真实线上体验。
+      </div>
+    </div>
+
+    <!-- 满分回答 -->
+    <div class="stage-card s3">
+      <span class="stage-badge b3">三、满分回答</span>
+      <div class="stage-title">口语化表达</div>
+      <div class="quote-block good">
+        <span class="quote-label good">满分回答参考</span>
+        <p style="margin-bottom: 12px;">"我不会一上来就判断是模型变差了，因为离线分数提升但线上满意度下降，背后可能有几种原因：评测集不准、指标设计不准、线上流量结构变了，或者模型确实退化了。</p>
+        <p style="margin-bottom: 12px;">我会先确认线上满意度下降是不是真的成立。比如不只看点踩率，还会看采纳率、复制率、重新生成率、追问率、会话退出率、投诉率、负反馈文本这些指标。如果多个体验指标都变差，而且不是短期随机波动，那才说明问题确实存在。</p>
+        <p style="margin-bottom: 12px;">第二步，我会做新旧模型的可比对照。最好是看A/B实验结果，在同一时间、同一入口、同一用户分层、同一场景下，对比新旧模型的表现。如果没有完整A/B，我会抽取真实线上query做回放，让新旧模型分别回答，再用人工评估和规则评估做对比。</p>
+        <p style="margin-bottom: 12px;">然后我会按四条线排查。第一条线是看评测集是不是失真。比如离线评测集可能更多是标准问答和事实类问题，但小红书真实用户可能更多是在问穿搭、探店、笔记标题、种草文案、评论回复，而且表达很口语、很模糊。如果线上下降集中在这些评测集覆盖不足的场景，那说明离线评测分数提升并不能代表真实体验提升。</p>
+        <p style="margin-bottom: 12px;">第二条线是看指标是不是设计错了。比如这次离线分数提升，可能是准确性提高了，或者格式更规范了，但用户真正关心的是回答有没有小红书感、是不是自然、有没有种草感、能不能直接拿去用。如果模型变得更标准但更像说明书，用户满意度反而会下降。</p>
+        <p style="margin-bottom: 12px;">第三条线是看流量结构有没有变化。比如升级期间是不是有新入口上线、活动导流、热点事件、新用户占比上升、商家场景流量变多。如果满意度下降主要来自某个新入口或某类新人群，而核心场景表现稳定，那可能不是模型整体退化，而是流量结构变化导致大盘指标下降。</p>
+        <p style="margin-bottom: 12px;">第四条线才判断模型是否真实退化。我会控制住query、上下文、场景和评估标准，让新旧模型做同题对比。如果新模型在核心场景下稳定比旧模型差，而且用户负反馈集中在幻觉、跑题、拒答过度、语气不自然、意图理解错误这些问题上，那就说明模型确实退化，需要灰度收窄、回滚或者专项修复。</p>
+        <p>最后我会把这次问题沉淀到评测体系里。比如把线上差评case加入回归测试集，补充'小红书语感''种草可执行性''拒答合理性''多轮一致性'这些体验指标，同时搭建分层看板。这样下一次模型升级前，离线评测就不会只看一个总分，而是更接近真实用户体验。"</p>
+      </div>
+    </div>
+
+    <!-- 零分回答 -->
+    <div class="stage-card s2">
+      <span class="stage-badge b2">四、零分回答</span>
+      <div class="stage-title">口语化表达</div>
+      <div class="quote-block bad">
+        <span class="quote-label bad">零分回答参考</span>
+        "我觉得可能就是模型不稳定。虽然离线分数高，但是用户不满意，说明这个模型可能不适合上线。那我会让算法同学再优化一下，或者先回滚到旧版本。然后再多收集一些用户反馈，看用户到底哪里不满意，后面再继续调整指标。"
+      </div>
+      <div class="compare-grid">
+        <div class="compare-item bad">
+          <h4>问题所在</h4>
+          <p>没有拆清楚原因，也没有说明怎么验证；没有A/B对照，没有用户分层，没有query回放，没有指标拆解，也没有结合小红书AI应用的内容场景。</p>
+        </div>
+        <div class="compare-item good">
+          <h4>正确做法</h4>
+          <p>用数据定位问题，按四类原因逐一排查，结合业务场景特殊性，最终沉淀为评测体系升级。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 面试官关键词 -->
+    <div class="stage-card">
+      <span class="stage-badge b1">五、面试官关键词</span>
+      <div class="stage-title">面试官更希望听到的关键词</div>
+      <div class="keyword-cloud">
+        <span class="keyword-tag hot">A/B实验</span>
+        <span class="keyword-tag hot">同query回放</span>
+        <span class="keyword-tag hot">离线线上一致性</span>
+        <span class="keyword-tag hot">评测集分布漂移</span>
+        <span class="keyword-tag">用户分层</span>
+        <span class="keyword-tag">入口分层</span>
+        <span class="keyword-tag">场景分层</span>
+        <span class="keyword-tag">指标权重</span>
+        <span class="keyword-tag cool">人工评估</span>
+        <span class="keyword-tag cool">自动评估校准</span>
+        <span class="keyword-tag">置信区间</span>
+        <span class="keyword-tag warn">负反馈归因</span>
+        <span class="keyword-tag warn">bad case沉淀</span>
+        <span class="keyword-tag warn">回归测试集</span>
+        <span class="keyword-tag">版本准入标准</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 跨源补充：AI评测策略体系 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">03 / SUPPLEMENTARY FRAMEWORK</div>
+    <h2 class="section-title">AI评测策略体系：五个灵魂拷问</h2>
+    <p style="margin-bottom: 24px; color: var(--muted);">补充自虎嗅/人人都是产品经理的深度文章，提出AI评测不是执行动作，而是一套策略体系<sup><a href="#cite-1">[1]</a></sup>。用五个层层递进的问题构建完整的评测策略地图。</p>
+
+    <figure class="chart-figure">
+      <figcaption>AI评测五维策略地图</figcaption>
+      <div id="chart-strategy" style="width:100%;height:400px;"></div>
+    </figure>
+
+    <div class="stage-card">
+      <span class="stage-badge b1">第一问</span>
+      <div class="stage-title">测什么？ — 评测方案设计</div>
+      <p style="margin-bottom: 16px;">不是列清单，而是做<strong>三层过滤</strong>，最终得到一份有优先级的评测方案：</p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th class="accent-th">过滤层</th>
+            <th>核心问题</th>
+            <th>输出</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>产品阶段过滤</strong></td>
+            <td>产品当前处于什么阶段？技术验证期→关注基础功能达标率；上线运营期→关注用户体验满意度；成熟期→关注鲁棒性与合规性</td>
+            <td>评测战略重心</td>
+          </tr>
+          <tr>
+            <td><strong>场景过滤</strong></td>
+            <td>核心使用场景是什么？对话机器人看意图识别，代码助手看语法正确，不能混为一谈</td>
+            <td>用户可感知的能力维度</td>
+          </tr>
+          <tr>
+            <td><strong>致命维度过滤</strong></td>
+            <td>用户最不能接受什么？致命维度必须放在评测最优先级，不达标就不该上线</td>
+            <td>加权优先级矩阵</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="stage-card s2">
+      <span class="stage-badge b2">第二问</span>
+      <div class="stage-title">用什么维度测？ — 评测维度拆解</div>
+      <p style="margin-bottom: 16px;">AI产品的体验是多维的，不能只有一列"这个回答对不对"。关键洞察：<mark class="key">不同维度的评测方式、评测成本、所需评测人员都不同</mark>，不能一锅烩。</p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th class="accent-th">维度</th>
+            <th>评测方式</th>
+            <th>适合角色</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>正确性</strong></td>
+            <td>自动化脚本批量跑2000条case</td>
+            <td>自动化工具</td>
+          </tr>
+          <tr>
+            <td><strong>流畅度</strong></td>
+            <td>人工逐条感受</td>
+            <td>普通用户</td>
+          </tr>
+          <tr>
+            <td><strong>专业性</strong></td>
+            <td>领域专家深度评估</td>
+            <td>领域专家</td>
+          </tr>
+          <tr>
+            <td><strong>安全性</strong></td>
+            <td>规则+人工复核</td>
+            <td>合规团队</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="stage-card s3">
+      <span class="stage-badge b3">第三问</span>
+      <div class="stage-title">谁来测？ — 评测角色分工矩阵</div>
+      <p style="margin-bottom: 16px;">不同的人适合评不同的东西。两个常见误区：</p>
+      <div class="compare-grid">
+        <div class="compare-item bad">
+          <h4>误区一：资源错配</h4>
+          <p>让领域专家去评"流畅度"。专家很贵，但流畅度普通用户就能评。</p>
+        </div>
+        <div class="compare-item bad">
+          <h4>误区二：光环效应</h4>
+          <p>所有维度都用同一批人测。一个人同时评"回答是否正确"和"回答是否流畅"，很容易产生光环效应。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage-card s4">
+      <span class="stage-badge b4">第四问</span>
+      <div class="stage-title">测出什么结论？ — 结果解读三步法</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th class="accent-th">步骤</th>
+            <th>动作</th>
+            <th>示例</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>区分达标</strong></td>
+            <td>所有维度达标→进入下一阶段；部分不达标→定位具体问题；全部不达标→回到模型选型</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>定位根因</strong></td>
+            <td>正确率低→训练数据问题？流畅度差→生成策略问题？一致性差→温度参数问题？</td>
+            <td>67%一致率→拆成三个子维度→提升到84%</td>
+          </tr>
+          <tr>
+            <td><strong>给出方向</strong></td>
+            <td>不是"回去改"，而是具体的优化建议</td>
+            <td>"提升XX维度，建议A/B实验验证YY方案"</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="stage-card">
+      <span class="stage-badge b1">第五问</span>
+      <div class="stage-title">还要怎么测？ — 从一次性到例行化</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th class="accent-th">阶段</th>
+            <th>周期</th>
+            <th>核心动作</th>
+            <th>产出</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>快速验证</strong></td>
+            <td>1-2周</td>
+            <td>人工+自动化结合，每维度200-500条</td>
+            <td>评测报告+优化建议</td>
+          </tr>
+          <tr>
+            <td><strong>回归验证</strong></td>
+            <td>1-2个月</td>
+            <td>建立基准库，每次迭代自动回归，人工抽检10-20%</td>
+            <td>版本对比报告+通过率</td>
+          </tr>
+          <tr>
+            <td><strong>例行化运营</strong></td>
+            <td>持续</td>
+            <td>自动化流水线+bad case闭环+季度校准</td>
+            <td>质量看板+趋势分析</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 跨源补充：评测闭环五步法 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">04 / EVALUATION LOOP</div>
+    <h2 class="section-title">AI产品评测闭环：五步法</h2>
+    <p style="margin-bottom: 24px; color: var(--muted);">补充自人人都是产品经理的深度文章，提出AI产品经理不能只会写PRD，还要会搭评测闭环<sup><a href="#cite-2">[2]</a></sup>。PRD决定产品能不能被开发出来，评测体系决定产品能不能持续变好。</p>
+
+    <div class="pipeline">
+      <div class="pipeline-step">
+        <div class="step-num">1</div>
+        <div class="step-title">定指标</div>
+        <div class="step-desc">先说清楚什么叫好</div>
+      </div>
+      <div class="pipeline-step">
+        <div class="step-num">2</div>
+        <div class="step-title">选方法</div>
+        <div class="step-desc">自动/人工/LLM分场景</div>
+      </div>
+      <div class="pipeline-step">
+        <div class="step-num">3</div>
+        <div class="step-title">造评测集</div>
+        <div class="step-desc">四类来源分层配比</div>
+      </div>
+      <div class="pipeline-step">
+        <div class="step-num">4</div>
+        <div class="step-title">跑评测</div>
+        <div class="step-desc">版本对比保留历史</div>
+      </div>
+      <div class="pipeline-step">
+        <div class="step-num">5</div>
+        <div class="step-title">做归因</div>
+        <div class="step-desc">badcase归因→闭环</div>
+      </div>
+    </div>
+
+    <div class="stage-card">
+      <div class="stage-title">四个常见误区</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th class="accent-th">误区</th>
+            <th>表现</th>
+            <th>对策</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>只看用户反馈</strong></td>
+            <td>用户只会说"感觉不准""答得怪怪的""不太敢信"</td>
+            <td>建立评测集和指标体系，让问题可量化</td>
+          </tr>
+          <tr>
+            <td><strong>只看业务指标</strong></td>
+            <td>只看PV/UV/留存/转化，不看意图识别准确率/召回率/幻觉率</td>
+            <td>业务指标+AI能力指标双层监控</td>
+          </tr>
+          <tr>
+            <td><strong>评测集随便凑</strong></td>
+            <td>只收集常见问题、标准问法</td>
+            <td>四类来源：真实日志+历史错例+边界样本+AI生成样本</td>
+          </tr>
+          <tr>
+            <td><strong>只打分不归因</strong></td>
+            <td>有分数没结论，有结论没归因，最后变成"让算法再优化一下"</td>
+            <td>拆清六类原因：模型/prompt/检索/数据/Agent链路/产品边界</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <div class="callout-content">
+        <h3>AI产品经理的新基本功</h3>
+        <p>如果说传统产品经理的基本功是"把需求讲清楚"，那AI产品经理的新基本功，就是"把效果评清楚"。AI产品经理的价值，不是把大模型接进产品里，而是让每一次模型输出都能被定义、被评测、被改进。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 跨源补充：多模态评测体系 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">05 / MULTIMODAL EVALUATION</div>
+    <h2 class="section-title">AI评测四层架构：能力 · 体验 · 价值 · 迭代</h2>
+    <p style="margin-bottom: 24px; color: var(--muted);">补充自头条号的深度文章，提出AI评测体系需围绕"AI特性""用户需求""业务目标"三大核心，让AI产品的"能力""体验""价值"可量化、可对比、可迭代<sup><a href="#cite-3">[3]</a></sup>。</p>
+
+    <figure class="chart-figure">
+      <figcaption>AI评测四层架构雷达图</figcaption>
+      <div id="chart-radar" style="width:100%;height:400px;"></div>
+    </figure>
+
+    <div class="stage-card">
+      <span class="stage-badge b1">技术层</span>
+      <div class="stage-title">AI模型核心性能 — 决定"AI能不能干活"</div>
+      <p style="margin-bottom: 16px;">根据AI任务类型（NLP/CV/推荐/语音等）设计专属指标，避免"一刀切"。模型性能需结合业务场景加权。</p>
+      <div class="keyword-cloud">
+        <span class="keyword-tag">意图识别准确率</span>
+        <span class="keyword-tag">回答相关性</span>
+        <span class="keyword-tag">任务完成率</span>
+        <span class="keyword-tag">多轮对话完成率</span>
+        <span class="keyword-tag">幻觉率</span>
+        <span class="keyword-tag">转人工率</span>
+        <span class="keyword-tag">AIGC采纳率</span>
+        <span class="keyword-tag">响应时间</span>
+        <span class="keyword-tag">检索召回率</span>
+        <span class="keyword-tag">工具调用成功率</span>
+      </div>
+    </div>
+
+    <div class="stage-card s2">
+      <span class="stage-badge b2">交互层</span>
+      <div class="stage-title">用户体验 — 决定"用户愿不愿意用"</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th class="accent-th">体验指标</th>
+            <th>定义</th>
+            <th>目标</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>交互自然度</strong></td>
+            <td>答非所问率、上下文断裂率</td>
+            <td>越低越好</td>
+          </tr>
+          <tr>
+            <td><strong>响应效率</strong></td>
+            <td>端到端耗时（请求到反馈）</td>
+            <td>≤1.5秒（语音）/≤3秒（文本）</td>
+          </tr>
+          <tr>
+            <td><strong>容错性</strong></td>
+            <td>纠错成功率、友好拒答率</td>
+            <td>越高越好</td>
+          </tr>
+          <tr>
+            <td><strong>主观满意度</strong></td>
+            <td>满意度评分（1-5分）、NPS</td>
+            <td>≥4.0 / ≥40%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="stage-card s3">
+      <span class="stage-badge b3">结果层</span>
+      <div class="stage-title">业务价值 — 决定"产品有没有用"</div>
+      <p>将AI能力转化为可量化的业务指标，这是说服管理层认可价值的关键。例如智能客服的问题解决率（无需转人工）、人工转接率（需下降）、平均会话时长，代表着模型替代效率，为企业赋能提效的根本。</p>
+    </div>
+
+    <div class="stage-card s4">
+      <span class="stage-badge b4">迭代层</span>
+      <div class="stage-title">长期迭代能力 — 决定"AI能不能越用越好"</div>
+      <ul class="feature-list">
+        <li><strong>迭代效率</strong>：模型版本更新的评测周期（1天内完成核心指标测试？）</li>
+        <li><strong>自动化覆盖率</strong>：80%的指标可自动跑分，无需人工</li>
+        <li><strong>效果衰减率</strong>：推荐AI的CTR每月下降不超过2%，衰减快需重新训练</li>
+        <li><strong>用户反馈闭环</strong>：投诉3天内反馈到模型优化，投诉后问题解决率提升幅度</li>
+      </ul>
+    </div>
+
+    <div class="summary-box">
+      <h3>三个核心原则</h3>
+      <ul class="feature-list">
+        <li><strong>不唯技术指标</strong>：技术指标是基础，但需结合用户体验和业务价值，避免"准确率99%但用户不用"</li>
+        <li><strong>定量+定性结合</strong>：客观数据反映结果，主观体验反映感受，两者缺一不可</li>
+        <li><strong>动态调整</strong>：评测体系随产品阶段（冷启动→成熟）、业务需求、法规要求持续优化</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 五维评估框架 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">06 / FIVE DIMENSIONS</div>
+    <h2 class="section-title">AI应用五维评估框架</h2>
+    <p style="margin-bottom: 24px; color: var(--muted);">补充自CSDN的AI工程评估框架，AI应用的评估必须从五个维度全面考虑：质量、性能、成本、公平性和鲁棒性<sup><a href="#cite-4">[4]</a></sup>。</p>
+
+    <figure class="chart-figure">
+      <figcaption>五维评估框架能力分布</figcaption>
+      <div id="chart-bar" style="width:100%;height:400px;"></div>
+    </figure>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th class="accent-th">维度</th>
+          <th>核心问题</th>
+          <th>关键指标</th>
+          <th>评估方法</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>质量</strong></td>
+          <td>AI输出的质量如何？是否符合预期？</td>
+          <td>F1分数、BLEU、ROUGE、BERTScore</td>
+          <td>封闭任务用自动指标，开放任务用人类评估</td>
+        </tr>
+        <tr>
+          <td><strong>性能</strong></td>
+          <td>系统响应速度如何？能否处理高并发？</td>
+          <td>TTFT(&lt;500ms)、TPOT(&lt;50ms/token)、总延迟(&lt;3s)、QPS</td>
+          <td>压力测试（Locust/JMeter），峰值2-3倍平均负载</td>
+        </tr>
+        <tr>
+          <td><strong>成本</strong></td>
+          <td>每次推理成本多少？是否可负担？</td>
+          <td>API成本、GPU成本、成本/查询</td>
+          <td>模型选择+缓存+批处理+量化优化</td>
+        </tr>
+        <tr>
+          <td><strong>公平性</strong></td>
+          <td>模型输出是否公平？是否存在偏见？</td>
+          <td>统计均等、均等机会、子群准确率差异</td>
+          <td>AIF360/Fairlearn工具，差异&gt;10%需干预</td>
+        </tr>
+        <tr>
+          <td><strong>鲁棒性</strong></td>
+          <td>系统在异常输入下是否稳定？</td>
+          <td>提示注入攻击、OOD测试、边缘案例</td>
+          <td>对抗测试+模糊测试+边界测试</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="stage-card s3">
+      <div class="stage-title">LLM-as-a-Judge：用AI评估AI</div>
+      <p style="margin-bottom: 16px;">人类评估准确但成本高（$0.5/样本），AI评估成本低（$0.01/评估，降低50倍）且可扩展。关键实践：</p>
+      <ul class="feature-list">
+        <li><strong>验证可靠性</strong>：与人类评估对比，Pearson r &gt; 0.7表示强相关</li>
+        <li><strong>校准</strong>：调整AI评分以匹配人类标准</li>
+        <li><strong>持续监控</strong>：定期重新验证，因为模型可能漂移</li>
+        <li><strong>混合策略</strong>：高价值样本人工评估，中等价值AI+抽样人工，低价值纯AI评估</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 面试回答模板 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">07 / INTERVIEW TEMPLATE</div>
+    <h2 class="section-title">面试回答通用模板</h2>
+    <p style="margin-bottom: 24px; color: var(--muted);">基于15道题的共性，提炼出AI应用评测面试的结构化回答模板。</p>
+
+    <div class="stage-card">
+      <div class="stage-title">四段式结构化回答</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th class="accent-th">段落</th>
+            <th>内容</th>
+            <th>关键句式</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>第一段：亮框架</strong></td>
+            <td>先给出整体思路，展示系统性思维</td>
+            <td>"我会从X个层面来拆解这个问题……"</td>
+          </tr>
+          <tr>
+            <td><strong>第二段：分层拆</strong></td>
+            <td>按模型能力→用户体验→业务价值三层拆解</td>
+            <td>"第一层看……第二层看……第三层看……"</td>
+          </tr>
+          <tr>
+            <td><strong>第三段：结合场景</strong></td>
+            <td>结合小红书/AI应用的具体业务场景</td>
+            <td>"比如在小红书的XX场景中，用户更关心……"</td>
+          </tr>
+          <tr>
+            <td><strong>第四段：沉淀闭环</strong></td>
+            <td>不只解决问题，还要沉淀为体系升级</td>
+            <td>"最后我会把这次经验沉淀到评测体系中……"</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <div class="callout-content">
+        <h3>面试核心心法</h3>
+        <p>AI应用评测面试的核心不是背答案，而是展示"体系化思维+数据归因能力+业务场景理解"。面试官想看到的是：你能不能把一个模糊的体验问题，拆解成可量化、可排查、可迭代的评测体系。记住：评测不是为了给模型打分，而是为了让每一次模型输出都能被定义、被评测、被改进。</p>
+      </div>
+    </div>
+
+    <div class="summary-box">
+      <h3>15道题考点分布</h3>
+      <figure class="chart-figure" style="margin: 16px 0 0;">
+        <figcaption>15道面试题考点维度分布</figcaption>
+        <div id="chart-pie" style="width:100%;height:350px;"></div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>AI应用评测产品 · 15道面试题深度解析 | 知识工作台 #0021</p>
+    <p>来源：小红书 · 泽华校招求职 · <a href="http://xhslink.cn/o/5l38CyvUiGr">原文链接</a></p>
+    <div class="sources">
+      <h2>参考资料</h2>
+      <ol>
+        <li>
+          <span class="src-title">当我们说AI评测时，到底在评什么？ — 虎嗅网 / 人人都是产品经理</span>
+          <a class="src-url" id="cite-1" href="https://m.huxiu.com/article/4876539.html">https://m.huxiu.com/article/4876539.html</a>
+        </li>
+        <li>
+          <span class="src-title">别只会写PRD了：AI产品经理真正该补的是评测闭环 — 人人都是产品经理</span>
+          <a class="src-url" id="cite-2" href="https://www.woshipm.com/?p=6392513">https://www.woshipm.com/?p=6392513</a>
+        </li>
+        <li>
+          <span class="src-title">构建下一代AI评测体系：从文本到多模态的闭环实战指南 — 人人都是产品经理 / 头条号</span>
+          <a class="src-url" id="cite-3" href="http://m.toutiao.com/group/7554596440673157674/">http://m.toutiao.com/group/7554596440673157674/</a>
+        </li>
+        <li>
+          <span class="src-title">【AI Engineering】如何评估AI应用？——全面评估框架与实践指南 — CSDN博客</span>
+          <a class="src-url" id="cite-4" href="https://blog.csdn.net/hiliang521/article/details/155112030">https://blog.csdn.net/hiliang521/article/details/155112030</a>
+        </li>
+      </ol>
+    </div>
+  </div>
+</footer>
+
+<script src="./assets/charts.js"></script>
+</body>
+</html>
