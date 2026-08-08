@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI产品的PRD到底怎么写？</title>
+<script src="./_shared/js/echarts.min.js"></script>
+<style>
+@font-face {
+  font-family: 'WorkSans';
+  src: url('./_shared/fonts/WorkSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'WorkSans';
+  src: url('./_shared/fonts/WorkSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrainsMono';
+  src: url('./_shared/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --bg: #F8F9FB;
+  --bg2: #FFFFFF;
+  --ink: #1E293B;
+  --muted: #64748B;
+  --muted2: #94A3B8;
+  --rule: #E2E8F0;
+  --rule-light: #F1F5F9;
+  --accent: #4F46E5;
+  --accent2: #EC4899;
+  --accent3: #10B981;
+  --accent4: #F59E0B;
+  --highlight: #EEF2FF;
+  --warm: #FDF4FF;
+  --card-shadow: 0 2px 8px rgba(79, 70, 229, 0.06);
+  --card-shadow-hover: 0 8px 24px rgba(79, 70, 229, 0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'WorkSans', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.8;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(145deg, #0F172A 0%, #1E3A5F 40%, #2563EB 100%);
+  color: #fff;
+  padding: 72px 0 56px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -25%;
+  right: -8%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(236,72,153,0.10) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -35%;
+  left: -8%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(16,185,129,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-tag {
+  display: inline-block;
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #93C5FD;
+  margin-bottom: 16px;
+  padding: 4px 14px;
+  border: 1px solid rgba(147,197,253,0.4);
+  border-radius: 20px;
+}
+.hero h1 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+.hero-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.7;
+  max-width: 660px;
+}
+.hero-meta {
+  margin-top: 28px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+}
+.hero-meta span { display: flex; align-items: center; gap: 6px; }
+.hero-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: #93C5FD; }
+
+/* Section */
+.section { padding: 52px 0; }
+.section + .section { border-top: 1px solid var(--rule); }
+
+.section-label {
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+/* Principle Card */
+.principle-card {
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--card-shadow);
+  border-left: 4px solid var(--accent);
+  transition: box-shadow 0.3s;
+}
+.principle-card:hover { box-shadow: var(--card-shadow-hover); }
+
+.principle-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.principle-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
+  font-family: 'JetBrainsMono', monospace;
+}
+.principle-title {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+.principle-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+}
+.principle-body { line-height: 1.8; }
+.principle-body p { margin-bottom: 12px; }
+.principle-body p:last-child { margin-bottom: 0; }
+
+.principle-quote {
+  border-left: 3px solid var(--accent2);
+  padding: 10px 18px;
+  margin: 12px 0;
+  background: var(--warm);
+  border-radius: 0 8px 8px 0;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.practice-box {
+  background: var(--highlight);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.practice-box strong {
+  color: var(--accent);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Stage Card */
+.stage-card {
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--card-shadow);
+  border-top: 4px solid var(--accent);
+}
+.stage-card.stage-2 { border-top-color: var(--accent2); }
+.stage-card.stage-3 { border-top-color: var(--accent3); }
+.stage-card.stage-4 { border-top-color: #F59E0B; }
+
+.stage-badge {
+  display: inline-block;
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.stage-badge.s1 { background: var(--highlight); color: var(--accent); }
+.stage-badge.s2 { background: var(--warm); color: var(--accent2); }
+.stage-badge.s3 { background: rgba(16,185,129,0.1); color: var(--accent3); }
+.stage-badge.s4 { background: rgba(245,158,11,0.1); color: #F59E0B; }
+
+.stage-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* Table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
+}
+.data-table th {
+  text-align: left;
+  padding: 12px 14px;
+  font-weight: 700;
+  font-size: 13px;
+  background: var(--rule-light);
+  color: var(--ink);
+}
+.data-table th.accent-th { color: var(--accent); }
+.data-table td {
+  padding: 12px 14px;
+  border-top: 1px solid var(--rule);
+  line-height: 1.6;
+  vertical-align: top;
+}
+.data-table td strong { color: var(--accent); }
+.data-table tr:hover td { background: var(--rule-light); }
+
+/* Q&A Card */
+.qa-card {
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 20px;
+  box-shadow: var(--card-shadow);
+  border-left: 4px solid var(--accent3);
+}
+.qa-question {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.qa-question .q-tag {
+  background: var(--accent3);
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  font-family: 'JetBrainsMono', monospace;
+}
+.qa-answer {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ink);
+  padding-left: 0;
+}
+.qa-answer strong { color: var(--accent); }
+
+/* Callout */
+.callout {
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  color: #fff;
+  border-radius: 14px;
+  padding: 32px;
+  margin: 32px 0;
+  position: relative;
+  overflow: hidden;
+}
+.callout::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(236,72,153,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.callout-content { position: relative; z-index: 1; }
+.callout h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+.callout p { font-size: 15px; line-height: 1.8; opacity: 0.9; }
+
+/* Chart */
+.chart-figure {
+  margin: 28px 0;
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: var(--card-shadow);
+}
+.chart-figure figcaption {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+/* Comparison */
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 20px 0;
+}
+.compare-item {
+  background: var(--bg2);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+}
+.compare-item h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid;
+}
+.compare-item.bad h4 { color: var(--accent2); border-color: var(--accent2); }
+.compare-item.good h4 { color: var(--accent3); border-color: var(--accent3); }
+.compare-item p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* List */
+.feature-list {
+  list-style: none;
+  margin: 16px 0;
+}
+.feature-list li {
+  padding: 8px 0 8px 24px;
+  position: relative;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.feature-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 14px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+.feature-list li strong { color: var(--accent); }
+
+/* Summary Box */
+.summary-box {
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 32px;
+  margin: 32px 0;
+  box-shadow: var(--card-shadow);
+  border-top: 4px solid var(--accent);
+}
+.summary-box h3 {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--accent);
+}
+
+/* Code Block */
+.code-block {
+  background: #1E293B;
+  color: #E2E8F0;
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin: 16px 0;
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+.code-block .comment { color: #64748B; }
+.code-block .key { color: #818CF8; }
+.code-block .str { color: #34D399; }
+.code-block .num { color: #FBBF24; }
+
+/* Decision Matrix */
+.decision-matrix {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+.matrix-card {
+  background: var(--bg2);
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: var(--card-shadow);
+  text-align: center;
+}
+.matrix-card .matrix-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+.matrix-card .matrix-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.matrix-card .matrix-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Footer */
+footer {
+  background: #1E293B;
+  color: rgba(255,255,255,0.6);
+  padding: 40px 0;
+  font-size: 13px;
+}
+footer .container { display: flex; flex-direction: column; gap: 8px; }
+footer a { color: #93C5FD; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+footer .sources { margin-top: 16px; }
+footer .sources h2 { font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 8px; }
+footer .sources ol { padding-left: 1.2rem; }
+footer .sources li { margin-bottom: 0.5rem; line-height: 1.6; }
+footer .sources .src-title { color: rgba(255,255,255,0.8); }
+footer .sources .src-url { display: block; margin-top: 0.15rem; color: #93C5FD; word-break: break-all; }
+
+sup a { color: var(--accent); text-decoration: none; font-size: 0.75em; font-weight: 600; }
+sup a:hover { text-decoration: underline; }
+mark.key { background: none; color: var(--accent); font-weight: 600; }
+
+@media (max-width: 640px) {
+  .hero { padding: 48px 0 40px; }
+  .hero h1 { font-size: 24px; }
+  .hero-sub { font-size: 15px; }
+  .section { padding: 36px 0; }
+  .section-title { font-size: 21px; }
+  .principle-card, .stage-card, .qa-card { padding: 20px; }
+  .callout, .summary-box { padding: 24px; }
+  .compare-grid { grid-template-columns: 1fr; }
+  .decision-matrix { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <span class="hero-tag">AI PM · PRD撰写指南</span>
+      <h1>AI产品的PRD到底怎么写？</h1>
+      <p class="hero-sub">传统PRD描述一个确定的系统，AI产品PRD是在设计一套"面对不确定性，仍能稳定交付业务价值的机制"。本文从视频提出的九大模块出发，系统拆解AI PRD的完整结构，补充传统vs AI PRD六大差异、Agent Story的ITTO模型、四层架构设计、三层评测体系、数据飞轮迭代闭环，附完整PRD模板与实战案例。</p>
+      <div class="hero-meta">
+        <span><span class="dot"></span>来源：抖音 · AI产品L.sting</span>
+        <span><span class="dot"></span>跨源补充：4篇深度文章</span>
+        <span><span class="dot"></span>2026-08-08</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 视频核心内容 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">VIDEO CORE</div>
+    <h2 class="section-title">视频核心：AI产品PRD的九大模块</h2>
+    <p style="margin-bottom: 24px;">
+      抖音博主"AI产品L.sting"在视频中系统分享了AI产品PRD的撰写方法，提出PRD应包含九大核心模块：<mark class="key">价值阐述、需求描述、业务流程和系统流程、模型选型、Prompt工程、训练数据集、评测体系、效果保障与稳定性策略、产品功能原型图</mark><sup><a href="#cite-1">[1]</a></sup>。强调在实际工作中根据需求进行删减，同时提供了团队内部的AI产品经理能力手册。
+    </p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-title">00:01 · 引言</div>
+        <div class="tl-desc">AI产品PRD不是传统PRD加个"模型选型"章节，需要结构性重构。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">00:13 · 价值阐述</div>
+        <div class="tl-desc">为什么一定要用AI？现有方案有什么瓶颈？不引入AI会怎样？AI比规则、算法或人工多创造什么价值？</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">01:25 · 需求描述</div>
+        <div class="tl-desc">从"用户故事"转向"Agent故事"，描述模型如何思考、如何行动。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">01:38 · 业务流程和系统流程</div>
+        <div class="tl-desc">流程图里要多出"AI"和"人工"两个角色，设计置信度分支和异常路径。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">02:01 · 模型选型</div>
+        <div class="tl-desc">平衡性能、成本和可扩展性，从六个维度评估：性能、适配性、可扩展性、稳定性、成本、合规。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">02:25 · Prompt工程</div>
+        <div class="tl-desc">提示词是AI的"软代码"，按角色-挑战-策略-完整提示词-输出控制五段式结构编写。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">02:48 · 训练数据集</div>
+        <div class="tl-desc">数据不是附件，而是源泉。别用平庸数据，要定义"理想态"。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">02:55 · 评测体系</div>
+        <div class="tl-desc">技术达标不等于产品落地。三层评测：代码自动评、人工评、业务评。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">03:12 · 效果保障与稳定性策略</div>
+        <div class="tl-desc">定义能力边界：自动执行、推荐+确认、禁止触碰。设计异常兜底和数据飞轮。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">03:23 · 产品功能原型图</div>
+        <div class="tl-desc">别只做聊天框，要Chat+GUI。预留"思考中"状态反馈。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 传统vs AI PRD六大差异 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">CORE DIFFERENCE</div>
+    <h2 class="section-title">传统PRD vs AI PRD：六大本质差异</h2>
+    <p style="margin-bottom: 24px;">
+      传统PRD是在描述一个确定的系统；AI产品PRD是在设计一套<mark class="key">"面对不确定性，仍能稳定交付业务价值的机制"</mark><sup><a href="#cite-2">[2]</a></sup>。传统软件是"基于规则"（Rule-based），AI产品是"基于推理"（Inference-based），本质上是概率性的<sup><a href="#cite-3">[3]</a></sup>。
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>维度</th>
+          <th>传统PRD</th>
+          <th>AI产品PRD</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>核心逻辑</strong></td>
+          <td>消除不确定性，输入A必出B</td>
+          <td>管理不确定性，概率性输出</td>
+        </tr>
+        <tr>
+          <td><strong>交互结构</strong></td>
+          <td>用户-产品 二元交互</td>
+          <td>用户-模型-产品 三元结构<sup><a href="#cite-4">[4]</a></sup></td>
+        </tr>
+        <tr>
+          <td><strong>叙事核心</strong></td>
+          <td>用户故事（User Story）</td>
+          <td>Agent故事（Agent Story）+ 模型旅程<sup><a href="#cite-4">[4]</a></sup></td>
+        </tr>
+        <tr>
+          <td><strong>流程设计</strong></td>
+          <td>线性流程图（点击→API→返回）</td>
+          <td>网状工作流（DAG/状态机/ReAct循环）<sup><a href="#cite-3">[3]</a></sup></td>
+        </tr>
+        <tr>
+          <td><strong>验收标准</strong></td>
+          <td>功能做完了（按钮/流程/数据）</td>
+          <td>效果达标了（准确率/幻觉率/采纳率）<sup><a href="#cite-2">[2]</a></sup></td>
+        </tr>
+        <tr>
+          <td><strong>交付物</strong></td>
+          <td>功能点（Feature）</td>
+          <td>能力（Capability）+ 4个交付物<sup><a href="#cite-3">[3]</a></sup></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <figure class="chart-figure">
+      <figcaption>传统PRD vs AI PRD 结构对比</figcaption>
+      <div id="chart-compare" style="width:100%;height:380px;"></div>
+    </figure>
+
+    <div class="principle-quote">
+      "传统PRD关注'人如何使用产品'，AI PRD更关注'产品如何让模型可靠完成任务'。"<sup><a href="#cite-4">[4]</a></sup>
+    </div>
+  </div>
+</section>
+
+<!-- 九大模块深度拆解 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">DEEP DIVE</div>
+    <h2 class="section-title">九大模块深度拆解</h2>
+
+    <!-- 模块1: 价值阐述 -->
+    <div class="principle-card">
+      <div class="principle-header">
+        <div class="principle-num">01</div>
+        <div>
+          <div class="principle-title">价值阐述：为什么一定要用AI？</div>
+          <div class="principle-subtitle">不是所有问题都需要大模型</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>库存低于安全线自动预警，规则引擎更稳定；销量预测，机器学习可能更合适；补货量和运输路径计算，往往需要运筹优化。大模型真正擅长的是<mark class="key">理解语言、检索知识、解释推理和跨系统完成任务</mark><sup><a href="#cite-2">[2]</a></sup>。</p>
+        <p>AI产品PRD不能只写"接入某个模型"，还要写清楚：现有方案有什么瓶颈？不引入AI会怎样？AI究竟比规则、算法或人工多创造了什么价值？</p>
+        <div class="practice-box">
+          <strong>核心原则</strong>
+          问题决定技术方案，而不是模型热度决定产品方案。先回答"为什么用AI"，再回答"怎么用AI"。
+        </div>
+      </div>
+    </div>
+
+    <!-- 模块2: 需求描述 → Agent Story -->
+    <div class="principle-card" style="border-left-color: var(--accent2);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, var(--accent2), #F472B6);">02</div>
+        <div>
+          <div class="principle-title">需求描述 → Agent Story：定义模型的"思考剧本"</div>
+          <div class="principle-subtitle">从"用户要什么"改成"Agent怎么干"</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>传统用户故事太单薄，只说"要什么"，没说"怎么做"。Agent Story要讲清模型的"思考剧本"，核心是<mark class="key">ITTO模型（Input, Thought, Tool, Output）</mark><sup><a href="#cite-3">[3]</a></sup>。</p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ITTO要素</th>
+              <th>定义</th>
+              <th>关键内容</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Input 输入</strong></td>
+              <td>定义上下文边界</td>
+              <td>显性输入（用户Query）+ 隐性上下文（用户画像/环境状态/会话历史/检索范围）</td>
+            </tr>
+            <tr>
+              <td><strong>Thought 思考</strong></td>
+              <td>定义推理拓扑结构</td>
+              <td>意图识别 + 槽位提取 + 推理约束（什么不能做）</td>
+            </tr>
+            <tr>
+              <td><strong>Tool 工具</strong></td>
+              <td>定义行动触手</td>
+              <td>工具选择 + 参数映射 + 异常处理（超时/无数据怎么回复）</td>
+            </tr>
+            <tr>
+              <td><strong>Output 输出</strong></td>
+              <td>定义呈现形态</td>
+              <td>内容格式（文本/JSON/卡片）+ 语气人设 + UI组件触发</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="practice-box">
+          <strong>实战案例："查物流"需求改写</strong>
+          传统用户故事："用户点'查看物流'，跳转详情页。"<br>
+          Agent Story（ITTO版）：Input: 用户Query"我的鞋到了吗？" + 上下文(User_ID:12345, 最近订单:Order_A含跑鞋) → Thought: 识别意图Check_Logistics, 匹配"鞋"到Order_A, 推理用户极大概率问Order_A → Tool: 调用Logistics_API(order_id='Order_A') → Output: "亲，您购买的耐克跑鞋（订单尾号8899）正在派送中" + 渲染Logistics_Card显示地图轨迹<sup><a href="#cite-3">[3]</a></sup>。
+        </div>
+      </div>
+    </div>
+
+    <!-- 模块3: 业务流程和系统流程 -->
+    <div class="principle-card" style="border-left-color: var(--accent3);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, var(--accent3), #34D399);">03</div>
+        <div>
+          <div class="principle-title">业务流程和系统流程：线性→网状</div>
+          <div class="principle-subtitle">流程图里要多出"AI"和"人工"两个角色</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>B端AI很少能够100%自动化。用户真正关心的是：AI在哪一步介入？做完以后谁确认？出错以后谁接手？<sup><a href="#cite-2">[2]</a></sup></p>
+        <p>传统线性流程无法涵盖AI的灵活性，需要设计基于<mark class="key">状态机或DAG（有向无环图）</mark>的工作流。目前业界最主流的Agent工作流模式是ReAct (Reason + Act)，核心是"思考-行动-观察"循环<sup><a href="#cite-3">[3]</a></sup>。</p>
+        <div class="compare-grid">
+          <div class="compare-item bad">
+            <h4>传统线性流程</h4>
+            <p>用户点击 → 调API → 读写数据库 → 返回结果。一条路走到底，没有分支。</p>
+          </div>
+          <div class="compare-item good">
+            <h4>AI网状工作流</h4>
+            <p>用户表达意图 → Agent感知理解 → 推理规划 → 动态调用工具 → 生成回答。每步都可能分支、循环、回退。</p>
+          </div>
+        </div>
+        <div class="practice-box">
+          <strong>人在回路（HITL）三节点</strong>
+          审核节点：高风险操作（退款/群发邮件）AI生成草稿后暂停等待人工确认；澄清节点：置信度低于阈值时进入反问模式列出选项；接管节点：检测到用户愤怒或连续三次未解决问题时强制转人工<sup><a href="#cite-3">[3]</a></sup>。
+        </div>
+      </div>
+    </div>
+
+    <!-- 模块4: 模型选型 -->
+    <div class="principle-card" style="border-left-color: var(--accent4);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, #F59E0B, #FBBF24);">04</div>
+        <div>
+          <div class="principle-title">模型选型：六维度评估</div>
+          <div class="principle-subtitle">平衡性能、成本和可扩展性</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>做技术选型时，要平衡性能、成本和可扩展性<sup><a href="#cite-3">[3]</a></sup>。关键维度包括：</p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>维度</th>
+              <th>评估问题</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>性能</strong></td><td>模型在目标任务上的准确率/延迟/吞吐量是否达标？</td></tr>
+            <tr><td><strong>适配性</strong></td><td>模型是否支持所需的语言、格式、工具调用能力？</td></tr>
+            <tr><td><strong>可扩展性</strong></td><td>能否支持未来新增工具、新增场景、多Agent协作？</td></tr>
+            <tr><td><strong>稳定性</strong></td><td>API可用性SLA？模型版本迭代是否会破坏现有功能？</td></tr>
+            <tr><td><strong>成本</strong></td><td>Token计费方式？单次交互成本？月度预估费用？</td></tr>
+            <tr><td><strong>合规</strong></td><td>数据是否出境？是否满足行业监管要求？是否有内容审核？</td></tr>
+          </tbody>
+        </table>
+        <div class="practice-box">
+          <strong>LLM级联策略</strong>
+          先用弱模型（低成本），搞不定再用强模型（高成本）。这么做，强模型调用成本能省一半以上<sup><a href="#cite-3">[3]</a></sup>。
+        </div>
+      </div>
+    </div>
+
+    <!-- 模块5: Prompt工程 -->
+    <div class="principle-card">
+      <div class="principle-header">
+        <div class="principle-num">05</div>
+        <div>
+          <div class="principle-title">Prompt工程：AI的"软代码"</div>
+          <div class="principle-subtitle">五段式标准模板</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>提示词不是"玄学"，有固定模板。System Prompt按以下结构编写，少一个都容易出问题<sup><a href="#cite-3">[3]</a></sup>：</p>
+        <div class="code-block">
+<span class="comment">// System Prompt 五段式标准模板</span>
+
+<span class="key">1. 角色定义</span>
+   "你是专业的电商客服助手，擅长处理订单查询和售后问题。"
+
+<span class="key">2. 核心任务</span>
+   识别用户意图 → 提取订单号 → 调用工具查询 → 解析数据返回
+
+<span class="key">3. 核心挑战</span>
+   - 信息缺失：用户未提供订单号时如何追问
+   - 工具失败：API超时/无数据时如何兜底
+   - 多义意图："查快递"是查最新还是历史订单
+
+<span class="key">4. 约束</span>
+   - 不准编造数据，不知道就说不知道
+   - 不准输出未经API验证的物流节点
+   - 输出控制：JSON（给系统）+ 自然语言（给用户）
+
+<span class="key">5. Few-shot 示例</span>
+   Input: "我的鞋到了吗？" → Output: {"intent":"check_logistics","entity":"鞋","action":"query_recent_order"}
+        </div>
+        <div class="practice-box">
+          <strong>三个高级技巧</strong>
+          1. 强化专业身份+Checklist强制按步骤思考（思维链）；2. Prompt压缩+级联策略（2428 tokens压到331 tokens，压缩比7.3倍）；3. LLM级联先用弱模型再用强模型（成本省50%+）<sup><a href="#cite-3">[3]</a></sup>。
+        </div>
+      </div>
+    </div>
+
+    <!-- 模块6: 训练数据集 -->
+    <div class="principle-card" style="border-left-color: var(--accent2);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, var(--accent2), #F472B6);">06</div>
+        <div>
+          <div class="principle-title">训练数据集：数据是源泉，不是附件</div>
+          <div class="principle-subtitle">别用平庸数据，要定义"理想态"</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>企业知识库没有更新，AI就会引用过期制度；历史工单分类混乱，模型就会学到错误规律；客户数据没有做好隔离，再高的准确率也没有意义<sup><a href="#cite-2">[2]</a></sup>。</p>
+        <p>很多人直接用历史客服数据训练，这是大错——那些数据里藏着大量低质量回复，只会越训越差。正确做法：<mark class="key">筛选高质量样本，标注"理想回答"</mark><sup><a href="#cite-3">[3]</a></sup>。</p>
+        <div class="practice-box">
+          <strong>"理想态"定义法</strong>
+          人工响应<5秒，AI目标就得设成<2秒；人工解决率80%，AI要冲95%。用"理想回答"而非"历史回答"作为训练标准，让模型向最佳实践看齐而非向平均水平妥协<sup><a href="#cite-3">[3]</a></sup>。
+        </div>
+      </div>
+    </div>
+
+    <!-- 模块7: 评测体系 -->
+    <div class="principle-card" style="border-left-color: var(--accent3);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, var(--accent3), #34D399);">07</div>
+        <div>
+          <div class="principle-title">评测体系：三层评测 + 效果门槛</div>
+          <div class="principle-subtitle">技术达标不等于产品落地</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>评测分三层，成本和效果兼顾<sup><a href="#cite-3">[3]</a></sup>：</p>
+        <div class="decision-matrix">
+          <div class="matrix-card">
+            <div class="matrix-icon" style="background: linear-gradient(135deg, var(--accent), #6366F1);">L1</div>
+            <div class="matrix-title">代码自动评</div>
+            <div class="matrix-desc">查格式、JSON合法性、字段完整性。快又省成本，可CI/CD集成。</div>
+          </div>
+          <div class="matrix-card">
+            <div class="matrix-icon" style="background: linear-gradient(135deg, var(--accent2), #F472B6);">L2</div>
+            <div class="matrix-title">人工评</div>
+            <div class="matrix-desc">MVP阶段找专家看逻辑、推理链、边界处理。LLM-as-Judge辅助。</div>
+          </div>
+          <div class="matrix-card">
+            <div class="matrix-icon" style="background: linear-gradient(135deg, var(--accent3), #34D399);">L3</div>
+            <div class="matrix-title">业务评</div>
+            <div class="matrix-desc">看转人工率、解决率、采纳率、节省时间。真实业务指标。</div>
+          </div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>评估维度</th>
+              <th>技术层面</th>
+              <th>产品层面</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>核心指标</strong></td>
+              <td>准确率、幻觉率、响应时间、安全性、调用成本</td>
+              <td>建议查看率、采纳率、用户修正率、节省时间/成本<sup><a href="#cite-2">[2]</a></sup></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="practice-box">
+          <strong>关键洞察</strong>
+          如果推荐准确率达到90%，用户采纳率却只有20%，问题可能不在模型，而在推荐理由不透明、入口不符合工作习惯，或用户不愿承担责任<sup><a href="#cite-2">[2]</a></sup>。技术达标不等于产品落地。
+        </div>
+      </div>
+    </div>
+
+    <!-- 模块8: 效果保障与稳定性策略 -->
+    <div class="principle-card" style="border-left-color: var(--accent4);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, #F59E0B, #FBBF24);">08</div>
+        <div>
+          <div class="principle-title">效果保障与稳定性策略：三层能力边界 + 数据飞轮</div>
+          <div class="principle-subtitle">不只写"能做什么"，还要写"不能做什么"</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>PRD必须定义三层边界，边界写得越清楚，研发越好实现，业务越敢使用<sup><a href="#cite-2">[2]</a></sup>：</p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>边界层级</th>
+              <th>定义</th>
+              <th>典型场景</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>自动执行</strong></td>
+              <td>风险低、结果可逆</td>
+              <td>查物流、文档分类、信息检索</td>
+            </tr>
+            <tr>
+              <td><strong>推荐+确认</strong></td>
+              <td>涉及金额/客户权益/重要决策</td>
+              <td>AI给建议，人来拍板</td>
+            </tr>
+            <tr>
+              <td><strong>禁止触碰</strong></td>
+              <td>不可逆操作/敏感信息</td>
+              <td>资金账户、敏感信息、删除操作</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="practice-box">
+          <strong>数据飞轮迭代闭环</strong>
+          用户使用 → 反馈沉淀（采纳/修改/驳回/转人工）→ Bad Case标注 → 数据和方案优化 → 效果提升<sup><a href="#cite-2">[2]</a></sup>。PRD需要提前规定：记录哪些行为？谁来标注Bad Case？知识库多久更新？Prompt、规则和模型分别在什么情况下调整？
+        </div>
+      </div>
+    </div>
+
+    <!-- 模块9: 产品功能原型图 -->
+    <div class="principle-card">
+      <div class="principle-header">
+        <div class="principle-num">09</div>
+        <div>
+          <div class="principle-title">产品功能原型图：Chat+GUI，预留"思考中"状态</div>
+          <div class="principle-subtitle">别只做聊天框</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>交互上别只做聊天框，要Chat+GUI。比如报修时，弹出卡片让用户选时间，省一半沟通时间<sup><a href="#cite-3">[3]</a></sup>。</p>
+        <p>如果思考过程很长（涉及多步推理和多次搜索），产品界面上必须有对应的"思考中"反馈（如流式输出思考过程），否则用户会以为系统卡死<sup><a href="#cite-3">[3]</a></sup>。</p>
+        <div class="practice-box">
+          <strong>LLM产品别搞瀑布流，要Demo驱动</strong>
+          快速做Demo拿反馈，比写100页PRD管用。提示词即代码，改一行Prompt就能迭代<sup><a href="#cite-3">[3]</a></sup>。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Agent型产品PRD完整模板 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">FULL TEMPLATE</div>
+    <h2 class="section-title">Agent型AI产品PRD完整模板</h2>
+    <p style="margin-bottom: 24px;">
+      Agent型产品必须以模型故事和工作流程为核心。以下是针对Agent型AI产品的推荐PRD模板，控制在5-6个主要章节，强调模型中心设计<sup><a href="#cite-4">[4]</a></sup>。
+    </p>
+
+    <div class="stage-card">
+      <span class="stage-badge s1">Chapter 1</span>
+      <div class="stage-title">需求背景与产品定位</div>
+      <p>描述业务痛点、市场机会、技术可行性。核心价值量化（如"降低自动化开发门槛，提升效率30%以上"）。技术可行性说明（基于开源LLM+LangChain/ReAct框架）。</p>
+    </div>
+
+    <div class="stage-card stage-2">
+      <span class="stage-badge s2">Chapter 2</span>
+      <div class="stage-title">用户场景与模型故事</div>
+      <p>淡化细粒度用户旅程，聚焦典型场景下的模型行为。每个模型故事末尾增加"上下文构建策略"：短期记忆（对话轮次）、长期记忆（RAG检索）、工具结果注入<sup><a href="#cite-4">[4]</a></sup>。</p>
+    </div>
+
+    <div class="stage-card stage-3">
+      <span class="stage-badge s3">Chapter 3</span>
+      <div class="stage-title">Agent工作流程设计（核心新增模块）</div>
+      <p>流程图（外部视角）：用户输入→意图解析→任务分解→并行工具调用→结果聚合→验证与迭代→输出报告。时序图（内部视角）：标注每个节点的数据传递格式（JSON Schema）和超时/错误处理。多Agent协作机制：黑板式共享内存或消息队列<sup><a href="#cite-4">[4]</a></sup>。</p>
+    </div>
+
+    <div class="stage-card stage-4">
+      <span class="stage-badge s4">Chapter 4</span>
+      <div class="stage-title">功能清单与实现细节（含提示词设计）</div>
+      <p>列出核心功能，并为每个关键Agent节点提供提示词模板。采用"角色-挑战-策略-完整提示词-输出控制"五段式。输出控制：严格遵循工具Schema，失败时返回<code>{error: "...", retry_strategy: "..."}</code><sup><a href="#cite-4">[4]</a></sup>。</p>
+    </div>
+
+    <div class="stage-card">
+      <span class="stage-badge s1">Chapter 5</span>
+      <div class="stage-title">评估标准、测试数据集与风险管控</div>
+      <p>评估维度：任务完成率（端到端）、单步准确率、幻觉率、格式符合率、执行耗时、成本。测试数据集：正常案例100条+边界案例（模糊指令/长上下文/冲突需求）+对抗案例（诱导幻觉）。风险与缓解：幻觉→验证Agent+事实核查、上下文丢失→RAG+总结压缩、工具失败→备用方案+用户介入<sup><a href="#cite-4">[4]</a></sup>。</p>
+    </div>
+
+    <div class="stage-card stage-2">
+      <span class="stage-badge s2">Chapter 6</span>
+      <div class="stage-title">非功能需求与上线计划</div>
+      <p>性能（延迟<10s）、成本控制（单次交互<$0.05）、安全合规（数据隐私）、可扩展性（支持新工具插件）。预留"迭代发现"章节，记录上线后新风险及解决方案<sup><a href="#cite-4">[4]</a></sup>。</p>
+    </div>
+
+    <figure class="chart-figure">
+      <figcaption>AI产品PRD九大模块全景</figcaption>
+      <div id="chart-overview" style="width:100%;height:420px;"></div>
+    </figure>
+  </div>
+</section>
+
+<!-- 嵌入型 vs Agent型 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">PRODUCT TYPES</div>
+    <h2 class="section-title">嵌入型 vs Agent型：不同产品不同写法</h2>
+    <p style="margin-bottom: 24px;">
+      嵌入型AI产品（如老产品新增AI客服）可以保留传统PRD结构，但必须额外增加三个关键板块。Agent型产品则必须进行结构性重构<sup><a href="#cite-4">[4]</a></sup>。
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>维度</th>
+          <th>嵌入型AI产品</th>
+          <th>Agent型AI产品</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>AI角色</strong></td>
+          <td>固定环节嵌入现有流程（类似调API）</td>
+          <td>主动分解任务、调用工具、迭代优化</td>
+        </tr>
+        <tr>
+          <td><strong>输入输出</strong></td>
+          <td>相对固定</td>
+          <td>动态变化，多模态</td>
+        </tr>
+        <tr>
+          <td><strong>PRD结构</strong></td>
+          <td>传统结构 + 3个补充板块</td>
+          <td>结构性重构，以模型故事为核心</td>
+        </tr>
+        <tr>
+          <td><strong>新增板块</strong></td>
+          <td>1.AI引入可行性分析 2.提示词设计逻辑 3.评估和测试标准</td>
+          <td>1.Agent Story(ITTO) 2.Agent工作流 3.提示词设计 4.评估指标+数据集</td>
+        </tr>
+        <tr>
+          <td><strong>典型产品</strong></td>
+          <td>AI摘要、AI客服、AI写作辅助</td>
+          <td>deer-flow、Manus、AutoGPT类</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <figure class="chart-figure">
+      <figcaption>AI产品PRD九大模块权重分布（嵌入型 vs Agent型）</figcaption>
+      <div id="chart-radar" style="width:100%;height:400px;"></div>
+    </figure>
+  </div>
+</section>
+
+<!-- 常见坑点 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">PITFALLS</div>
+    <h2 class="section-title">常见坑点与避坑指南</h2>
+
+    <div class="qa-card">
+      <div class="qa-question"><span class="q-tag">坑1</span>过度依赖模型自主性而缺少兜底逻辑</div>
+      <div class="qa-answer">模型不是万能的，必须有异常兜底。每个Agent节点都要定义：工具调用失败怎么办？置信度低于阈值怎么办？用户连续否定怎么办？<sup><a href="#cite-4">[4]</a></sup></div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question"><span class="q-tag">坑2</span>测试集过于理想</div>
+      <div class="qa-answer">只用正常案例测试，上线后被真实用户的模糊指令、对抗输入打爆。必须包含边界案例（模糊指令/长上下文/冲突需求）和对抗案例（诱导幻觉）<sup><a href="#cite-4">[4]</a></sup></div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question"><span class="q-tag">坑3</span>忽略生产环境下的成本与延迟</div>
+      <div class="qa-answer">Demo阶段用GPT-4跑得好好的，上线后发现每次交互成本$0.5，延迟8秒。PRD必须提前定义成本上限和延迟门槛，设计LLM级联策略<sup><a href="#cite-4">[4]</a></sup></div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question"><span class="q-tag">坑4</span>上下文构建策略不完善</div>
+      <div class="qa-answer">很多项目上线后模型胡说八道，原因是PM在定义输入时忽略了提供"当前库存数据"等隐性上下文，导致模型只能根据训练数据中的过时信息猜测<sup><a href="#cite-3">[3]</a></sup></div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question"><span class="q-tag">坑5</span>把传统PRD里的"系统"换成"AI"就完事</div>
+      <div class="qa-answer">原来写"系统根据规则生成结果"，改成"AI生成结果"——这是最常见的错误。AI产品PRD需要把能力边界、数据、人机协作、效果评估、风险兜底和持续运营全部纳入产品设计<sup><a href="#cite-2">[2]</a></sup></div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-content">
+        <h3>核心认知转变</h3>
+        <p>传统软件PM的核心是"消除不确定性"；AI PM的核心是"管理不确定性"。AI PM不再是扣像素，而是定义模型的思考方式——从"功能定义者"变成"认知架构师"<sup><a href="#cite-3">[3]</a></sup>。</p>
+        <p style="margin-top: 8px;">一份高质量的AI PRD，不是功能列表堆砌，而是系统回答：<strong>我们如何把模型不确定性转化为可靠生产力</strong><sup><a href="#cite-4">[4]</a></sup>。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 自检清单 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">CHECKLIST</div>
+    <h2 class="section-title">AI产品PRD自检清单</h2>
+
+    <div class="summary-box">
+      <h3>价值与边界</h3>
+      <ul class="feature-list">
+        <li><strong>为什么用AI</strong>：现有方案瓶颈明确，AI比规则/算法/人工多创造的价值量化</li>
+        <li><strong>能力边界三层</strong>：自动执行 / 推荐+确认 / 禁止触碰，每项有典型场景</li>
+        <li><strong>不做什么</strong>：明确AI不能做的事，比能做什么更重要</li>
+      </ul>
+    </div>
+
+    <div class="summary-box" style="border-top-color: var(--accent2);">
+      <h3 style="color: var(--accent2);">模型与数据</h3>
+      <ul class="feature-list">
+        <li><strong>Agent Story</strong>：用ITTO模型定义每个关键场景的输入/思考/工具/输出</li>
+        <li><strong>模型选型六维度</strong>：性能/适配性/可扩展性/稳定性/成本/合规均有评估</li>
+        <li><strong>Prompt五段式</strong>：角色-挑战-策略-完整提示词-输出控制，含Few-shot示例</li>
+        <li><strong>数据理想态</strong>：用"理想回答"而非"历史回答"作为标准，定义数据来源/格式/更新频率/质量标准</li>
+      </ul>
+    </div>
+
+    <div class="summary-box" style="border-top-color: var(--accent3);">
+      <h3 style="color: var(--accent3);">流程与评测</h3>
+      <ul class="feature-list">
+        <li><strong>网状工作流</strong>：用DAG/状态机替代线性流程图，标注HITL三节点</li>
+        <li><strong>三层评测</strong>：代码自动评 + 人工评 + 业务评，每层有明确指标和门槛</li>
+        <li><strong>测试数据集</strong>：正常案例+边界案例+对抗案例，200-500条典型规模</li>
+        <li><strong>效果门槛</strong>：技术层面（准确率/幻觉率/延迟/成本）+ 产品层面（采纳率/修正率/节省时间）</li>
+      </ul>
+    </div>
+
+    <div class="summary-box" style="border-top-color: var(--accent4);">
+      <h3 style="color: var(--accent4);">稳定性与迭代</h3>
+      <ul class="feature-list">
+        <li><strong>异常兜底</strong>：工具失败/置信度低/用户否定的每种异常路径都有处理方案</li>
+        <li><strong>数据飞轮</strong>：用户行为记录→Bad Case标注→数据/方案优化→效果提升的闭环已定义</li>
+        <li><strong>Chat+GUI</strong>：不只是聊天框，有卡片/图表等GUI组件，预留"思考中"状态</li>
+        <li><strong>Demo驱动</strong>：不搞瀑布流，快速做Demo拿反馈迭代</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>AI产品的PRD到底怎么写？ · 知识报告</p>
+    <p>来源：抖音 · AI产品L.sting · 2026-07-10 · 跨源补充4篇深度文章</p>
+    <div class="sources">
+      <h2>参考资料</h2>
+      <ol>
+        <li>
+          <span class="src-title">抖音视频 · AI产品L.sting · AI产品的PRD到底怎么写？</span>
+          <a class="src-url" href="https://v.douyin.com/I9FPPxzSQdU/">https://v.douyin.com/I9FPPxzSQdU/</a>
+        </li>
+        <li>
+          <span class="src-title">人人都是产品经理 · AI产品PRD与传统PRD的六大差异，附设计思路</span>
+          <a class="src-url" href="http://m.toutiao.com/group/7664455450720485903/">http://m.toutiao.com/group/7664455450720485903/</a>
+        </li>
+        <li>
+          <span class="src-title">人人都是产品经理 · AI PM进阶笔记【6】：5大模块+4个交付物，AI-PRD产品落地不踩坑</span>
+          <a class="src-url" href="https://www.woshipm.com/ai/6324604.html">https://www.woshipm.com/ai/6324604.html</a>
+        </li>
+        <li>
+          <span class="src-title">商业新知 · AI产品PRD如何撰写？给出一个AI PRD模板</span>
+          <a class="src-url" href="https://www.shangyexinzhi.com/article/33181075.html">https://www.shangyexinzhi.com/article/33181075.html</a>
+        </li>
+        <li>
+          <span class="src-title">人人都是产品经理 · AI产品的PRD应该怎么写？</span>
+          <a class="src-url" href="https://www.woshipm.com/share/6248671.html">https://www.woshipm.com/share/6248671.html</a>
+        </li>
+      </ol>
+    </div>
+  </div>
+</footer>
+
+<script src="./assets/charts.js"></script>
+</body>
+</html>
