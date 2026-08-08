@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>为什么Mac才是更适合用AI的电脑？</title>
+<script src="./_shared/js/echarts.min.js"></script>
+<style>
+@font-face {
+  font-family: 'WorkSans';
+  src: url('./_shared/fonts/WorkSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'WorkSans';
+  src: url('./_shared/fonts/WorkSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrainsMono';
+  src: url('./_shared/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --bg: #F8F9FB;
+  --bg2: #FFFFFF;
+  --ink: #1E293B;
+  --muted: #64748B;
+  --muted2: #94A3B8;
+  --rule: #E2E8F0;
+  --rule-light: #F1F5F9;
+  --accent: #4F46E5;
+  --accent2: #EC4899;
+  --accent3: #10B981;
+  --accent4: #F59E0B;
+  --highlight: #EEF2FF;
+  --warm: #FDF4FF;
+  --card-shadow: 0 2px 8px rgba(79, 70, 229, 0.06);
+  --card-shadow-hover: 0 8px 24px rgba(79, 70, 229, 0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'WorkSans', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.8;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(145deg, #0F172A 0%, #1E3A5F 40%, #2563EB 100%);
+  color: #fff;
+  padding: 72px 0 56px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -25%;
+  right: -8%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(236,72,153,0.10) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -35%;
+  left: -8%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(16,185,129,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-tag {
+  display: inline-block;
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #93C5FD;
+  margin-bottom: 16px;
+  padding: 4px 14px;
+  border: 1px solid rgba(147,197,253,0.4);
+  border-radius: 20px;
+}
+.hero h1 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+.hero-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.7;
+  max-width: 660px;
+}
+.hero-meta {
+  margin-top: 28px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+}
+.hero-meta span { display: flex; align-items: center; gap: 6px; }
+.hero-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: #93C5FD; }
+
+/* Section */
+.section { padding: 52px 0; }
+.section + .section { border-top: 1px solid var(--rule); }
+
+.section-label {
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+/* Principle Card */
+.principle-card {
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--card-shadow);
+  border-left: 4px solid var(--accent);
+  transition: box-shadow 0.3s;
+}
+.principle-card:hover { box-shadow: var(--card-shadow-hover); }
+
+.principle-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.principle-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
+  font-family: 'JetBrainsMono', monospace;
+}
+.principle-title {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+.principle-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+}
+.principle-body { line-height: 1.8; }
+.principle-body p { margin-bottom: 12px; }
+.principle-body p:last-child { margin-bottom: 0; }
+
+.principle-quote {
+  border-left: 3px solid var(--accent2);
+  padding: 10px 18px;
+  margin: 12px 0;
+  background: var(--warm);
+  border-radius: 0 8px 8px 0;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.practice-box {
+  background: var(--highlight);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.practice-box strong {
+  color: var(--accent);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Stage Card */
+.stage-card {
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--card-shadow);
+  border-top: 4px solid var(--accent);
+}
+.stage-card.stage-2 { border-top-color: var(--accent2); }
+.stage-card.stage-3 { border-top-color: var(--accent3); }
+.stage-card.stage-4 { border-top-color: #F59E0B; }
+
+.stage-badge {
+  display: inline-block;
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.stage-badge.s1 { background: var(--highlight); color: var(--accent); }
+.stage-badge.s2 { background: var(--warm); color: var(--accent2); }
+.stage-badge.s3 { background: rgba(16,185,129,0.1); color: var(--accent3); }
+.stage-badge.s4 { background: rgba(245,158,11,0.1); color: #F59E0B; }
+
+.stage-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* Table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
+}
+.data-table th {
+  text-align: left;
+  padding: 12px 14px;
+  font-weight: 700;
+  font-size: 13px;
+  background: var(--rule-light);
+  color: var(--ink);
+}
+.data-table th.accent-th { color: var(--accent); }
+.data-table td {
+  padding: 12px 14px;
+  border-top: 1px solid var(--rule);
+  line-height: 1.6;
+  vertical-align: top;
+}
+.data-table td strong { color: var(--accent); }
+.data-table tr:hover td { background: var(--rule-light); }
+
+/* Q&A Card */
+.qa-card {
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 20px;
+  box-shadow: var(--card-shadow);
+  border-left: 4px solid var(--accent3);
+}
+.qa-question {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.qa-question .q-tag {
+  background: var(--accent3);
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  font-family: 'JetBrainsMono', monospace;
+}
+.qa-answer {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ink);
+  padding-left: 0;
+}
+.qa-answer strong { color: var(--accent); }
+
+/* Callout */
+.callout {
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  color: #fff;
+  border-radius: 14px;
+  padding: 32px;
+  margin: 32px 0;
+  position: relative;
+  overflow: hidden;
+}
+.callout::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(236,72,153,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.callout-content { position: relative; z-index: 1; }
+.callout h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+.callout p { font-size: 15px; line-height: 1.8; opacity: 0.9; }
+
+/* Chart */
+.chart-figure {
+  margin: 28px 0;
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: var(--card-shadow);
+}
+.chart-figure figcaption {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+/* Comparison */
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 20px 0;
+}
+.compare-item {
+  background: var(--bg2);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+}
+.compare-item h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid;
+}
+.compare-item.bad h4 { color: var(--accent2); border-color: var(--accent2); }
+.compare-item.good h4 { color: var(--accent3); border-color: var(--accent3); }
+.compare-item p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* List */
+.feature-list {
+  list-style: none;
+  margin: 16px 0;
+}
+.feature-list li {
+  padding: 8px 0 8px 24px;
+  position: relative;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.feature-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 14px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+.feature-list li strong { color: var(--accent); }
+
+/* Summary Box */
+.summary-box {
+  background: var(--bg2);
+  border-radius: 14px;
+  padding: 32px;
+  margin: 32px 0;
+  box-shadow: var(--card-shadow);
+  border-top: 4px solid var(--accent);
+}
+.summary-box h3 {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--accent);
+}
+
+/* Code Block */
+.code-block {
+  background: #1E293B;
+  color: #E2E8F0;
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin: 16px 0;
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+.code-block .comment { color: #64748B; }
+.code-block .key { color: #818CF8; }
+.code-block .str { color: #34D399; }
+.code-block .num { color: #FBBF24; }
+
+/* Decision Matrix */
+.decision-matrix {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+.matrix-card {
+  background: var(--bg2);
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: var(--card-shadow);
+  text-align: center;
+}
+.matrix-card .matrix-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+.matrix-card .matrix-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.matrix-card .matrix-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  margin: 24px 0;
+  padding-left: 24px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--rule);
+}
+.timeline-item {
+  position: relative;
+  padding-bottom: 24px;
+}
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+}
+.timeline-item .tl-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.timeline-item .tl-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Footer */
+footer {
+  background: #1E293B;
+  color: rgba(255,255,255,0.6);
+  padding: 40px 0;
+  font-size: 13px;
+}
+footer .container { display: flex; flex-direction: column; gap: 8px; }
+footer a { color: #93C5FD; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+footer .sources { margin-top: 16px; }
+footer .sources h2 { font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 8px; }
+footer .sources ol { padding-left: 1.2rem; }
+footer .sources li { margin-bottom: 0.5rem; line-height: 1.6; }
+footer .sources .src-title { color: rgba(255,255,255,0.8); }
+footer .sources .src-url { display: block; margin-top: 0.15rem; color: #93C5FD; word-break: break-all; }
+
+sup a { color: var(--accent); text-decoration: none; font-size: 0.75em; font-weight: 600; }
+sup a:hover { text-decoration: underline; }
+mark.key { background: none; color: var(--accent); font-weight: 600; }
+
+@media (max-width: 640px) {
+  .hero { padding: 48px 0 40px; }
+  .hero h1 { font-size: 24px; }
+  .hero-sub { font-size: 15px; }
+  .section { padding: 36px 0; }
+  .section-title { font-size: 21px; }
+  .principle-card, .stage-card, .qa-card { padding: 20px; }
+  .callout, .summary-box { padding: 24px; }
+  .compare-grid { grid-template-columns: 1fr; }
+  .decision-matrix { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <span class="hero-tag">Mac × AI · 硬核科普</span>
+      <h1>为什么Mac才是更适合用AI的电脑？</h1>
+      <p class="hero-sub">AI时代的生产力公式不在于AI多强，而在于你能不能把它丝滑地用起来。Mac凭借与Linux同源的shell、高度标准化的工具链、统一内存架构和成熟的开发者生态，在AI应用层构建了结构性优势。本文从shell友好度、工具链标准化、硬件统一内存、生态闭环四个维度，系统拆解Mac在AI时代的底层适配逻辑，附Windows用户降坑指南与场景选择矩阵。</p>
+      <div class="hero-meta">
+        <span><span class="dot"></span>来源：抖音 · 林禾Mind</span>
+        <span><span class="dot"></span>跨源补充：6篇深度文章</span>
+        <span><span class="dot"></span>2026-08-08</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 视频核心内容 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">VIDEO CORE</div>
+    <h2 class="section-title">视频核心：Mac与Windows的AI适配性差异</h2>
+    <p style="margin-bottom: 24px;">
+      抖音博主"林禾Mind"在视频中提出一个核心观点：在AI时代，判断一台电脑是否适合用AI，关键不在于硬件跑分，而在于<mark class="key">Agent与操作系统的交互效率</mark>。AI Agent通过文本生成命令，交给系统执行——shell就是Agent和操作系统之间的桥梁<sup><a href="#cite-1">[1]</a></sup>。Mac的shell与Linux同源，而Windows的shell历史曲折，两者对Agent的友好程度截然不同。
+    </p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-title">01:12 · AI工具与电脑交互</div>
+        <div class="tl-desc">Agent通过文本形式生成命令，交给系统执行，shell是agent和操作系统之间的桥梁。这是理解Mac优势的底层入口。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">03:04 · Mac与Windows的Shell差异</div>
+        <div class="tl-desc">Mac的shell与Linux同源（zsh/bash），Windows的shell经历了CMD→PowerShell→WSL的曲折演化，两者对Agent的友好程度不同。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">06:06 · 工具链标准化程度</div>
+        <div class="tl-desc">Mac的工具链高度标准化（Homebrew统一管理），Windows的工具链更碎更复杂，Agent在Windows上需要处理更多环境噪音。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">07:55 · 生态优势</div>
+        <div class="tl-desc">Mac在硬件层面（统一内存/神经引擎）、Unix环境吸引力、开发者认同感等方面形成良性循环。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-title">09:15 · 结语</div>
+        <div class="tl-desc">Mac更适合学习和应用AI工具——不是信仰问题，而是工具链摩擦最小化的现实选择。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 第一层：Shell友好度 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">LAYER 01</div>
+    <h2 class="section-title">Shell友好度：AI默认假设的世界</h2>
+
+    <div class="principle-card">
+      <div class="principle-header">
+        <div class="principle-num">01</div>
+        <div>
+          <div class="principle-title">语料层优势：LLM天然更懂Unix命令</div>
+          <div class="principle-subtitle">AI工具链的默认世界观是Bash + Linux</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>大多数AI工具、开源项目、教程、README、Issue回复，默认你在跑<code>bash/zsh</code>（不是PowerShell），<code>curl | bash</code>一行装依赖（不是点点点安装向导），<code>make</code>/<code>sed</code>/<code>awk</code>/<code>grep</code>/<code>xargs</code>/<code>ssh</code>（不是一堆替代品）<sup><a href="#cite-2">[2]</a></sup>。</p>
+        <p>当系统"本来就长得像Linux"，你抄命令就能跑；在原生Windows上，哪怕你很强，也会被迫先做翻译题。</p>
+        <div class="principle-quote">
+          "AI帮你省下30分钟写代码，结果你花40分钟在适配命令——这不是生产力，这是情绪劳动。"<sup><a href="#cite-2">[2]</a></sup>
+        </div>
+      </div>
+    </div>
+
+    <div class="principle-card" style="border-left-color: var(--accent2);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, var(--accent2), #F472B6);">02</div>
+        <div>
+          <div class="principle-title">命令翻译地狱：Windows上的典型翻车循环</div>
+          <div class="principle-subtitle">同一件事在不同Shell里写法完全不同</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>这不是"Windows不行"，而是<mark class="key">LLM的训练语料和真实世界的默认操作系统环境，长期偏Unix</mark><sup><a href="#cite-2">[2]</a></sup>。于是你会得到一个非常典型的心理折磨循环：</p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>需求</th>
+              <th>macOS/Linux (bash/zsh)</th>
+              <th>PowerShell</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>设置环境变量</td>
+              <td><code>export OPENAI_API_KEY="..."</code></td>
+              <td><code>$env:OPENAI_API_KEY="..."</code></td>
+            </tr>
+            <tr>
+              <td>递归查找文本</td>
+              <td><code>rg "foo" -n src</code></td>
+              <td><code>Select-String -Path src\* -Pattern "foo" -Recurse</code></td>
+            </tr>
+            <tr>
+              <td>删除目录</td>
+              <td><code>rm -rf build</code></td>
+              <td><code>Remove-Item build -Recurse -Force</code></td>
+            </tr>
+            <tr>
+              <td>管道处理</td>
+              <td><code>cat a.txt | sed ... | awk ...</code></td>
+              <td>语法不同，很多工具默认不存在</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="practice-box">
+          <strong>隐形炸弹</strong>
+          路径分隔符（<code>/</code> vs <code>\</code>）、换行符（LF vs CRLF）、编码（UTF-8/代码页）——这些问题的可怕之处在于：它们不是"你不会"，而是"你没法靠直觉一次写对"，只能反复试错。
+        </div>
+      </div>
+    </div>
+
+    <div class="principle-card" style="border-left-color: var(--accent3);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, var(--accent3), #34D399);">03</div>
+        <div>
+          <div class="principle-title">WSL的悖论：最终你还是在跑Linux</div>
+          <div class="principle-subtitle">WSL的存在本质上是在承认一件事</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>WSL2的确能救命，但它也在反向证明：<mark class="key">现代开发/AI生态的基建，还是Unix那套</mark><sup><a href="#cite-2">[2]</a></sup>。你最终会走到这一步——在Windows上开一个Linux，然后在Linux里干活。</p>
+        <p>问题来了：如果你大部分时间都在WSL里，为什么不一开始就把主力机换成macOS（或Linux）？</p>
+        <div class="compare-grid">
+          <div class="compare-item good">
+            <h4>macOS原生体验</h4>
+            <p>zsh/bash开箱即用，Homebrew一行装依赖，Unix工具链完整，AI生成的命令直接能跑，无需"翻译层"</p>
+          </div>
+          <div class="compare-item bad">
+            <h4>Windows + WSL2</h4>
+            <p>需要在Windows和Linux两套文件系统间切换，路径转换、权限映射、网络配置都有额外摩擦，Agent跨环境操作更易出错</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 第二层：工具链标准化 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">LAYER 02</div>
+    <h2 class="section-title">工具链标准化：复制命令就能跑的概率</h2>
+
+    <div class="principle-card">
+      <div class="principle-header">
+        <div class="principle-num">04</div>
+        <div>
+          <div class="principle-title">Homebrew：macOS的统一包管理器</div>
+          <div class="principle-subtitle">一行命令搞定依赖，自动处理底层编译链</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>macOS上安装Python或任何开发工具，一条<code>brew install python</code>即可完成，Homebrew能智能解析并编译/链接OpenSSL、SQLite、zlib等系统级依赖，避免手动配置<code>./configure</code><sup><a href="#cite-3">[3]</a></sup>。</p>
+        <p>而Windows系统无自带C/C++编译环境，缺少VC++运行库——一旦没有预编译包，无法本地编译，直接安装失败。这也是Windows用户更依赖Anaconda的核心原因<sup><a href="#cite-4">[4]</a></sup>。</p>
+        <div class="code-block">
+<span class="comment"># macOS：一行搞定</span>
+<span class="key">brew install</span> python node git cmake
+
+<span class="comment"># Windows：典型流程</span>
+<span class="comment"># 1. 下载Python安装包 → 手动勾选Add to PATH</span>
+<span class="comment"># 2. 下载Node.js安装包 → 手动配置环境变量</span>
+<span class="comment"># 3. 装VS Build Tools → 几个GB</span>
+<span class="comment"># 4. 改PATH → 换shell → 再来一遍</span>
+<span class="comment"># 5. 还可能被换行符/编码再捅一刀</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="principle-card" style="border-left-color: var(--accent2);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, var(--accent2), #F472B6);">05</div>
+        <div>
+          <div class="principle-title">依赖编译：Windows的"最后一公里"更容易掉链子</div>
+          <div class="principle-subtitle">AI相关项目频繁需要原生扩展编译</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>AI相关项目经常会碰到这类依赖：Python包带原生扩展（需要编译器、CMake、SDK）、Node原生模块、Rust工具链、图像/音视频编解码库<sup><a href="#cite-2">[2]</a></sup>。</p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>维度</th>
+              <th>macOS</th>
+              <th>Windows</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>编译器</td>
+              <td><strong>系统自带Clang/GCC</strong>（xcode-select --install）</td>
+              <td>需额外安装VS Build Tools（数GB）</td>
+            </tr>
+            <tr>
+              <td>包管理</td>
+              <td><strong>Homebrew统一管理</strong>，自动处理依赖链</td>
+              <td>分散：pip/npm/winget/choco多套体系</td>
+            </tr>
+            <tr>
+              <td>编译成功率</td>
+              <td><strong>几乎100%</strong>，不挑Python版本</td>
+              <td>没有预编译包则直接失败</td>
+            </tr>
+            <tr>
+              <td>典型耗时</td>
+              <td>2-5分钟</td>
+              <td>30分钟-2小时（含排错）</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="principle-card" style="border-left-color: var(--accent3);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, var(--accent3), #34D399);">06</div>
+        <div>
+          <div class="principle-title">AI工具首发权：macOS/Linux先吃到新东西</div>
+          <div class="principle-subtitle">Windows永远是"等等党"</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>现实就是：很多AI应用干脆不支持Windows原生，或Windows永远慢半拍。一些AI编程CLI/Agent（如早期的Claude Code）在原生Windows上不在优先级，Windows用户要么等，要么被一句话打发——"请用WSL"<sup><a href="#cite-2">[2]</a></sup>。</p>
+        <div class="practice-box">
+          <strong>典型时序差异</strong>
+          新AI工具发布 → macOS/Linux首发 → 社区反馈迭代 → 数周到数月后Windows适配 → Windows用户使用时已有版本差异。在快速迭代的AI生态中，这个时间差意味着你始终在追赶。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 第三层：硬件统一内存 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">LAYER 03</div>
+    <h2 class="section-title">硬件统一内存：本地跑大模型的结构性优势</h2>
+
+    <div class="principle-card">
+      <div class="principle-header">
+        <div class="principle-num">07</div>
+        <div>
+          <div class="principle-title">统一内存架构（UMA）：消除PCIe瓶颈</div>
+          <div class="principle-subtitle">CPU、GPU、Neural Engine共享同一块物理内存</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>大模型推理的核心瓶颈是内存带宽。一个70B参数模型在FP16下占140GB，即使量化到INT4也需要35GB。在传统PC架构中，GPU显存和系统内存物理隔离——模型要么完全装进显存（受限于24GB），要么走PCIe总线在CPU/GPU间搬运数据，PCIe 4.0 x16的双向带宽仅32 GB/s<sup><a href="#cite-5">[5]</a></sup>。</p>
+        <p>Apple Silicon的统一内存架构（UMA）从根本上消除了这个瓶颈：</p>
+        <ul class="feature-list">
+          <li><strong>物理统一</strong>：CPU、GPU、Neural Engine共享同一块物理内存，无需数据搬运</li>
+          <li><strong>大容量</strong>：M5 Pro最高64GB，M5 Max最高192GB，M5 Ultra可达512GB——70B模型完整装入成为可能<sup><a href="#cite-5">[5]</a></sup></li>
+          <li><strong>高带宽</strong>：M5 Pro提供307 GB/s内存带宽，M5 Max达614 GB/s，远超DDR5台式机（约90 GB/s）<sup><a href="#cite-5">[5]</a></sup></li>
+        </ul>
+        <figure class="chart-figure">
+          <figcaption>Apple Silicon vs 传统PC 内存带宽对比</figcaption>
+          <div id="chart-bandwidth" style="width:100%;height:340px;"></div>
+        </figure>
+      </div>
+    </div>
+
+    <div class="principle-card" style="border-left-color: var(--accent2);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, var(--accent2), #F472B6);">08</div>
+        <div>
+          <div class="principle-title">M5芯片：专为AI全面优化的SoC</div>
+          <div class="principle-subtitle">GPU峰值计算性能较M4提升4倍以上</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>M5芯片采用第三代3纳米工艺打造，推出新一代10核GPU架构，每颗核心皆配备神经网络加速器，图形处理器峰值计算性能较M4芯片提升4倍以上，为基于GPU的AI任务运行速度带来显著提升<sup><a href="#cite-6">[6]</a></sup>。</p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>组件</th>
+              <th>M5芯片AI能力</th>
+              <th>作用</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>10核GPU</strong></td>
+              <td>每核内置Neural Accelerator，峰值算力4x于M4</td>
+              <td>GPU-based AI任务加速（推理/训练）</td>
+            </tr>
+            <tr>
+              <td><strong>16核Neural Engine</strong></td>
+              <td>更快的神经引擎，能效卓越</td>
+              <td>端侧AI功能（图像处理/语音/OCR）</td>
+            </tr>
+            <tr>
+              <td><strong>CPU Neural Accelerator</strong></td>
+              <td>CPU内嵌AI加速单元</td>
+              <td>轻量级AI推理，低延迟响应</td>
+            </tr>
+            <tr>
+              <td><strong>Metal 4张量API</strong></td>
+              <td>开发者可直接编程神经网络加速器</td>
+              <td>自定义AI工作负载优化</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="principle-card" style="border-left-color: var(--accent3);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, var(--accent3), #34D399);">09</div>
+        <div>
+          <div class="principle-title">MLX框架：Apple官方机器学习框架</div>
+          <div class="principle-subtitle">专为Apple Silicon设计的端侧推理方案</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>MLX是Apple开源的机器学习框架，专为Apple Silicon打造。它利用Metal在GPU上加速，并利用统一内存使CPU和GPU操作可以同时处理相同数据<sup><a href="#cite-7">[7]</a></sup>。MLX提供Python、Swift、C++和C的API，是Mac上跑大模型的首选运行时。</p>
+        <div class="practice-box">
+          <strong>实测性能（M5 Pro 64GB）</strong>
+          W8A16量化下，8B模型decode速度达80.1 tok/s，4516 tokens的prefill耗时2.839s。配合Cider SDK的INT8激活量化，prefill可再加速1.4-2.2倍<sup><a href="#cite-5">[5]</a></sup>。
+        </div>
+        <p>本地跑模型工具链在macOS上已经非常成熟：Ollama（一行命令拉模型）、LM Studio（图形界面管理）、llama.cpp（轻量推理）、MLX（Apple原生框架）——全部对macOS优先适配<sup><a href="#cite-2">[2]</a></sup>。</p>
+        <figure class="chart-figure">
+          <figcaption>Mac本地大模型推理生态全景</figcaption>
+          <div id="chart-mlx-eco" style="width:100%;height:360px;"></div>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 第四层：生态闭环 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">LAYER 04</div>
+    <h2 class="section-title">生态闭环：从开发到部署的全链路优势</h2>
+
+    <div class="principle-card">
+      <div class="principle-header">
+        <div class="principle-num">10</div>
+        <div>
+          <div class="principle-title">macOS优势的三层结构</div>
+          <div class="principle-subtitle">不只是"类Unix"这么简单</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>Mac的AI适配优势可以从三层来理解<sup><a href="#cite-2">[2]</a></sup>：</p>
+        <div class="decision-matrix">
+          <div class="matrix-card">
+            <div class="matrix-icon" style="background: linear-gradient(135deg, var(--accent), #6366F1);">语料</div>
+            <div class="matrix-title">语料层</div>
+            <div class="matrix-desc">LLM见过更多bash/Linux命令和工程脚手架，生成更准。AI默认假设你在Unix环境。</div>
+          </div>
+          <div class="matrix-card">
+            <div class="matrix-icon" style="background: linear-gradient(135deg, var(--accent2), #F472B6);">工具</div>
+            <div class="matrix-title">工具层</div>
+            <div class="matrix-desc">Homebrew + Unix工具链，让"复制命令就能跑"概率更高。依赖编译成功率近100%。</div>
+          </div>
+          <div class="matrix-card">
+            <div class="matrix-icon" style="background: linear-gradient(135deg, var(--accent3), #34D399);">体验</div>
+            <div class="matrix-title">体验层</div>
+            <div class="matrix-desc">续航、静音、触控板、窗口管理、系统自动化，让你能长时间高密度工作。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="principle-card" style="border-left-color: var(--accent2);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, var(--accent2), #F472B6);">11</div>
+        <div>
+          <div class="principle-title">自动化能力：把AI变成流水线的一环</div>
+          <div class="principle-subtitle">系统级工具更好拼工作流</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>AI时代很多人真正需要的是：把AI变成流水线的一环，而不是一个聊天窗口<sup><a href="#cite-2">[2]</a></sup>。macOS在这方面组合拳非常好用：</p>
+        <ul class="feature-list">
+          <li><strong>Shortcuts / Automator</strong>：系统级快捷指令，可串联AI API</li>
+          <li><strong>Raycast / Alfred</strong>：快速启动器 + 脚本扩展，一键触发AI工作流</li>
+          <li><strong>统一权限与钥匙串</strong>：API Key管理安全统一，脚本调用无需硬编码</li>
+          <li><strong>系统脚本</strong>：AppleScript + shell无缝协作</li>
+        </ul>
+        <div class="practice-box">
+          <strong>典型工作流</strong>
+          选中文本 → 调AI总结 → 自动贴回文档 / 发到IM / 存到知识库 → 全程一个快捷键。在macOS上这是5分钟搭建的事；在Windows原生环境上则需要更多胶水代码。
+        </div>
+      </div>
+    </div>
+
+    <div class="principle-card" style="border-left-color: var(--accent3);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, var(--accent3), #34D399);">12</div>
+        <div>
+          <div class="principle-title">部署一致性：本地能跑 → 上线也能跑</div>
+          <div class="principle-subtitle">macOS更像"本地版Linux客户端"</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>不管你写的是Web服务、Agent、爬虫、数据处理，最后部署/跑算力的地方大概率是Linux（云服务器、容器、GPU机器）<sup><a href="#cite-2">[2]</a></sup>。macOS因为更接近Linux的工具链与文件系统习惯，"本地能跑→上线也能跑"的路更直。</p>
+        <p>Windows原生环境则更容易出现"本地是PowerShell，线上是bash"的两套世界观——你写的脚本在本地测通了，上线后可能因为路径分隔符、换行符、环境变量语法而全部失效。</p>
+      </div>
+    </div>
+
+    <div class="principle-card" style="border-left-color: var(--accent4);">
+      <div class="principle-header">
+        <div class="principle-num" style="background: linear-gradient(135deg, #F59E0B, #FBBF24);">13</div>
+        <div>
+          <div class="principle-title">iOS/macOS生态：做AI产品的必选项</div>
+          <div class="principle-subtitle">迟早会碰到Apple生态</div>
+        </div>
+      </div>
+      <div class="principle-body">
+        <p>不管你是做iOS/macOS客户端集成AI（端侧/云端）、桌面效率工具（热键、剪贴板、OCR、语音输入）、还是内容生产（剪视频、做播客、写稿）——Mac很多时候不是"更好"，而是"必选项"（尤其涉及iOS开发、签名、打包、上架）<sup><a href="#cite-2">[2]</a></sup>。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 场景选择矩阵 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">DECISION MATRIX</div>
+    <h2 class="section-title">场景选择：什么时候该用什么</h2>
+
+    <p style="margin-bottom: 24px;">为了避免变成"宗教战争"，反例也要说清楚。AI时代"Mac更好"，通常是对"开发/内容/效率工作流"而言；对"硬核算力/特定软件绑定"不一定成立<sup><a href="#cite-2">[2]</a></sup>。</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>场景</th>
+          <th>推荐平台</th>
+          <th>原因</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>AI Agent开发 / CLI工具使用</strong></td>
+          <td><strong>macOS</strong></td>
+          <td>Shell同源、工具链标准化、AI生成命令直接能跑</td>
+        </tr>
+        <tr>
+          <td><strong>本地跑中小型模型</strong></td>
+          <td><strong>macOS (Apple Silicon)</strong></td>
+          <td>统一内存大容量、静音续航、MLX/Ollama生态成熟</td>
+        </tr>
+        <tr>
+          <td><strong>AI自动化工作流</strong></td>
+          <td><strong>macOS</strong></td>
+          <td>Shortcuts/Raycast/AppleScript系统级集成</td>
+        </tr>
+        <tr>
+          <td><strong>iOS/macOS应用开发</strong></td>
+          <td><strong>macOS（必选）</strong></td>
+          <td>Xcode、签名、打包、上架必须macOS</td>
+        </tr>
+        <tr>
+          <td><strong>CUDA训练 / 大模型训练</strong></td>
+          <td><strong>Linux + NVIDIA</strong></td>
+          <td>CUDA生态仍是训练主场，Mac无CUDA支持</td>
+        </tr>
+        <tr>
+          <td><strong>企业Windows-only环境</strong></td>
+          <td><strong>Windows + WSL2</strong></td>
+          <td>工业软件、特定OA/安全套件绑定</td>
+        </tr>
+        <tr>
+          <td><strong>极致性价比硬件</strong></td>
+          <td><strong>Windows / Linux</strong></td>
+          <td>同价位Windows机器硬件堆料更猛</td>
+        </tr>
+        <tr>
+          <td><strong>游戏</strong></td>
+          <td><strong>Windows</strong></td>
+          <td>游戏生态差距明显</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <figure class="chart-figure">
+      <figcaption>Mac vs Windows 在AI开发全链路各环节的适配性评分</figcaption>
+      <div id="chart-radar" style="width:100%;height:400px;"></div>
+    </figure>
+  </div>
+</section>
+
+<!-- Windows降坑指南 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">SURVIVAL GUIDE</div>
+    <h2 class="section-title">如果你必须用Windows：把坑降到最低</h2>
+
+    <p style="margin-bottom: 24px;">如果你短期内必须Windows（工作机、公司统一镜像、特定软件），核心建议只有一句话：<mark class="key">别用原生Windows去对抗Unix世界；让你的开发环境尽量Unix化</mark><sup><a href="#cite-2">[2]</a></sup>。</p>
+
+    <div class="stage-card">
+      <span class="stage-badge s1">Step 1</span>
+      <div class="stage-title">WSL2 + Ubuntu</div>
+      <p>把AI/开发相关工作尽量放在WSL里。WSL2提供完整的Linux内核，文件系统性能远超WSL1，Docker原生支持。</p>
+    </div>
+
+    <div class="stage-card stage-2">
+      <span class="stage-badge s2">Step 2</span>
+      <div class="stage-title">统一终端与Shell</div>
+      <p>Windows Terminal + WSL bash作为默认入口。不要在PowerShell和bash之间反复横跳——选一个世界，待在里面。</p>
+    </div>
+
+    <div class="stage-card stage-3">
+      <span class="stage-badge s3">Step 3</span>
+      <div class="stage-title">用容器/Dev Container</div>
+      <p>把环境封装起来，减少"在我机器上能跑"问题。Docker Desktop + WSL2 backend是最省心的组合。</p>
+    </div>
+
+    <div class="stage-card stage-4">
+      <span class="stage-badge s4">Step 4</span>
+      <div class="stage-title">管好Git换行符</div>
+      <p>避免CRLF把脚本/容器搞崩（团队协作尤其重要）。配置<code>git config --global core.autocrlf input</code>。</p>
+    </div>
+
+    <div class="stage-card">
+      <span class="stage-badge s1">Step 5</span>
+      <div class="stage-title">给AI明确上下文</div>
+      <p>提问时写清楚"我在PowerShell / 我在WSL / 我在Git Bash"。这样AI不会默认给你bash命令然后你跑报错——至少减少一轮试错。</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-content">
+        <h3>核心公式</h3>
+        <p><strong>生产力 =（AI能力）×（你能把它用起来的顺滑度）</strong></p>
+        <p style="margin-top: 8px;">AI能力大家都能买到、订阅到、开源到；真正拉开差距的，是你每天要不要为系统、终端、依赖、脚本、权限、编码、路径、换行符这些"边角料"付税。macOS往往能少收你一点"工具链税"——买的是时间，不是信仰<sup><a href="#cite-2">[2]</a></sup>。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 自检清单 -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">CHECKLIST</div>
+    <h2 class="section-title">Mac AI开发环境自检清单</h2>
+
+    <div class="summary-box">
+      <h3>基础环境</h3>
+      <ul class="feature-list">
+        <li><strong>Homebrew已安装</strong>：<code>/bin/bash -c "$(curl -fsSL ...)"</code></li>
+        <li><strong>Python 3.11+</strong>：<code>brew install python</code>，验证<code>python3 --version</code></li>
+        <li><strong>Node.js 18+</strong>：<code>brew install node</code>，验证<code>node --version</code></li>
+        <li><strong>Git已配置</strong>：<code>git config --global user.name/email</code></li>
+        <li><strong>Xcode Command Line Tools</strong>：<code>xcode-select --install</code></li>
+      </ul>
+    </div>
+
+    <div class="summary-box" style="border-top-color: var(--accent2);">
+      <h3 style="color: var(--accent2);">AI工具链</h3>
+      <ul class="feature-list">
+        <li><strong>Ollama</strong>：<code>brew install ollama</code>，一行拉模型<code>ollama pull llama3</code></li>
+        <li><strong>MLX</strong>：<code>pip install mlx</code>，Apple原生框架</li>
+        <li><strong>LM Studio</strong>：图形界面管理本地模型</li>
+        <li><strong>Claude Code / Codex CLI</strong>：AI编程Agent，macOS原生支持</li>
+        <li><strong>uv / poetry</strong>：现代Python包管理，替代pip+venv</li>
+      </ul>
+    </div>
+
+    <div class="summary-box" style="border-top-color: var(--accent3);">
+      <h3 style="color: var(--accent3);">自动化与效率</h3>
+      <ul class="feature-list">
+        <li><strong>Raycast / Alfred</strong>：快速启动器 + AI脚本扩展</li>
+        <li><strong>Shortcuts</strong>：系统级快捷指令，串联AI API</li>
+        <li><strong>钥匙串</strong>：API Key统一管理，脚本安全调用</li>
+        <li><strong>tmux / iTerm2</strong>：终端多路复用，长时间任务不断线</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>为什么Mac才是更适合用AI的电脑？ · 知识报告</p>
+    <p>来源：抖音 · 林禾Mind · 2026-07-29 · 跨源补充6篇深度文章</p>
+    <div class="sources">
+      <h2>参考资料</h2>
+      <ol>
+        <li>
+          <span class="src-title">抖音视频 · 林禾Mind · 为什么Mac才是更适合用AI的电脑？硬核科普Mac与Win</span>
+          <a class="src-url" href="https://v.douyin.com/wvCCKX6OB-M/">https://v.douyin.com/wvCCKX6OB-M/</a>
+        </li>
+        <li>
+          <span class="src-title">CSDN · 为什么 AI 时代用 macOS 更好（以及如何少踩坑）</span>
+          <a class="src-url" href="https://blog.csdn.net/qq_60735796/article/details/156197953">https://blog.csdn.net/qq_60735796/article/details/156197953</a>
+        </li>
+        <li>
+          <span class="src-title">CSDN文库 · 用 Homebrew 在 macOS 上装 Python 方便吗?</span>
+          <a class="src-url" href="https://un.csdn.net/8yy5vze5o453">https://un.csdn.net/8yy5vze5o453</a>
+        </li>
+        <li>
+          <span class="src-title">CSDN · 一文读懂 Anaconda 与 Conda: 原理、优劣与跨平台开发避坑指南</span>
+          <a class="src-url" href="https://blog.csdn.net/weixin_52168072/article/details/161135840">https://blog.csdn.net/weixin_52168072/article/details/161135840</a>
+        </li>
+        <li>
+          <span class="src-title">掘金 · 在Mac上跑大模型，MLX 不是终点</span>
+          <a class="src-url" href="https://juejin.cn/post/7644000221491609636">https://juejin.cn/post/7644000221491609636</a>
+        </li>
+        <li>
+          <span class="src-title">Apple Newsroom · Apple 发布 M5 芯片，实现 AI 性能新跃升</span>
+          <a class="src-url" href="https://www.apple.com.cn/newsroom/2025/10/apple-unleashes-m5-a-big-leap-in-ai/">https://www.apple.com.cn/newsroom/2025/10/apple-unleashes-m5-a-big-leap-in-ai/</a>
+        </li>
+        <li>
+          <span class="src-title">Apple Developer · Explore large language models on Apple silicon with MLX</span>
+          <a class="src-url" href="https://developer.apple.com/videos/play/wwdc2025/298/">https://developer.apple.com/videos/play/wwdc2025/298/</a>
+        </li>
+      </ol>
+    </div>
+  </div>
+</footer>
+
+<script src="./assets/charts.js"></script>
+</body>
+</html>
